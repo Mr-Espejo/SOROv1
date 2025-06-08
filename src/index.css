@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-teal-500 hover:bg-teal-600 text-white px-6 py-3 rounded-md transition-colors font-medium;
+  }
+  
+  .btn-secondary {
+    @apply border border-teal-500 text-teal-500 hover:bg-teal-50 px-6 py-3 rounded-md transition-colors font-medium;
+  }
+}
