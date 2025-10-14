@@ -33,7 +33,7 @@ export function Chatbot() {
           {
             id: Date.now(),
             role: 'assistant',
-            text: "Hello! I'm SORO's virtual assistant. How can I help you today? Feel free to ask about our features, pricing, or how we can help your dental clinic.",
+            text: "¡Hola! Soy el asistente virtual de SORO. ¿Cómo puedo ayudarte hoy? No dudes en preguntar sobre nuestras características, precios o cómo podemos ayudar a tu clínica dental.",
           },
         ]);
         setIsLoading(false);
@@ -68,7 +68,7 @@ export function Chatbot() {
         const errorMessage: Message = {
             id: Date.now() + 1,
             role: 'assistant',
-            text: "Sorry, I'm having trouble connecting. Please try again later.",
+            text: "Lo siento, estoy teniendo problemas para conectarme. Por favor, inténtalo de nuevo más tarde.",
         };
         setMessages((prev) => [...prev, errorMessage]);
     } finally {
@@ -95,13 +95,13 @@ export function Chatbot() {
                            <AvatarFallback className="bg-transparent text-primary"><Bot size={24} /></AvatarFallback>
                         </Avatar>
                         <div className="grid gap-1">
-                            <CardTitle className="leading-tight">SORO Assistant</CardTitle>
+                            <CardTitle className="leading-tight">Asistente SORO</CardTitle>
                             <CardDescription className="flex items-center gap-1.5 text-xs">
                                 <span className="relative flex h-2 w-2">
                                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
                                   <span className="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
                                 </span>
-                                Online
+                                En línea
                             </CardDescription>
                         </div>
                     </div>
@@ -147,7 +147,7 @@ export function Chatbot() {
                     <Input
                       value={input}
                       onChange={(e) => setInput(e.target.value)}
-                      placeholder="Ask about SORO..."
+                      placeholder="Pregunta sobre SORO..."
                       className="flex-1"
                       disabled={isLoading}
                     />

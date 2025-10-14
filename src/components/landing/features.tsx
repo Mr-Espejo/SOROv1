@@ -4,18 +4,18 @@ import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/ca
 const features = [
   {
     icon: <Bot className="h-10 w-10 text-primary" />,
-    title: '24/7 AI Assistant',
-    description: 'Our WhatsApp-integrated AI works around the clock to answer patient queries, schedule appointments, and send reminders.',
+    title: 'Asistente IA 24/7',
+    description: 'Nuestra IA integrada con WhatsApp trabaja día y noche para responder consultas de pacientes, agendar citas y enviar recordatorios.',
   },
   {
     icon: <CalendarCheck className="h-10 w-10 text-primary" />,
-    title: 'Automated Scheduling',
-    description: "Let patients book, reschedule, or cancel appointments seamlessly through a conversational chat experience, reducing no-shows.",
+    title: 'Agendamiento Automatizado',
+    description: "Permite que los pacientes agenden, reprogramen o cancelen citas fácilmente a través de una experiencia de chat conversacional, reduciendo las ausencias.",
   },
   {
     icon: <LayoutGrid className="h-10 w-10 text-primary" />,
-    title: 'Centralized Dashboard',
-    description: 'Manage patients, appointments, and bot performance from a single, intuitive web interface designed for dental clinics.',
+    title: 'Panel Centralizado',
+    description: 'Gestiona pacientes, citas y el rendimiento del bot desde una única e intuitiva interfaz web diseñada para clínicas dentales.',
   },
 ];
 
@@ -25,10 +25,10 @@ export function Features() {
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">
-            <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm font-semibold">Key Features</div>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Everything Your Clinic Needs</h2>
+            <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm font-semibold">Características Clave</div>
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Todo lo que Tu Clínica Necesita</h2>
             <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              SORO™ provides an all-in-one solution to automate communication, streamline workflows, and grow your practice.
+              SORO™ ofrece una solución todo en uno para automatizar la comunicación, optimizar los flujos de trabajo y hacer crecer tu práctica.
             </p>
           </div>
         </div>

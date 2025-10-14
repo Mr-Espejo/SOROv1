@@ -8,15 +8,15 @@ import { Footer } from '@/components/footer';
 import { Card } from '@/components/ui/card';
 
 const formFields = [
-  { name: 'name' as const, label: 'First Name', placeholder: 'e.g., Jane', type: 'text' },
-  { name: 'email' as const, label: 'Email Address', placeholder: 'you@example.com', type: 'email' },
+  { name: 'name' as const, label: 'Nombre', placeholder: 'Ej: Ana', type: 'text' },
+  { name: 'email' as const, label: 'Correo Electrónico', placeholder: 'tu@ejemplo.com', type: 'email' },
 ];
 
 const benefits = [
-  "Proven strategies to reduce patient no-shows.",
-  "Templates for effective automated communication.",
-  "Tips for optimizing your online booking process.",
-  "How to leverage AI for clinic growth.",
+  "Estrategias probadas para reducir las ausencias de pacientes.",
+  "Plantillas para una comunicación automatizada efectiva.",
+  "Consejos para optimizar tu proceso de agendamiento en línea.",
+  "Cómo aprovechar la IA para el crecimiento de la clínica.",
 ];
 
 export default function LeadMagnetPage() {
@@ -34,7 +34,7 @@ export default function LeadMagnetPage() {
                   {ebookCover && (
                     <Image
                       src={ebookCover.imageUrl}
-                      alt="Ebook Cover: Optimize Your Clinic"
+                      alt="Portada Ebook: Optimiza Tu Clínica"
                       width={400}
                       height={600}
                       className="object-cover"
@@ -45,12 +45,12 @@ export default function LeadMagnetPage() {
               </div>
               <div className="flex flex-col justify-center space-y-8">
                 <div className="space-y-4">
-                  <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm font-semibold">Free Guide</div>
+                  <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm font-semibold">Guía Gratuita</div>
                   <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl">
-                    Unlock the Secrets to a Fully Booked Clinic
+                    Descubre los Secretos de una Clínica con Agenda Llena
                   </h1>
                   <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                    Download our free ebook, "The Modern Dentist's Guide to Patient Communication," and learn actionable strategies to fill your schedule and boost revenue.
+                    Descarga nuestro ebook gratuito, "Guía de Comunicación con el Paciente para el Dentista Moderno", y aprende estrategias accionables para llenar tu agenda y aumentar tus ingresos.
                   </p>
                 </div>
 
@@ -65,9 +65,9 @@ export default function LeadMagnetPage() {
                 
                 <LeadForm
                   formFields={formFields}
-                  ctaText="Download Free Ebook"
-                  formTitle="Get Your Free Guide Now"
-                  formDescription="Enter your details to get instant access."
+                  ctaText="Descargar Ebook Gratis"
+                  formTitle="Obtén Tu Guía Gratis Ahora"
+                  formDescription="Ingresa tus datos para obtener acceso instantáneo."
                 />
               </div>
             </div>

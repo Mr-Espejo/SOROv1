@@ -7,9 +7,9 @@ import { Footer } from '@/components/footer';
 import { PlayCircle } from 'lucide-react';
 
 const formFields = [
-  { name: 'name' as const, label: 'Full Name', placeholder: 'e.g., Jane Doe', type: 'text' },
-  { name: 'email' as const, label: 'Email Address', placeholder: 'you@example.com', type: 'email' },
-  { name: 'clinicName' as const, label: 'Clinic Name', placeholder: 'e.g., Bright Smiles Dental', type: 'text' },
+  { name: 'name' as const, label: 'Nombre Completo', placeholder: 'Ej: Ana Pérez', type: 'text' },
+  { name: 'email' as const, label: 'Correo Electrónico', placeholder: 'tu@ejemplo.com', type: 'email' },
+  { name: 'clinicName' as const, label: 'Nombre de la Clínica', placeholder: 'Ej: Sonrisas Brillantes Dental', type: 'text' },
 ];
 
 export default function VslOptInPage() {
@@ -24,12 +24,12 @@ export default function VslOptInPage() {
             <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
               <div className="flex flex-col justify-center space-y-6">
                 <div className="space-y-4">
-                  <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm font-semibold">Limited Time Offer</div>
+                  <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm font-semibold">Oferta por Tiempo Limitado</div>
                   <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-                    Discover How to Automate 90% of Your Clinic's Communication in Under 5 Minutes
+                    Descubre Cómo Automatizar el 90% de la Comunicación de Tu Clínica en Menos de 5 Minutos
                   </h1>
                   <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                    Watch this short presentation to see how SORO™ can double your appointment bookings and free up your staff from repetitive tasks.
+                    Mira esta breve presentación para ver cómo SORO™ puede duplicar tus agendamientos de citas y liberar a tu personal de tareas repetitivas.
                   </p>
                 </div>
                 <div className="w-full max-w-lg">
@@ -38,7 +38,7 @@ export default function VslOptInPage() {
                       <div className="relative group h-full w-full">
                         <Image
                           src={vslThumbnail.imageUrl}
-                          alt="VSL Thumbnail"
+                          alt="Miniatura VSL"
                           fill
                           className="object-cover transition-transform duration-300 group-hover:scale-105"
                           data-ai-hint={vslThumbnail.imageHint}
@@ -54,9 +54,9 @@ export default function VslOptInPage() {
               <div className="flex items-center justify-center">
                 <LeadForm
                   formFields={formFields}
-                  ctaText="Get a Free Consultation"
-                  formTitle="Start Your Automation Journey"
-                  formDescription="Fill out the form below to claim your free, no-obligation consultation with one of our automation experts."
+                  ctaText="Obtener una Consulta Gratuita"
+                  formTitle="Inicia Tu Viaje de Automatización"
+                  formDescription="Completa el formulario a continuación para reclamar tu consulta gratuita y sin compromiso con uno de nuestros expertos en automatización."
                 />
               </div>
             </div>

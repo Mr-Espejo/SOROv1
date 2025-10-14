@@ -9,12 +9,12 @@ export function Footer() {
         <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
           <SoroLogo />
           <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
-            &copy; {currentYear} SORO™. All rights reserved.
+            &copy; {currentYear} SORO™. Todos los derechos reservados.
           </p>
         </div>
         <nav className="flex gap-4 sm:gap-6">
           <Link href="/vsl-opt-in" className="text-sm font-medium text-muted-foreground hover:text-foreground">
-            Watch VSL
+            Ver VSL
           </Link>
           <Link href="/personalized-demo" className="text-sm font-medium text-muted-foreground hover:text-foreground">
             Demo

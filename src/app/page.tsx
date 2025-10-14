@@ -9,18 +9,18 @@ import { Footer } from '@/components/footer';
 export default function Home() {
   const landingPages = [
     {
-      title: 'Video Sales Letter',
-      description: 'Capture leads with a compelling VSL and a direct opt-in.',
+      title: 'Carta de Ventas en Video (VSL)',
+      description: 'Captura prospectos con un VSL convincente y un opt-in directo.',
       href: '/vsl-opt-in',
     },
     {
-      title: 'Personalized Demo',
-      description: "Offer a tailored demo to showcase SORO's value proposition.",
+      title: 'Demo Personalizado',
+      description: "Ofrece una demostración a medida para mostrar el valor de SORO.",
       href: '/personalized-demo',
     },
     {
-      title: 'Lead Magnet Download',
-      description: 'Attract potential clients with a valuable free resource.',
+      title: 'Descarga de Lead Magnet',
+      description: 'Atrae clientes potenciales con un recurso gratuito de gran valor.',
       href: '/lead-magnet',
     },
   ];
@@ -35,10 +35,10 @@ export default function Home() {
               <div className="space-y-4">
                 <SoroLogo className="justify-center" />
                 <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl/none">
-                  The Future of Dental Clinic Management
+                  El Futuro de la Gestión de Clínicas Dentales
                 </h1>
                 <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
-                  Explore our high-converting landing page templates designed to capture leads and grow your practice with SORO™.
+                  Explora nuestras plantillas de páginas de destino de alta conversión diseñadas para capturar prospectos y hacer crecer tu práctica con SORO™.
                 </p>
               </div>
             </div>
@@ -55,7 +55,7 @@ export default function Home() {
                   </CardHeader>
                   <div className="p-6 pt-0">
                     <div className="inline-flex items-center text-sm font-semibold text-primary">
-                      View Page <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      Ver Página <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </div>
                   </div>
                 </Card>

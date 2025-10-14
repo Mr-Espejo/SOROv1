@@ -25,8 +25,8 @@ interface LeadFormProps {
 }
 
 const formSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }).optional().or(z.literal('')),
-  email: z.string().email({ message: "Please enter a valid email." }),
+  name: z.string().min(2, { message: "El nombre debe tener al menos 2 caracteres." }).optional().or(z.literal('')),
+  email: z.string().email({ message: "Por favor, introduce un correo electrónico válido." }),
   phone: z.string().optional().or(z.literal('')),
   clinicName: z.string().optional().or(z.literal('')),
 });
@@ -44,12 +44,12 @@ export function LeadForm({ formFields, ctaText, formTitle, formDescription }: Le
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
-    // Here you would typically send the data to your backend or a CRM
+    // Aquí normalmente enviarías los datos a tu backend o un CRM
     await new Promise(resolve => setTimeout(resolve, 1000));
     
     toast({
-      title: 'Success!',
-      description: "We've received your information and will be in touch shortly.",
+      title: '¡Éxito!',
+      description: "Hemos recibido tu información y nos pondremos en contacto en breve.",
     });
     form.reset();
   }

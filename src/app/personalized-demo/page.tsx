@@ -9,10 +9,10 @@ import { Testimonials } from '@/components/landing/testimonials';
 import { LeadForm } from '@/components/landing/lead-form';
 
 const formFields = [
-  { name: 'name' as const, label: 'Full Name', placeholder: 'e.g., Dr. Jane Doe', type: 'text' },
-  { name: 'email' as const, label: 'Work Email', placeholder: 'you@yourclinic.com', type: 'email' },
-  { name: 'phone' as const, label: 'Phone Number', placeholder: '(555) 123-4567', type: 'tel' },
-  { name: 'clinicName' as const, label: 'Clinic Name', placeholder: 'e.g., Bright Smiles Dental', type: 'text' },
+  { name: 'name' as const, label: 'Nombre Completo', placeholder: 'Ej: Dra. Ana Pérez', type: 'text' },
+  { name: 'email' as const, label: 'Email de Trabajo', placeholder: 'tu@tuclinica.com', type: 'email' },
+  { name: 'phone' as const, label: 'Número de Teléfono', placeholder: '(555) 123-4567', type: 'tel' },
+  { name: 'clinicName' as const, label: 'Nombre de la Clínica', placeholder: 'Ej: Sonrisas Brillantes Dental', type: 'text' },
 ];
 
 export default function PersonalizedDemoPage() {
@@ -26,15 +26,15 @@ export default function PersonalizedDemoPage() {
             <div className="flex flex-col items-center space-y-6 text-center">
               <div className="space-y-4">
                 <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl/none">
-                  The Last Assistant You'll Ever Need to Hire
+                  El Último Asistente que Necesitarás Contratar
                 </h1>
                 <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
-                  Get a personalized demo of SORO™ and see exactly how our AI can double your appointments and revolutionize your patient communication.
+                  Obtén una demostración personalizada de SORO™ y ve exactamente cómo nuestra IA puede duplicar tus citas y revolucionar la comunicación con tus pacientes.
                 </p>
               </div>
               <Button asChild size="lg" className="bg-accent text-lg font-semibold hover:bg-accent/90">
                 <Link href="#demo-form">
-                  Schedule My Free Demo
+                  Agendar Mi Demo Gratis
                   <ArrowDown className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
@@ -53,9 +53,9 @@ export default function PersonalizedDemoPage() {
           <div className="container px-4 md:px-6">
             <LeadForm
               formFields={formFields}
-              ctaText="Schedule My Demo"
-              formTitle="Request Your Personalized Demo"
-              formDescription="Provide your details below, and our team will prepare a demo tailored to your clinic's specific needs."
+              ctaText="Agendar Mi Demo"
+              formTitle="Solicita Tu Demo Personalizado"
+              formDescription="Proporciona tus datos a continuación y nuestro equipo preparará una demostración adaptada a las necesidades específicas de tu clínica."
             />
           </div>
         </section>

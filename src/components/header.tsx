@@ -11,7 +11,7 @@ export function Header() {
         </Link>
         <nav className="flex items-center gap-4">
           <Button asChild className="bg-accent hover:bg-accent/90">
-            <Link href="/personalized-demo#demo-form">Request a Demo</Link>
+            <Link href="/personalized-demo#demo-form">Solicitar un Demo</Link>
           </Button>
         </nav>
       </div>

@@ -9,6 +9,6 @@ export async function handleChatQuery(query: string): Promise<AIAnswerInitialQue
     return response;
   } catch (error) {
     console.error('Error handling chat query:', error);
-    return { answer: "I'm sorry, but I'm having trouble connecting right now. Please try again in a moment." };
+    return { answer: "Lo siento, pero estoy teniendo problemas para conectarme en este momento. Por favor, inténtalo de nuevo en un momento." };
   }
 }
