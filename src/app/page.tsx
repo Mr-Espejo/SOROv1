@@ -238,9 +238,6 @@ const Hero: React.FC = () => {
                   <p className="text-gray-700">¿Tienen disponibilidad para este viernes en la tarde?</p>
                 </div>
                 
-                <div className="bg-gray-100 rounded-lg p-3 max-w-xs relative">
-                  <p className="text-gray-700">Sí, tenemos disponibilidad el viernes a las 3:00 PM o 5:30 PM. ¿Cuál horario prefieres?</p>
-                </div>
               </div>
             </div>
 
