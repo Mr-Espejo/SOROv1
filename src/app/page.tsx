@@ -225,7 +225,7 @@ const Hero: React.FC = () => {
 
               {/* Mensajes con difuminado en la parte inferior */}
               <div className="flex-1 relative overflow-hidden space-y-4 mb-4 px-1">
-                <div className="absolute bottom-0 left-0 w-full h-16 pointer-events-none bg-gradient-to-t from-white to-transparent z-10"></div>
+                <div className="absolute bottom-0 left-0 w-full h-1/2 pointer-events-none bg-gradient-to-t from-white to-transparent z-10"></div>
                 
                 <div className="bg-teal-50 rounded-lg p-3 max-w-xs ml-auto relative">
                   <p className="text-gray-700">Hola, me gustaría agendar una cita para una limpieza dental.</p>
