@@ -145,7 +145,7 @@ const Hero: React.FC = () => {
     <section className="pt-28 pb-20 md:pt-32 md:pb-24 bg-gradient-to-br from-cyan-50 to-teal-50">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center">
-          <div className="md:w-1/2 mb-10 md:mb-0">
+          <div className="md:w-1/2 mb-10 md:mb-0 text-center md:text-left">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-gray-800">
             Gestiona tu clínica dental con <span className="bg-gradient-to-r from-teal-500 to-cyan-600 bg-clip-text text-transparent">SORO™</span>
             </h1>
@@ -154,7 +154,7 @@ const Hero: React.FC = () => {
             Tu asistente virtual con inteligencia artificial diseñado para automatizar la comunicación con pacientes, gestionar citas y liberar a tu equipo de tareas repetitivas.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 mb-8">
+            <div className="flex flex-col sm:flex-row gap-4 mb-8 justify-center md:justify-start">
               <Button 
                 onClick={handleDemoClick}
                 size="lg"
@@ -172,7 +172,7 @@ const Hero: React.FC = () => {
               </Button>
             </div>
             
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4 justify-center md:justify-start">
               {[
                 { icon: <Bot className="h-5 w-5 text-teal-500" />, text: "Respuestas inteligentes" },
                 { icon: <Calendar className="h-5 w-5 text-teal-500" />, text: "Agendamiento automático" },
