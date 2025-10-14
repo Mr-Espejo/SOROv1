@@ -1,0 +1,91 @@
+'use client';
+
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { toast } from '@/hooks/use-toast';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Loader2 } from 'lucide-react';
+
+type FormFieldConfig = {
+    name: 'name' | 'email' | 'phone' | 'clinicName';
+    label: string;
+    placeholder: string;
+    type: string;
+};
+
+interface LeadFormProps {
+  formFields: FormFieldConfig[];
+  ctaText: string;
+  formTitle: string;
+  formDescription: string;
+}
+
+const formSchema = z.object({
+  name: z.string().min(2, { message: "Name must be at least 2 characters." }).optional().or(z.literal('')),
+  email: z.string().email({ message: "Please enter a valid email." }),
+  phone: z.string().optional().or(z.literal('')),
+  clinicName: z.string().optional().or(z.literal('')),
+});
+
+export function LeadForm({ formFields, ctaText, formTitle, formDescription }: LeadFormProps) {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      phone: '',
+      clinicName: '',
+    },
+  });
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
+    // Here you would typically send the data to your backend or a CRM
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    toast({
+      title: 'Success!',
+      description: "We've received your information and will be in touch shortly.",
+    });
+    form.reset();
+  }
+
+  return (
+    <Card className="w-full max-w-lg mx-auto bg-background/50 shadow-xl">
+      <CardHeader>
+        <CardTitle className="text-3xl font-bold">{formTitle}</CardTitle>
+        <CardDescription>{formDescription}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            {formFields.map((fieldConfig) => (
+              <FormField
+                key={fieldConfig.name}
+                control={form.control}
+                name={fieldConfig.name}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{fieldConfig.label}</FormLabel>
+                    <FormControl>
+                      <Input placeholder={fieldConfig.placeholder} {...field} type={fieldConfig.type} className="text-base"/>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            ))}
+            <Button type="submit" size="lg" className="w-full bg-accent text-lg font-semibold hover:bg-accent/90" disabled={form.formState.isSubmitting}>
+              {form.formState.isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              {ctaText}
+            </Button>
+          </form>
+        </Form>
+      </CardContent>
+    </Card>
+  );
+}
