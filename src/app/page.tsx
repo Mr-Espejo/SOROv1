@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Bot, Calendar, Clock, Menu, X, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, Bot, Calendar, Clock, Menu, X, CheckCircle2, MessageSquare } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -187,55 +187,61 @@ const Hero: React.FC = () => {
           </div>
           
           <div className="md:w-1/2 md:pl-10 relative">
-            <div className="bg-white rounded-xl shadow-xl p-4 md:p-6 max-w-md mx-auto transform rotate-1">
-              <div className="border-b pb-3 mb-4">
-                <div className="flex items-center">
-                  <div className="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center">
-                    <Bot className="h-6 w-6 text-teal-500" />
-                  </div>
-                  <div className="ml-3">
-                    <h3 className="font-bold text-gray-800">SORO™ Asistente</h3>
-                    <p className="text-sm text-teal-500">En línea</p>
-                  </div>
+            {/* Marco tipo celular */}
+            <div className="bg-white rounded-3xl shadow-2xl p-4 md:p-6 w-[320px] h-[600px] flex flex-col justify-between relative mx-auto">
+              
+              {/* Cabecera */}
+              <div className="flex items-center border-b pb-3 mb-4">
+                <div className="w-12 h-12 rounded-full bg-teal-100 flex items-center justify-center">
+                  <Bot className="h-6 w-6 text-teal-500" />
+                </div>
+                <div className="ml-3 flex flex-col">
+                  <h3 className="font-bold text-gray-800">SORO™ Asistente</h3>
+                  <p className="text-sm text-teal-500 flex items-center">
+                    En línea
+                  </p>
                 </div>
               </div>
-              
-              <div className="space-y-4 mb-4">
-                <div className="bg-teal-50 rounded-lg p-3 max-w-xs ml-auto">
+
+              {/* Mensajes con difuminado en la parte inferior */}
+              <div className="flex-1 relative overflow-hidden space-y-4 mb-4 px-1">
+                <div className="absolute bottom-0 left-0 w-full h-16 pointer-events-none bg-gradient-to-t from-white to-transparent z-10"></div>
+                
+                <div className="bg-teal-50 rounded-lg p-3 max-w-xs ml-auto relative">
                   <p className="text-gray-700">Hola, me gustaría agendar una cita para una limpieza dental.</p>
                 </div>
                 
-                <div className="bg-gray-100 rounded-lg p-3 max-w-xs">
+                <div className="bg-gray-100 rounded-lg p-3 max-w-xs relative">
                   <p className="text-gray-700">¡Hola! Con gusto te ayudo a agendar tu cita para limpieza dental. ¿Para qué día te gustaría programarla?</p>
                 </div>
                 
-                <div className="bg-teal-50 rounded-lg p-3 max-w-xs ml-auto">
+                <div className="bg-teal-50 rounded-lg p-3 max-w-xs ml-auto relative">
                   <p className="text-gray-700">¿Tienen disponibilidad para este viernes en la tarde?</p>
                 </div>
                 
-                <div className="bg-gray-100 rounded-lg p-3 max-w-xs">
+                <div className="bg-gray-100 rounded-lg p-3 max-w-xs relative">
                   <p className="text-gray-700">Sí, tenemos disponibilidad el viernes a las 3:00 PM o 5:30 PM. ¿Cuál horario prefieres?</p>
                 </div>
               </div>
-              
+
+              {/* Input */}
               <div className="flex">
                 <input
                   type="text"
                   placeholder="Escribe tu mensaje..."
-                  className="flex-grow px-4 py-2 bg-gray-100 rounded-l-lg focus:outline-none"
+                  className="flex-grow px-4 py-2 bg-gray-100 rounded-l-full focus:outline-none"
                   readOnly
                 />
-                <button className="bg-teal-500 text-white px-4 py-2 rounded-r-lg">
+                <button className="bg-teal-500 text-white px-4 py-2 rounded-r-full">
                   Enviar
                 </button>
               </div>
             </div>
-            
-            <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg transform -rotate-3 hidden md:block">
-              <div className="flex items-center">
-                <CheckCircle2 className="h-5 w-5 text-green-500 mr-2" />
-                <span className="text-sm font-medium text-gray-700">Cita agendada exitosamente</span>
-              </div>
+
+            {/* Notificación */}
+            <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg transform -rotate-3 hidden md:flex items-center">
+              <CheckCircle2 className="h-5 w-5 text-green-500 mr-2" />
+              <span className="text-sm font-medium text-gray-700">Cita agendada exitosamente</span>
             </div>
           </div>
         </div>
