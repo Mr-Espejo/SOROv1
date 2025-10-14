@@ -207,7 +207,7 @@ const Hero: React.FC = () => {
           {/* Mobile/Tablet Mockup */}
           <div className="lg:w-1/2 lg:pl-10 relative block lg:hidden">
             {/* Marco tipo celular */}
-            <div className="bg-white rounded-3xl shadow-2xl p-4 md:p-6 w-[320px] h-[600px] flex flex-col justify-between relative mx-auto">
+            <div className="bg-white rounded-3xl p-4 md:p-6 w-[320px] h-[600px] flex flex-col justify-between relative mx-auto">
               
               {/* Cabecera */}
               <div className="flex items-center border-b pb-3 mb-4">
@@ -242,22 +242,10 @@ const Hero: React.FC = () => {
                   <p className="text-gray-700">Sí, tenemos disponibilidad el viernes a las 3:00 PM o 5:30 PM. ¿Cuál horario prefieres?</p>
                 </div>
               </div>
-              <div className="absolute bottom-0 left-0 w-full h-2/3 pointer-events-none bg-gradient-to-t from-cyan-50 to-transparent z-10"></div>
-
-
-              {/* Input */}
-              <div className="flex z-20">
-                <input
-                  type="text"
-                  placeholder="Escribe tu mensaje..."
-                  className="flex-grow px-4 py-2 bg-gray-100 rounded-l-full focus:outline-none"
-                  readOnly
-                />
-                <button className="bg-teal-500 text-white px-4 py-2 rounded-r-full">
-                  Enviar
-                </button>
-              </div>
             </div>
+
+            <div className="absolute bottom-0 left-0 w-full h-1/2 pointer-events-none bg-gradient-to-t from-cyan-50 to-transparent z-10"></div>
+
 
             {/* Notificación */}
             <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg transform -rotate-3 hidden md:flex items-center">
