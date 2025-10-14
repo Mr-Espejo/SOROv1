@@ -1,14 +1,13 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Bot, Calendar, Clock, Menu, X } from 'lucide-react';
+import { ArrowRight, Bot, Calendar, Clock, Menu, X, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import { SoroLogo } from '@/components/logo';
 import { Button } from '@/components/ui/button';
 import { Footer } from '@/components/footer';
-import { ChatMockup } from '@/components/landing/chat-mockup';
 
 const features = [
   {
@@ -61,8 +60,11 @@ const DynamicHeader: React.FC = () => {
   };
 
   const navItems = [
-    { name: 'Funcionalidades', id: 'features' },
-    { name: 'Explorar', id: 'explore' },
+    { name: 'Beneficios', id: 'beneficios' },
+    { name: 'Características', id: 'caracteristicas' },
+    { name: 'Implementación', id: 'implementacion' },
+    { name: 'Precios', id: 'precios' },
+    { name: 'Testimonios', id: 'testimonios' }
   ];
 
   return (
@@ -72,9 +74,9 @@ const DynamicHeader: React.FC = () => {
       }`}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
-        <Link href="/" className="flex items-center gap-2">
+        <button onClick={handleLogoClick} className="flex items-center gap-2">
             <SoroLogo />
-        </Link>
+        </button>
         
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
@@ -124,44 +126,137 @@ const DynamicHeader: React.FC = () => {
   );
 };
 
+const Hero: React.FC = () => {
+  const router = useRouter();
+
+  const handleDemoClick = () => {
+    router.push('/personalized-demo');
+  };
+
+  const scrollToFeatures = () => {
+    const element = document.getElementById('caracteristicas');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <section id="beneficios" className="pt-28 pb-20 md:pt-32 md:pb-24 bg-gradient-to-br from-cyan-50 to-teal-50">
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col md:flex-row items-center">
+          <div className="md:w-1/2 mb-10 md:mb-0">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+              <span className="bg-gradient-to-r from-teal-500 to-cyan-600 bg-clip-text text-transparent">SORO™</span>
+              <span className="block text-gray-800">
+                Tu Asistente Dental con IA
+              </span>
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
+              Automatiza las respuestas, agenda más citas y no pierdas ni un solo paciente potencial, 24/7.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 mb-8">
+              <Button 
+                onClick={handleDemoClick}
+                size="lg"
+                className="bg-teal-500 hover:bg-teal-600 text-white text-lg font-medium"
+              >
+                Solicitar Demostración
+              </Button>
+              <Button 
+                onClick={scrollToFeatures}
+                size="lg"
+                variant="outline"
+                className="border-teal-500 text-teal-500 hover:bg-teal-50 text-lg font-medium"
+              >
+                Ver Cómo Funciona
+              </Button>
+            </div>
+            
+            <div className="flex flex-wrap gap-4">
+              {[
+                { icon: <Bot className="h-5 w-5 text-teal-500" />, text: "Respuestas inteligentes" },
+                { icon: <Calendar className="h-5 w-5 text-teal-500" />, text: "Agendamiento automático" },
+                { icon: <Clock className="h-5 w-5 text-teal-500" />, text: "Disponible 24/7" }
+              ].map((item, index) => (
+                <div key={index} className="flex items-center bg-white px-4 py-2 rounded-full shadow-sm">
+                  {item.icon}
+                  <span className="ml-2 text-gray-700">{item.text}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          <div className="md:w-1/2 md:pl-10 relative">
+            <div className="bg-white rounded-xl shadow-xl p-4 md:p-6 max-w-md mx-auto transform rotate-1">
+              <div className="border-b pb-3 mb-4">
+                <div className="flex items-center">
+                  <div className="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center">
+                    <Bot className="h-6 w-6 text-teal-500" />
+                  </div>
+                  <div className="ml-3">
+                    <h3 className="font-bold text-gray-800">SORO™ Asistente</h3>
+                    <p className="text-sm text-teal-500">En línea</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="space-y-4 mb-4">
+                <div className="bg-teal-50 rounded-lg p-3 max-w-xs ml-auto">
+                  <p className="text-gray-700">Hola, me gustaría agendar una cita para una limpieza dental.</p>
+                </div>
+                
+                <div className="bg-gray-100 rounded-lg p-3 max-w-xs">
+                  <p className="text-gray-700">¡Hola! Con gusto te ayudo a agendar tu cita para limpieza dental. ¿Para qué día te gustaría programarla?</p>
+                </div>
+                
+                <div className="bg-teal-50 rounded-lg p-3 max-w-xs ml-auto">
+                  <p className="text-gray-700">¿Tienen disponibilidad para este viernes en la tarde?</p>
+                </div>
+                
+                <div className="bg-gray-100 rounded-lg p-3 max-w-xs">
+                  <p className="text-gray-700">Sí, tenemos disponibilidad el viernes a las 3:00 PM o 5:30 PM. ¿Cuál horario prefieres?</p>
+                </div>
+              </div>
+              
+              <div className="flex">
+                <input
+                  type="text"
+                  placeholder="Escribe tu mensaje..."
+                  className="flex-grow px-4 py-2 bg-gray-100 rounded-l-lg focus:outline-none"
+                  readOnly
+                />
+                <button className="bg-teal-500 text-white px-4 py-2 rounded-r-lg">
+                  Enviar
+                </button>
+              </div>
+            </div>
+            
+            <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg transform -rotate-3 hidden md:block">
+              <div className="flex items-center">
+                <CheckCircle2 className="h-5 w-5 text-green-500 mr-2" />
+                <span className="text-sm font-medium text-gray-700">Cita agendada exitosamente</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col bg-white text-gray-800">
       <DynamicHeader />
       <main className="flex-1">
-        {/* Hero Section */}
-        <section className="w-full bg-gradient-to-br from-cyan-50 to-teal-50 pt-32 pb-20 md:pt-40 md:pb-32 lg:pt-48 lg:pb-40">
-          <div className="container mx-auto grid grid-cols-1 items-center gap-12 px-4 md:grid-cols-2 md:px-6">
-            <div className="flex flex-col items-start space-y-6">
-              <h1 className="text-4xl font-bold tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
-                Tu clínica dental,
-                <br />
-                automatizada con{' '}
-                <span className="bg-gradient-to-r from-teal-500 to-cyan-600 bg-clip-text text-transparent">
-                  SORO™
-                </span>
-              </h1>
-              <p className="max-w-lg text-xl text-gray-600 md:text-2xl">
-                Automatiza las respuestas, agenda más citas y libera a tu personal para que puedan centrarse en lo que de verdad importa: tus pacientes.
-              </p>
-              <div className="flex flex-col gap-4 sm:flex-row">
-                <Button asChild size="lg" className="bg-teal-500 text-white hover:bg-teal-600">
-                  <Link href="/personalized-demo">Solicitar Demostración</Link>
-                </Button>
-                <Button asChild size="lg" variant="outline" className="border-teal-500 text-teal-500 hover:bg-teal-50 hover:text-teal-600">
-                  <Link href="/vsl-opt-in">Ver Cómo Funciona</Link>
-                </Button>
-              </div>
-            </div>
-            <div className="flex justify-center">
-              <ChatMockup />
-            </div>
-          </div>
-        </section>
+        
+        <Hero />
 
         {/* Features Section */}
-        <section id="features" className="w-full py-20 md:py-24 lg:py-32">
+        <section id="caracteristicas" className="w-full py-20 md:py-24 lg:py-32">
           <div className="container mx-auto px-4 md:px-6">
             <div className="mb-12 text-center">
                  <h2 className="text-3xl font-bold tracking-tighter text-gray-900 md:text-4xl/tight">
