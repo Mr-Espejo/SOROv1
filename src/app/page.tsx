@@ -162,10 +162,10 @@ const Hero: React.FC = () => {
   return (
     <section className="pt-10 pb-20 md:pt-16 md:pb-24 bg-gradient-to-br from-cyan-50 to-teal-50">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col items-center text-center">
+        <div className="flex flex-col lg:flex-row items-center text-center lg:text-left">
 
-          {/* Chat Mockup */}
-          <div className="relative w-full flex justify-center mb-10">
+          {/* Chat Mockup - Mobile first, then text */}
+          <div className="relative w-full lg:w-1/2 flex justify-center mb-10 lg:mb-0 lg:order-2">
             {/* Mobile/Tablet Mockup */}
             <div className="relative block lg:hidden">
               <div className="bg-white rounded-3xl p-4 md:p-6 w-[360px] h-[560px] flex flex-col justify-between relative mx-auto">
@@ -198,10 +198,6 @@ const Hero: React.FC = () => {
                 <div className="w-32 h-32 bg-gray-200 rounded-full border-4 border-white shadow-lg">
                   {/* Placeholder for the circular image */}
                 </div>
-              </div>
-              <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg transform -rotate-3 hidden md:flex items-center">
-                <CheckCircle2 className="h-5 w-5 text-green-500 mr-2" />
-                <span className="text-sm font-medium text-gray-700">Cita agendada exitosamente</span>
               </div>
             </div>
 
@@ -255,7 +251,7 @@ const Hero: React.FC = () => {
           </div>
           
           {/* Text Content */}
-          <div className="max-w-3xl">
+          <div className="max-w-3xl lg:w-1/2 lg:order-1">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-gray-800">
               Gestiona tu clínica dental con <span className="bg-gradient-to-r from-teal-500 to-cyan-600 bg-clip-text text-transparent">SORO™</span>
             </h1>
@@ -264,7 +260,7 @@ const Hero: React.FC = () => {
               Tu asistente virtual con inteligencia artificial diseñado para automatizar la comunicación con pacientes, gestionar citas y liberar a tu equipo de tareas repetitivas.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 mb-8 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 mb-8 justify-center lg:justify-start">
               <Button 
                 onClick={handleDemoClick}
                 size="lg"
@@ -282,7 +278,7 @@ const Hero: React.FC = () => {
               </Button>
             </div>
             
-            <div className="flex flex-wrap gap-4 justify-center">
+            <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
               {[
                 { icon: <Bot className="h-5 w-5 text-teal-500" />, text: "Respuestas inteligentes" },
                 { icon: <Calendar className="h-5 w-5 text-teal-500" />, text: "Agendamiento automático" },
