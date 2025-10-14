@@ -145,15 +145,12 @@ const Hero: React.FC = () => {
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-10 md:mb-0">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-              <span className="bg-gradient-to-r from-teal-500 to-cyan-600 bg-clip-text text-transparent">SORO™</span>
-              <span className="block text-gray-800">
-                Tu Asistente Dental con IA
-              </span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-gray-800">
+              Gestiona tu clínica dental con <span className="bg-gradient-to-r from-teal-500 to-cyan-600 bg-clip-text text-transparent">SORO™</span>
             </h1>
             
             <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
-              Automatiza las respuestas, agenda más citas y no pierdas ni un solo paciente potencial, 24/7.
+              Tu asistente virtual con inteligencia artificial diseñado para automatizar la comunicación con pacientes, gestionar citas y liberar a tu equipo de tareas repetitivas.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
