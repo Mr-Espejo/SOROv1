@@ -165,10 +165,10 @@ const Hero: React.FC = () => {
         <div className="flex flex-col lg:flex-row items-center text-center lg:text-left">
 
           {/* Chat Mockup - Mobile first, then text */}
-          <div className="relative w-full lg:w-1/2 flex justify-center mb-10 lg:mb-0 lg:order-2">
+          <div className="relative w-full lg:w-1/2 flex justify-center mb-8 lg:mb-0 lg:order-2">
             {/* Mobile/Tablet Mockup */}
             <div className="relative block lg:hidden">
-              <div className="bg-white rounded-3xl p-4 md:p-6 w-[360px] h-[560px] flex flex-col justify-between relative mx-auto">
+              <div className="bg-white rounded-3xl p-4 md:p-6 w-[360px] h-[450px] flex flex-col justify-between relative mx-auto">
                 <div className="flex items-center border-b pb-3 mb-4">
                   <div className="w-12 h-12 rounded-full bg-teal-100 flex items-center justify-center">
                     <Bot className="h-6 w-6 text-teal-500" />
