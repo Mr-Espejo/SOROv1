@@ -241,8 +241,13 @@ const Hero: React.FC = () => {
               </div>
             </div>
 
-            <div className="absolute bottom-0 left-0 w-full h-1/2 pointer-events-none bg-gradient-to-t from-cyan-50 to-transparent z-10"></div>
+            <div className="absolute bottom-0 left-0 right-0 h-1/2 pointer-events-none bg-gradient-to-t from-cyan-50 to-transparent z-10 mx-auto w-[360px]"></div>
 
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
+              <div className="w-32 h-32 bg-gray-200 rounded-full border-4 border-white shadow-lg">
+                {/* Placeholder for the circular image */}
+              </div>
+            </div>
 
             {/* Notificación */}
             <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg transform -rotate-3 hidden md:flex items-center">
