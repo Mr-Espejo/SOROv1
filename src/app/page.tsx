@@ -142,7 +142,7 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <section className="pt-28 pb-20 md:pt-32 md:pb-24 bg-gradient-to-br from-cyan-50 to-teal-50">
+    <section className="pt-24 pb-20 md:pt-28 md:pb-24 bg-gradient-to-br from-cyan-50 to-teal-50">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-10 md:mb-0 text-center md:text-left">
