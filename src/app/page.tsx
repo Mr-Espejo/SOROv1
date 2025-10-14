@@ -207,7 +207,7 @@ const Hero: React.FC = () => {
           {/* Mobile/Tablet Mockup */}
           <div className="lg:w-1/2 lg:pl-10 relative block lg:hidden">
             {/* Marco tipo celular */}
-            <div className="bg-white rounded-3xl p-4 md:p-6 w-[320px] h-[600px] flex flex-col justify-between relative mx-auto">
+            <div className="bg-white rounded-3xl p-4 md:p-6 w-[360px] h-[560px] flex flex-col justify-between relative mx-auto">
               
               {/* Cabecera */}
               <div className="flex items-center border-b pb-3 mb-4">
