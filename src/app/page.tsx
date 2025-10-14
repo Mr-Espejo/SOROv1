@@ -160,19 +160,111 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <section className="pt-2.5 pb-20 md:pt-12 md:pb-24 bg-gradient-to-br from-cyan-50 to-teal-50">
+    <section className="pt-10 pb-20 md:pt-16 md:pb-24 bg-gradient-to-br from-cyan-50 to-teal-50">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col lg:flex-row items-center">
-          <div className="lg:w-1/2 mb-10 lg:mb-0 text-center lg:text-left">
+        <div className="flex flex-col items-center text-center">
+
+          {/* Chat Mockup */}
+          <div className="relative w-full flex justify-center mb-10">
+            {/* Mobile/Tablet Mockup */}
+            <div className="relative block lg:hidden">
+              <div className="bg-white rounded-3xl p-4 md:p-6 w-[360px] h-[560px] flex flex-col justify-between relative mx-auto">
+                <div className="flex items-center border-b pb-3 mb-4">
+                  <div className="w-12 h-12 rounded-full bg-teal-100 flex items-center justify-center">
+                    <Bot className="h-6 w-6 text-teal-500" />
+                  </div>
+                  <div className="ml-3 flex flex-col">
+                    <h3 className="font-bold text-gray-800">SORO™ Asistente</h3>
+                    <p className="text-sm text-teal-500 flex items-center">
+                      <WhatsappIcon className="h-4 w-4 mr-1 text-green-500" />
+                      En línea
+                    </p>
+                  </div>
+                </div>
+                <div className="flex-1 relative overflow-hidden space-y-4 mb-4 px-1">
+                  <div className="bg-teal-50 rounded-lg p-3 max-w-xs ml-auto relative">
+                    <p className="text-gray-700">Hola, me gustaría agendar una cita para una limpieza dental.</p>
+                  </div>
+                  <div className="bg-gray-100 rounded-lg p-3 max-w-xs relative">
+                    <p className="text-gray-700">¡Hola! Con gusto te ayudo a agendar tu cita para limpieza dental. ¿Para qué día te gustaría programarla?</p>
+                  </div>
+                  <div className="bg-teal-50 rounded-lg p-3 max-w-xs ml-auto relative">
+                    <p className="text-gray-700">¿Tienen disponibilidad para este viernes en la tarde?</p>
+                  </div>
+                </div>
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 h-1/2 pointer-events-none bg-gradient-to-t from-cyan-50 to-transparent z-10 mx-auto w-[360px]"></div>
+              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
+                <div className="w-32 h-32 bg-gray-200 rounded-full border-4 border-white shadow-lg">
+                  {/* Placeholder for the circular image */}
+                </div>
+              </div>
+              <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg transform -rotate-3 hidden md:flex items-center">
+                <CheckCircle2 className="h-5 w-5 text-green-500 mr-2" />
+                <span className="text-sm font-medium text-gray-700">Cita agendada exitosamente</span>
+              </div>
+            </div>
+
+            {/* Desktop Mockup */}
+            <div className="relative hidden lg:block">
+              <div className="bg-white rounded-xl shadow-xl p-4 md:p-6 max-w-md mx-auto transform rotate-1">
+                <div className="border-b pb-3 mb-4">
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center">
+                      <Bot className="h-6 w-6 text-teal-500" />
+                    </div>
+                    <div className="ml-3">
+                      <h3 className="font-bold text-gray-800">SORO™ Asistente</h3>
+                      <p className="text-sm text-teal-500">En línea</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-4 mb-4">
+                  <div className="bg-teal-50 rounded-lg p-3 max-w-xs ml-auto">
+                    <p className="text-gray-700">Hola, me gustaría agendar una cita para una limpieza dental.</p>
+                  </div>
+                  <div className="bg-gray-100 rounded-lg p-3 max-w-xs">
+                    <p className="text-gray-700">¡Hola! Con gusto te ayudo a agendar tu cita para limpieza dental. ¿Para qué día te gustaría programarla?</p>
+                  </div>
+                  <div className="bg-teal-50 rounded-lg p-3 max-w-xs ml-auto">
+                    <p className="text-gray-700">¿Tienen disponibilidad para este viernes en la tarde?</p>
+                  </div>
+                  <div className="bg-gray-100 rounded-lg p-3 max-w-xs">
+                    <p className="text-gray-700">Sí, tenemos disponibilidad el viernes a las 3:00 PM o 5:30 PM. ¿Cuál horario prefieres?</p>
+                  </div>
+                </div>
+                <div className="flex">
+                  <input
+                    type="text"
+                    placeholder="Escribe tu mensaje..."
+                    className="flex-grow px-4 py-2 bg-gray-100 rounded-l-lg focus:outline-none"
+                    readOnly
+                  />
+                  <button className="bg-teal-500 text-white px-4 py-2 rounded-r-lg">
+                    Enviar
+                  </button>
+                </div>
+              </div>
+              <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg transform -rotate-3 hidden md:block">
+                <div className="flex items-center">
+                  <CheckCircle2 className="h-5 w-5 text-green-500 mr-2" />
+                  <span className="text-sm font-medium text-gray-700">Cita agendada exitosamente</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Text Content */}
+          <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-gray-800">
-            Gestiona tu clínica dental con <span className="bg-gradient-to-r from-teal-500 to-cyan-600 bg-clip-text text-transparent">SORO™</span>
+              Gestiona tu clínica dental con <span className="bg-gradient-to-r from-teal-500 to-cyan-600 bg-clip-text text-transparent">SORO™</span>
             </h1>
             
             <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
-            Tu asistente virtual con inteligencia artificial diseñado para automatizar la comunicación con pacientes, gestionar citas y liberar a tu equipo de tareas repetitivas.
+              Tu asistente virtual con inteligencia artificial diseñado para automatizar la comunicación con pacientes, gestionar citas y liberar a tu equipo de tareas repetitivas.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 mb-8 justify-center lg:justify-start">
+            <div className="flex flex-col sm:flex-row gap-4 mb-8 justify-center">
               <Button 
                 onClick={handleDemoClick}
                 size="lg"
@@ -190,7 +282,7 @@ const Hero: React.FC = () => {
               </Button>
             </div>
             
-            <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+            <div className="flex flex-wrap gap-4 justify-center">
               {[
                 { icon: <Bot className="h-5 w-5 text-teal-500" />, text: "Respuestas inteligentes" },
                 { icon: <Calendar className="h-5 w-5 text-teal-500" />, text: "Agendamiento automático" },
@@ -201,112 +293,6 @@ const Hero: React.FC = () => {
                   <span className="ml-2 text-gray-700">{item.text}</span>
                 </div>
               ))}
-            </div>
-          </div>
-          
-          {/* Mobile/Tablet Mockup */}
-          <div className="lg:w-1/2 lg:pl-10 relative block lg:hidden">
-            {/* Marco tipo celular */}
-            <div className="bg-white rounded-3xl p-4 md:p-6 w-[360px] h-[560px] flex flex-col justify-between relative mx-auto">
-              
-              {/* Cabecera */}
-              <div className="flex items-center border-b pb-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-teal-100 flex items-center justify-center">
-                  <Bot className="h-6 w-6 text-teal-500" />
-                </div>
-                <div className="ml-3 flex flex-col">
-                  <h3 className="font-bold text-gray-800">SORO™ Asistente</h3>
-                  <p className="text-sm text-teal-500 flex items-center">
-                  <WhatsappIcon className="h-4 w-4 mr-1 text-green-500" />
-                    En línea
-                  </p>
-                </div>
-              </div>
-
-              {/* Mensajes con difuminado en la parte inferior */}
-              <div className="flex-1 relative overflow-hidden space-y-4 mb-4 px-1">
-                
-                <div className="bg-teal-50 rounded-lg p-3 max-w-xs ml-auto relative">
-                  <p className="text-gray-700">Hola, me gustaría agendar una cita para una limpieza dental.</p>
-                </div>
-                
-                <div className="bg-gray-100 rounded-lg p-3 max-w-xs relative">
-                  <p className="text-gray-700">¡Hola! Con gusto te ayudo a agendar tu cita para limpieza dental. ¿Para qué día te gustaría programarla?</p>
-                </div>
-                
-                <div className="bg-teal-50 rounded-lg p-3 max-w-xs ml-auto relative">
-                  <p className="text-gray-700">¿Tienen disponibilidad para este viernes en la tarde?</p>
-                </div>
-                
-              </div>
-            </div>
-
-            <div className="absolute bottom-0 left-0 right-0 h-1/2 pointer-events-none bg-gradient-to-t from-cyan-50 to-transparent z-10 mx-auto w-[360px]"></div>
-
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
-              <div className="w-32 h-32 bg-gray-200 rounded-full border-4 border-white shadow-lg">
-                {/* Placeholder for the circular image */}
-              </div>
-            </div>
-
-            {/* Notificación */}
-            <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg transform -rotate-3 hidden md:flex items-center">
-              <CheckCircle2 className="h-5 w-5 text-green-500 mr-2" />
-              <span className="text-sm font-medium text-gray-700">Cita agendada exitosamente</span>
-            </div>
-          </div>
-
-          {/* Desktop Mockup */}
-          <div className="lg:w-1/2 lg:pl-10 relative hidden lg:block">
-            <div className="bg-white rounded-xl shadow-xl p-4 md:p-6 max-w-md mx-auto transform rotate-1">
-              <div className="border-b pb-3 mb-4">
-                <div className="flex items-center">
-                  <div className="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center">
-                    <Bot className="h-6 w-6 text-teal-500" />
-                  </div>
-                  <div className="ml-3">
-                    <h3 className="font-bold text-gray-800">SORO™ Asistente</h3>
-                    <p className="text-sm text-teal-500">En línea</p>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="space-y-4 mb-4">
-                <div className="bg-teal-50 rounded-lg p-3 max-w-xs ml-auto">
-                  <p className="text-gray-700">Hola, me gustaría agendar una cita para una limpieza dental.</p>
-                </div>
-                
-                <div className="bg-gray-100 rounded-lg p-3 max-w-xs">
-                  <p className="text-gray-700">¡Hola! Con gusto te ayudo a agendar tu cita para limpieza dental. ¿Para qué día te gustaría programarla?</p>
-                </div>
-                
-                <div className="bg-teal-50 rounded-lg p-3 max-w-xs ml-auto">
-                  <p className="text-gray-700">¿Tienen disponibilidad para este viernes en la tarde?</p>
-                </div>
-                
-                <div className="bg-gray-100 rounded-lg p-3 max-w-xs">
-                  <p className="text-gray-700">Sí, tenemos disponibilidad el viernes a las 3:00 PM o 5:30 PM. ¿Cuál horario prefieres?</p>
-                </div>
-              </div>
-              
-              <div className="flex">
-                <input
-                  type="text"
-                  placeholder="Escribe tu mensaje..."
-                  className="flex-grow px-4 py-2 bg-gray-100 rounded-l-lg focus:outline-none"
-                  readOnly
-                />
-                <button className="bg-teal-500 text-white px-4 py-2 rounded-r-lg">
-                  Enviar
-                </button>
-              </div>
-            </div>
-            
-            <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg transform -rotate-3 hidden md:block">
-              <div className="flex items-center">
-                <CheckCircle2 className="h-5 w-5 text-green-500 mr-2" />
-                <span className="text-sm font-medium text-gray-700">Cita agendada exitosamente</span>
-              </div>
             </div>
           </div>
 
