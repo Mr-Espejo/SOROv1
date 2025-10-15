@@ -69,6 +69,17 @@ const Merca2Logo = () => (
       <text x="45" y="28" fontFamily="Arial, sans-serif" fontSize="18" fill="#A0A0A0" fontWeight="bold">Odonto Centry</text>
     </svg>
   );
+
+  const DrMariaIsabellLogo = () => (
+    <svg width="150" height="60" viewBox="0 0 150 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g opacity="0.7">
+        <path d="M25.5 5C15.835 5 8 12.835 8 22.5C8 28.163 11.025 33.22 15.65 36.4L18 38V45C18 48.3137 20.6863 51 24 51H36C39.3137 51 42 48.3137 42 45V38L44.35 36.4C48.975 33.22 52 28.163 52 22.5C52 12.835 44.165 5 34.5 5C32.5 5 27.5 5 25.5 5Z" stroke="#A0A0A0" strokeWidth="2"/>
+        <path d="M24 51L28 42" stroke="#A0A0A0" strokeWidth="2" strokeLinecap="round"/>
+        <path d="M36 51L32 42" stroke="#A0A0A0" strokeWidth="2" strokeLinecap="round"/>
+      </g>
+      <text x="60" y="30" fontFamily="Arial, sans-serif" fontSize="10" fill="#A0A0A0">DR. Maria Isabell</text>
+    </svg>
+  );
   
 
 const logos = [
@@ -79,6 +90,7 @@ const logos = [
   <ToothLogo key="tooth" />,
   <AscensiumLogo key="ascensium" />,
   <OdontoCentryLogo key="odontocentry" />,
+  <DrMariaIsabellLogo key="dramaria" />,
 ];
 
 export const LogoCloud: React.FC = () => {
