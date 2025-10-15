@@ -452,7 +452,7 @@ const WhySoroSection: React.FC = () => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {valueBullets.map(bullet => (
-              <div key={bullet.title} className="bg-gray-50/80 p-6 rounded-xl border border-gray-100 transition-all hover:border-teal-200 hover:shadow-lg">
+              <div key={bullet.title} className="bg-gray-50/80 p-6 rounded-xl border border-gray-100 transition-all hover:border-teal-200 hover:shadow-lg hover:-translate-y-1">
                 <div className="flex items-center justify-center h-12 w-12 rounded-full bg-teal-100 text-teal-600 mb-4">
                   {React.cloneElement(bullet.icon, { className: 'h-6 w-6' })}
                 </div>
@@ -506,7 +506,7 @@ const HowItWorksSection: React.FC = () => {
     },
   ];
   return (
-    <SectionWrapper className="py-20 md:py-32 bg-gradient-to-b from-gray-50 to-white">
+    <SectionWrapper className="py-20 md:py-32 bg-gradient-to-b from-cyan-50 to-teal-50/50">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 leading-tight mb-4">
@@ -518,11 +518,7 @@ const HowItWorksSection: React.FC = () => {
         </div>
 
         <div className="relative">
-          {/* Decorative line for desktop */}
-          <div className="hidden lg:block absolute top-1/2 left-0 w-full h-0.5 bg-gray-200 -translate-y-1/2"></div>
-          <div className="hidden lg:block absolute top-1/2 left-1/2 w-0.5 h-full bg-gray-200"></div>
-
-          <div className="grid lg:grid-cols-3 gap-8 items-start relative">
+          <div className="grid lg:grid-cols-3 gap-8 items-start relative z-10">
             {steps.map((step, index) => (
               <motion.div
                 key={step.title}
@@ -530,10 +526,10 @@ const HowItWorksSection: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.5 }}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="flex flex-col items-center text-center"
+                className="flex flex-col items-center text-center p-6 bg-white/60 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-100"
               >
-                <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-white shadow-lg border border-gray-100 relative">
-                  <span className="absolute -top-3 -right-3 flex h-10 w-10 items-center justify-center rounded-full bg-teal-500 text-white font-bold text-xl shadow-md">
+                <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-white shadow-md relative">
+                  <span className="absolute -top-2 -right-2 flex h-8 w-8 items-center justify-center rounded-full bg-teal-500 text-white font-bold text-lg shadow-sm">
                     {index + 1}
                   </span>
                   {step.icon}
@@ -543,6 +539,8 @@ const HowItWorksSection: React.FC = () => {
               </motion.div>
             ))}
           </div>
+          {/* Decorative line for desktop */}
+          <div className="hidden lg:block absolute top-10 left-0 w-full h-0.5 bg-gray-200/80 -translate-y-1/2 z-0"></div>
         </div>
 
         <div className="text-center mt-16">
