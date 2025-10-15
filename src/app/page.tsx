@@ -88,7 +88,7 @@ const DynamicHeader: React.FC = () => {
             </DropdownMenuItem>
             <DropdownMenuItem className="gap-3">
               <div className="bg-orange-100 p-2 rounded-md">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www  .w3.org/2000/svg">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <rect x="4" y="8" width="16" height="8" rx="2" fill="#FDE68A"/>
                   <path d="M7 12H9" stroke="#F59E0B" strokeWidth="1.5" strokeLinecap="round"/>
                   <path d="M12 12H14" stroke="#F59E0B" strokeWidth="1.5" strokeLinecap="round"/>
@@ -274,9 +274,6 @@ const Hero: React.FC = () => {
                 </div>
               </div>
               <div className="absolute bottom-0 left-0 right-0 h-1/2 pointer-events-none bg-gradient-to-t from-cyan-50 to-transparent z-10 mx-auto w-[360px]"></div>
-               <div className="absolute -bottom-8 z-20 flex h-20 w-20 items-center justify-center rounded-full bg-gray-200">
-                <WhatsappIcon className="h-10 w-10 text-green-500" />
-              </div>
             </div>
           </div>
           
