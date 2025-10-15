@@ -61,6 +61,14 @@ const Merca2Logo = () => (
       <path d="M82 15L90 5" stroke="#A0A0A0" strokeWidth="1.5"/>
     </svg>
   );
+
+  const OdontoCentryLogo = () => (
+    <svg width="180" height="40" viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15 5C15 2.23858 17.2386 0 20 0H30C32.7614 0 35 2.23858 35 5V35C35 37.7614 32.7614 40 30 40H20C17.2386 40 15 37.7614 15 35V5Z" fill="#A0A0A0" opacity="0.6"/>
+      <circle cx="25" cy="12" r="3" fill="white"/>
+      <text x="45" y="28" fontFamily="Arial, sans-serif" fontSize="18" fill="#A0A0A0" fontWeight="bold">Odonto Centry</text>
+    </svg>
+  );
   
 
 const logos = [
@@ -70,6 +78,7 @@ const logos = [
   <AtelierDentalLogo key="atelier" />,
   <ToothLogo key="tooth" />,
   <AscensiumLogo key="ascensium" />,
+  <OdontoCentryLogo key="odontocentry" />,
 ];
 
 export const LogoCloud: React.FC = () => {
