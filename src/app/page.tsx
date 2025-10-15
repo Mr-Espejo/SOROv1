@@ -105,9 +105,9 @@ const DynamicHeader: React.FC = () => {
               <div className="bg-orange-100 p-2 rounded-md">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12.3431 11.6569L5.27208 4.58579L3.85786 6L10.9289 13.0711L12.3431 11.6569Z" fill="#F59E0B"/>
-                    <path d="M17.6569 6.34315L6.34315 17.6569" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M17.6569 6.34315L6.34315 17.6569" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     <path d="M11.6569 12.3431L4.58579 5.27208L6 3.85786L13.0711 10.9289L11.6569 12.3431Z" fill="#F59E0B"/>
-                    <path d="M20 4L13 11" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M20 4L13 11" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
               <div>
