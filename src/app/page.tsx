@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Bot, Calendar, Clock, Menu, X, CheckCircle2, MessageSquare, ChevronDown, Video, BookOpen, Presentation, PlayCircle, Cpu, Sliders, Sparkles, MessageCircle, BarChart } from 'lucide-react';
+import { ArrowRight, Bot, Calendar, Clock, Menu, X, CheckCircle2, MessageSquare, ChevronDown, Video, BookOpen, Presentation, PlayCircle, Cpu, Sliders, Sparkles, MessageCircle, BarChart, Smartphone } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -10,7 +10,6 @@ import { motion } from 'framer-motion';
 import { SoroLogo } from '@/components/logo';
 import { Button } from '@/components/ui/button';
 import { Footer } from '@/components/footer';
-import { Benefits } from '@/components/landing/benefits';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,6 +19,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { LogoCloud } from '@/components/landing/logo-cloud';
+import { Card, CardContent } from '@/components/ui/card';
 
 const DynamicHeader: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -151,7 +151,7 @@ const DynamicHeader: React.FC = () => {
                     <path d="M12 3V21" stroke="#14B8A6" strokeWidth="1.5" strokeLinecap="round"/>
                     <path d="M3 12H21" stroke="#14B8A6" strokeWidth="1.5" strokeLinecap="round"/>
                     <path d="M7 8C8.85694 7.35991 10.8856 7 12 7C13.1144 7 15.1431 7.35991 17 8" stroke="#14B8A6" strokeWidth="1.5" strokeLinecap="round"/>
-                    <path d="M7 16C8.85694 16.6401 10.8856 17 12 17C13.1144 17 15.1431 16.6401 17 16" stroke="#14B8A6" strokeWidth="1sem" strokeLinecap="round"/>
+                    <path d="M7 16C8.85694 16.6401 10.8856 17 12 17C13.1144 17 15.1431 16.6401 17 16" stroke="#14B8A6" strokeWidth="1.5" strokeLinecap="round"/>
                  </svg>
               </div>
               <div>
@@ -489,37 +489,69 @@ const TestimonialSection: React.FC = () => {
 const HowItWorksSection: React.FC = () => {
   const router = useRouter();
   const steps = [
-    { number: '1️⃣', title: 'El paciente escribe', description: 'Inicia la conversación por WhatsApp o Instagram, a cualquier hora.' },
-    { number: '2️⃣', title: 'SORO responde', description: 'Automáticamente propone horarios disponibles según tu calendario.' },
-    { number: '3️⃣', title: 'Cita confirmada', description: 'El paciente confirma y tú solo te preocupas por atenderlo.' },
+    {
+      icon: <MessageSquare className="h-8 w-8 text-teal-500" />,
+      title: 'El paciente escribe',
+      description: 'Inicia la conversación por WhatsApp o Instagram, a cualquier hora.',
+    },
+    {
+      icon: <Bot className="h-8 w-8 text-teal-500" />,
+      title: 'SORO responde',
+      description: 'Automáticamente propone horarios disponibles según tu calendario.',
+    },
+    {
+      icon: <CheckCircle2 className="h-8 w-8 text-teal-500" />,
+      title: 'Cita confirmada',
+      description: 'El paciente confirma y tú solo te preocupas por atenderlo.',
+    },
   ];
   return (
-    <SectionWrapper className="py-20 md:py-32 bg-white">
+    <SectionWrapper className="py-20 md:py-32 bg-gradient-to-b from-gray-50 to-white">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 leading-tight mb-4">
             Tu clínica trabaja mientras tú descansas.
           </h2>
-          <p className="text-lg text-gray-600">Sin apps nuevas. Sin configuraciones complicadas. Solo resultados.</p>
+          <p className="text-lg text-gray-600">
+            Sin apps nuevas. Sin configuraciones complicadas. Solo resultados.
+          </p>
         </div>
-        <div className="grid md:grid-cols-3 gap-8 text-center">
-          {steps.map((step, index) => (
-            <motion.div 
-              key={step.title}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-            >
-              <div className="text-5xl mb-4">{step.number}</div>
-              <h3 className="text-xl font-bold text-gray-800 mb-2">{step.title}</h3>
-              <p className="text-gray-600">{step.description}</p>
-            </motion.div>
-          ))}
+
+        <div className="relative">
+          {/* Decorative line for desktop */}
+          <div className="hidden lg:block absolute top-1/2 left-0 w-full h-0.5 bg-gray-200 -translate-y-1/2"></div>
+          <div className="hidden lg:block absolute top-1/2 left-1/2 w-0.5 h-full bg-gray-200"></div>
+
+          <div className="grid lg:grid-cols-3 gap-8 items-start relative">
+            {steps.map((step, index) => (
+              <motion.div
+                key={step.title}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+                className="flex flex-col items-center text-center"
+              >
+                <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-white shadow-lg border border-gray-100 relative">
+                  <span className="absolute -top-3 -right-3 flex h-10 w-10 items-center justify-center rounded-full bg-teal-500 text-white font-bold text-xl shadow-md">
+                    {index + 1}
+                  </span>
+                  {step.icon}
+                </div>
+                <h3 className="text-xl font-bold text-gray-800 mb-2">{step.title}</h3>
+                <p className="text-gray-600 max-w-xs">{step.description}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
+
         <div className="text-center mt-16">
-          <Button size="lg" onClick={() => router.push('/personalized-demo')} className="bg-teal-500 hover:bg-teal-600 text-white">
-            Pide una demo y mira cómo SORO trabaja por ti <ArrowRight className="ml-2"/>
+          <Button
+            size="lg"
+            onClick={() => router.push('/personalized-demo')}
+            className="bg-teal-500 hover:bg-teal-600 text-white"
+          >
+            Pide una demo y mira cómo SORO trabaja por ti <ArrowRight className="ml-2" />
           </Button>
         </div>
       </div>
@@ -529,7 +561,7 @@ const HowItWorksSection: React.FC = () => {
 
 const InnovationSection: React.FC = () => {
   return (
-    <SectionWrapper className="py-20 md:py-32 bg-gray-50">
+    <SectionWrapper className="py-20 md:py-32 bg-white">
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
