@@ -168,11 +168,11 @@ const Hero: React.FC = () => {
         <div className="flex flex-col lg:flex-row items-center text-center lg:text-left">
 
           {/* Chat Mockup - Mobile first, then text */}
-          <div className="relative w-full lg:w-1/2 flex justify-center lg:mb-0 lg:order-1">
+          <div className="relative w-full lg:w-1/2 flex justify-center lg:mb-0 lg:order-last">
             {/* Mobile/Tablet Mockup */}
             <div className="relative block lg:hidden mb-8">
               <div className="bg-white rounded-3xl p-4 md:p-6 w-[360px] h-[560px] flex flex-col justify-between relative mx-auto overflow-hidden">
-                <div className="absolute top-2 left-2 z-20">
+                <div className="absolute top-2 right-2 z-20">
                     <Image src="https://cdn.pixabay.com/photo/2015/08/03/13/58/whatsapp-873316_1280.png" alt="Whatsapp Icon" width={48} height={48} className="object-contain" />
                 </div>
                 <div className="flex items-center border-b pb-3 mb-4 shrink-0">
@@ -239,7 +239,7 @@ const Hero: React.FC = () => {
           </div>
           
           {/* Text Content */}
-          <div className="max-w-3xl lg:w-1/2 lg:order-2">
+          <div className="max-w-3xl lg:w-1/2 lg:order-first">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-gray-800">
               Gestiona tu clínica dental con <span className="bg-gradient-to-r from-teal-500 to-cyan-600 bg-clip-text text-transparent">SORO™</span>
             </h1>
