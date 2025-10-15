@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Bot, Calendar, Clock, Menu, X, CheckCircle2, MessageSquare } from 'lucide-react';
+import { ArrowRight, Bot, Calendar, Clock, Menu, X, CheckCircle2, MessageSquare, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -10,6 +10,14 @@ import { SoroLogo } from '@/components/logo';
 import { Button } from '@/components/ui/button';
 import { Footer } from '@/components/footer';
 import { Benefits } from '@/components/landing/benefits';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 const features = [
   {
@@ -53,20 +61,72 @@ const DynamicHeader: React.FC = () => {
     setIsMenuOpen(false);
   };
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-    setIsMenuOpen(false);
-  };
-
   const navItems = [
-    { name: 'Beneficios', id: 'beneficios' },
-    { name: 'Características', id: 'caracteristicas' },
-    { name: 'Implementación', id: 'implementacion' },
-    { name: 'Precios', id: 'precios' },
-    { name: 'Testimonios', id: 'testimonios' }
+    { 
+      name: 'Funcionalidades', 
+      isDropdown: true,
+      content: (
+        <div className="grid grid-cols-2 gap-4 p-2">
+          <div>
+            <DropdownMenuLabel className="text-muted-foreground font-semibold text-xs">SOLUCIONES</DropdownMenuLabel>
+            <DropdownMenuItem className="gap-3">
+              <div className="bg-orange-100 p-2 rounded-md">
+                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="6" y="4" width="12" height="16" rx="2" fill="#FDE68A"/>
+                  <path d="M9 8H15" stroke="#F59E0B" strokeWidth="1.5" strokeLinecap="round"/>
+                  <path d="M9 11H15" stroke="#F59E0B" strokeWidth="1.5" strokeLinecap="round"/>
+                  <path d="M9 14H12" stroke="#F59E0B" strokeWidth="1.5" strokeLinecap="round"/>
+                  <path d="M18 7C19.1046 7 20 7.89543 20 9V9.5C20 10.6046 19.1046 11.5 18 11.5V11.5C16.8954 11.5 16 10.6046 16 9.5V9C16 7.89543 16.8954 7 18 7V7Z" fill="white" stroke="#F59E0B" strokeWidth="1.5"/>
+                  <path d="M18.5 9.5C18.7761 9.5 19 9.27614 19 9C19 8.72386 18.7761 8.5 18.5 8.5V9.5ZM18.5 8.5C18.2239 8.5 18 8.72386 18 9C18 9.27614 18.2239 9.5 18.5 9.5V8.5Z" fill="#F59E0B" stroke="#F59E0B"/>
+                </svg>
+              </div>
+              <div>
+                <p className="font-semibold">Atiende más y mejor a tus pacientes</p>
+                <p className="text-xs text-muted-foreground">Automatiza tareas de recepción y gestión de citas gracias a la IA</p>
+              </div>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="gap-3">
+              <div className="bg-orange-100 p-2 rounded-md">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="4" y="8" width="16" height="8" rx="2" fill="#FDE68A"/>
+                  <path d="M7 12H9" stroke="#F59E0B" strokeWidth="1.5" strokeLinecap="round"/>
+                  <path d="M12 12H14" stroke="#F59E0B" strokeWidth="1.5" strokeLinecap="round"/>
+                  <rect x="8" y="5" width="2" height="3" rx="1" fill="#F59E0B"/>
+                  <rect x="14" y="5" width="2" height="3" rx="1" fill="#F59E0B"/>
+                </svg>
+              </div>
+              <div>
+                <p className="font-semibold">Controla la operación de tu clínica</p>
+                <p className="text-xs text-muted-foreground">Gestiona la tesorería, honorarios médicos y productividad</p>
+              </div>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="gap-3">
+              <div className="bg-orange-100 p-2 rounded-md">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12.3431 11.6569L5.27208 4.58579L3.85786 6L10.9289 13.0711L12.3431 11.6569Z" fill="#F59E0B"/>
+                    <path d="M17.6569 6.34315L6.34315 17.6569" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M11.6569 12.3431L4.58579 5.27208L6 3.85786L13.0711 10.9289L11.6569 12.3431Z" fill="#F59E0B"/>
+                    <path d="M20 4L13 11" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div>
+                <p className="font-semibold">Ahorra tiempo de gestión</p>
+                <p className="text-xs text-muted-foreground">Deja que organicemos facturas, historias clínicas y más</p>
+              </div>
+            </DropdownMenuItem>
+          </div>
+           <div>
+            <DropdownMenuLabel className="text-muted-foreground font-semibold text-xs">SOLUCIONES</DropdownMenuLabel>
+            <DropdownMenuItem className="gap-3"><Calendar size={20}/> Agenda y recordatorios automáticos</DropdownMenuItem>
+            <DropdownMenuItem className="gap-3"><Bot size={20}/> Agregación bancaria</DropdownMenuItem>
+            <DropdownMenuItem className="gap-3"><MessageSquare size={20}/> Recepción por IA</DropdownMenuItem>
+            <DropdownMenuItem className="gap-3"><CheckCircle2 size={20}/> Producción de clínica</DropdownMenuItem>
+          </div>
+        </div>
+      )
+    },
+    { name: '¿Para quién es?', isDropdown: true },
+    { name: 'Recursos', isDropdown: true },
   ];
 
   return (
@@ -81,15 +141,31 @@ const DynamicHeader: React.FC = () => {
         </button>
         
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8">
+        <nav className="hidden md:flex items-center space-x-6">
           {navItems.map((item) => (
-            <button 
-              key={item.name} 
-              onClick={() => scrollToSection(item.id)}
-              className={`transition-colors font-medium text-gray-700 hover:text-teal-500`}
-            >
-              {item.name}
-            </button>
+            item.isDropdown ? (
+              <DropdownMenu key={item.name}>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="font-medium text-gray-700 hover:text-teal-500 data-[state=open]:text-teal-500 gap-1">
+                    {item.name}
+                    <ChevronDown size={16} />
+                  </Button>
+                </DropdownMenuTrigger>
+                {item.content && (
+                  <DropdownMenuContent className="w-[500px]">
+                    {item.content}
+                  </DropdownMenuContent>
+                )}
+              </DropdownMenu>
+            ) : (
+              <Button 
+                key={item.name} 
+                variant="ghost"
+                className={`transition-colors font-medium text-gray-700 hover:text-teal-500`}
+              >
+                {item.name}
+              </Button>
+            )
           ))}
           <Button onClick={handleDemoClick} className="bg-teal-500 hover:bg-teal-600 text-white">
             Ver Demo
@@ -112,7 +188,6 @@ const DynamicHeader: React.FC = () => {
              {navItems.map((item) => (
               <button 
                 key={item.name} 
-                onClick={() => scrollToSection(item.id)}
                 className="text-gray-700 hover:text-teal-500 transition-colors font-medium py-2 text-left"
               >
                 {item.name}
@@ -168,7 +243,7 @@ const Hero: React.FC = () => {
         <div className="flex flex-col lg:flex-row items-center text-center lg:text-left">
 
           {/* Chat Mockup - Mobile first, then text */}
-          <div className="relative w-full lg:w-1/2 flex justify-center lg:mb-1 lg:order-last mb-4">
+          <div className="relative w-full lg:w-1/2 flex justify-center lg:order-last mb-4">
             {/* Mobile/Tablet Mockup */}
             <div className="relative block lg:hidden">
               <div className="bg-white rounded-3xl p-4 md:p-6 w-[360px] h-[380px] flex flex-col justify-between relative mx-auto overflow-hidden">
