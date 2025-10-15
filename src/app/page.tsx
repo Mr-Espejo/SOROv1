@@ -141,7 +141,9 @@ const WhatsappIcon = (props: React.SVGProps<SVGSVGElement>) => (
       {...props}
     >
       <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-      <path d="M14.05 2.95a7.5 7.5 0 0 1 5.5 2.5M14.05 6.45a3.5 3.5 0 0 1 2.5 1" />
+      <path d="m16.14 2.86-1.12 1.12" />
+      <path d="m19.68 6.32-1.12 1.12" />
+      <path d="M12.78 2.08a6.5 6.5 0 0 1 4.9 4.9" />
     </svg>
   );
 
@@ -168,35 +170,35 @@ const Hero: React.FC = () => {
           <div className="relative w-full lg:w-1/2 flex justify-center mb-8 lg:mb-0 lg:order-2">
             {/* Mobile/Tablet Mockup */}
             <div className="relative block lg:hidden">
-              <div className="bg-white rounded-3xl p-4 md:p-6 w-[360px] h-[450px] flex flex-col justify-between relative mx-auto">
-                <div className="flex items-center border-b pb-3 mb-4">
+              <div className="bg-white rounded-3xl p-4 md:p-6 w-[360px] h-[400px] flex flex-col justify-between relative mx-auto overflow-hidden">
+                <div className="flex items-center border-b pb-3 mb-4 shrink-0">
                   <div className="w-12 h-12 rounded-full bg-teal-100 flex items-center justify-center">
                     <Bot className="h-6 w-6 text-teal-500" />
                   </div>
                   <div className="ml-3 flex flex-col">
-                    <h3 className="font-bold text-gray-800">SORO™ Asistente</h3>
+                    <h3 className="font-bold text-gray-800">Tu Clínica</h3>
                     <p className="text-sm text-teal-500 flex items-center">
                       <WhatsappIcon className="h-4 w-4 mr-1 text-green-500" />
                       En línea
                     </p>
                   </div>
                 </div>
-                <div className="flex-1 relative overflow-hidden space-y-4 mb-4 px-1">
+                <div className="flex-1 relative overflow-y-auto space-y-4 mb-4 px-1">
                   <div className="bg-teal-50 rounded-lg p-3 max-w-xs ml-auto relative">
                     <p className="text-gray-700">Hola, me gustaría agendar una cita para una limpieza dental.</p>
                   </div>
                   <div className="bg-gray-100 rounded-lg p-3 max-w-xs relative">
                     <p className="text-gray-700">¡Hola! Con gusto te ayudo a agendar tu cita para limpieza dental. ¿Para qué día te gustaría programarla?</p>
                   </div>
-                  <div className="bg-teal-50 rounded-lg p-3 max-w-xs ml-auto relative">
+                   <div className="bg-teal-50 rounded-lg p-3 max-w-xs ml-auto relative">
                     <p className="text-gray-700">¿Tienen disponibilidad para este viernes en la tarde?</p>
                   </div>
                 </div>
               </div>
               <div className="absolute bottom-0 left-0 right-0 h-1/2 pointer-events-none bg-gradient-to-t from-cyan-50 to-transparent z-10 mx-auto w-[360px]"></div>
-              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
-                <div className="w-32 h-32 bg-gray-200 rounded-full border-4 border-white shadow-lg">
-                  {/* Placeholder for the circular image */}
+               <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-20">
+                <div className="w-24 h-24 bg-gray-200 rounded-full border-4 border-white shadow-lg flex items-center justify-center">
+                  <WhatsappIcon className="h-12 w-12 text-green-500" />
                 </div>
               </div>
             </div>
