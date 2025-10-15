@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Bot, Calendar, Clock, Menu, X, CheckCircle2, MessageSquare, ChevronDown } from 'lucide-react';
+import { ArrowRight, Bot, Calendar, Clock, Menu, X, CheckCircle2, MessageSquare, ChevronDown, Video, BookOpen, Presentation, PlayCircle } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -163,7 +163,7 @@ const DynamicHeader: React.FC = () => {
             </DropdownMenuItem>
             <DropdownMenuItem className="gap-3">
               <div className="bg-teal-100 p-2 rounded-md">
-                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3org/2000/svg">
+                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="12" cy="12" r="9" stroke="#14B8A6" strokeWidth="1.5"/>
                     <path d="M12 3V21" stroke="#14B8A6" strokeWidth="1.5" strokeLinecap="round"/>
                     <path d="M3 12H21" stroke="#14B8A6" strokeWidth="1.5" strokeLinecap="round"/>
@@ -179,7 +179,27 @@ const DynamicHeader: React.FC = () => {
         </div>
       )
     },
-    { name: 'Recursos', isDropdown: true },
+    { 
+      name: 'Recursos', 
+      isDropdown: true,
+      content: (
+        <div className="p-2">
+          <DropdownMenuLabel className="text-muted-foreground font-semibold text-xs">APRENDE MÁS</DropdownMenuLabel>
+          <Link href="/personalized-demo">
+            <DropdownMenuItem className="gap-3"><PlayCircle size={20}/> Realizar Demo</DropdownMenuItem>
+          </Link>
+          <Link href="/lead-magnet">
+            <DropdownMenuItem className="gap-3"><BookOpen size={20}/> Ver Ebook</DropdownMenuItem>
+          </Link>
+          <Link href="#">
+            <DropdownMenuItem className="gap-3"><Presentation size={20}/> Ver Webinars</DropdownMenuItem>
+          </Link>
+          <Link href="/vsl-opt-in">
+            <DropdownMenuItem className="gap-3"><Video size={20}/> Ver Video de Ventas</DropdownMenuItem>
+          </Link>
+        </div>
+      )
+    },
   ];
 
   return (
