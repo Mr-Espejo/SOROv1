@@ -572,12 +572,12 @@ const InnovationSection: React.FC = () => {
           </div>
           <div>
             <Image 
-              src="https://firebasestudio.googleapis.com/v0/b/firebase-studio-users.appspot.com/o/user%2Fclwzod03q0000306kj9i282f1%2Fuploads%2Fclx05w82k0001cy6k6n9p0o78%2Fsoro_chat_mockup_dieline.webp?alt=media&token=c19a9d28-765f-4a0b-9df0-e5559c5d0034"
+              src="https://picsum.photos/seed/soro-chat-mockup/600/400"
               alt="Conversación de chat de SORO en un teléfono"
               width={600}
               height={400}
               className="rounded-xl shadow-2xl"
-              data-ai-hint="phone chat"
+              data-ai-hint="phone chat interface"
             />
           </div>
         </div>
