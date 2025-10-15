@@ -46,22 +46,6 @@ const Merca2Logo = () => (
     </svg>
   );
   
-  const ToothLogo = () => (
-    <svg width="80" height="60" viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20 10C10 10 10 25 20 25L30 15L40 25L50 15L60 25C70 25 70 10 60 10C50 10 50 20 40 20C30 20 30 10 20 10Z" stroke="#A0A0A0" strokeWidth="2" fill="none"/>
-      <path d="M20 25C20 40 30 50 40 50C50 50 60 40 60 25" stroke="#A0A0A0" strokeWidth="2" fill="none"/>
-      <circle cx="40" cy="35" r="5" fill="#A0A0A0" opacity="0.5"/>
-    </svg>
-  );
-  
-  const AscensiumLogo = () => (
-    <svg width="160" height="40" viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <text x="0" y="30" fontFamily="Arial, sans-serif" fontSize="24" fill="#A0A_A0A0" fontWeight="bold">Ascensium.</text>
-      <path d="M80 10L85 20L82 15L80 10Z" fill="#A0A0A0"/>
-      <path d="M82 15L90 5" stroke="#A0A0A0" strokeWidth="1.5"/>
-    </svg>
-  );
-
   const OdontoCentryLogo = () => (
     <svg width="180" height="40" viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M15 5C15 2.23858 17.2386 0 20 0H30C32.7614 0 35 2.23858 35 5V35C35 37.7614 32.7614 40 30 40H20C17.2386 40 15 37.7614 15 35V5Z" fill="#A0A0A0" opacity="0.6"/>
@@ -87,8 +71,6 @@ const logos = [
   <ClinicaDentalRobLogo key="dentalrob" />,
   <DraEdurnePalaciosLogo key="edurne" />,
   <AtelierDentalLogo key="atelier" />,
-  <ToothLogo key="tooth" />,
-  <AscensiumLogo key="ascensium" />,
   <OdontoCentryLogo key="odontocentry" />,
   <DrMariaIsabellLogo key="dramaria" />,
 ];
