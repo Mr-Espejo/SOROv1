@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Bot, Calendar, Clock, Menu, X, CheckCircle2, MessageSquare, ChevronDown, Video, BookOpen, Presentation, PlayCircle } from 'lucide-react';
+import { ArrowRight, Bot, Calendar, Clock, Menu, X, CheckCircle2, MessageSquare, ChevronDown, Video, BookOpen, Presentation, PlayCircle, Cpu, Sliders, Sparkles, MessageCircle, BarChart } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 import { SoroLogo } from '@/components/logo';
 import { Button } from '@/components/ui/button';
@@ -19,24 +20,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { LogoCloud } from '@/components/landing/logo-cloud';
-
-const features = [
-  {
-    icon: <Bot className="h-8 w-8 text-teal-500" />,
-    title: 'IA Conversacional',
-    description: 'Responde el 95% de las preguntas frecuentes de tus pacientes al instante.',
-  },
-  {
-    icon: <Calendar className="h-8 w-8 text-teal-500" />,
-    title: 'Agendamiento Inteligente',
-    description: 'Permite que tus pacientes agenden citas 24/7, sin intervención humana.',
-  },
-  {
-    icon: <Clock className="h-8 w-8 text-teal-500" />,
-    title: 'Disponibilidad 24/7',
-    description: 'Tu clínica nunca duerme. Captura prospectos y citas incluso fuera del horario de oficina.',
-  },
-];
 
 const DynamicHeader: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -434,65 +417,184 @@ const Hero: React.FC = () => {
 };
 
 
+const SectionWrapper: React.FC<{children: React.ReactNode, className?: string}> = ({ children, className }) => (
+  <motion.section
+    className={className}
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.3 }}
+    transition={{ duration: 0.6, ease: "easeOut" }}
+  >
+    {children}
+  </motion.section>
+);
+
+
+const WhySoroSection: React.FC = () => {
+  const valueBullets = [
+    { icon: <Bot />, title: 'Responde con inteligencia humana', description: 'SORO entiende las preguntas reales de tus pacientes.' },
+    { icon: <Calendar />, title: 'Agenda automática', description: 'Integra WhatsApp, Instagram y Google Calendar.' },
+    { icon: <Clock />, title: 'Nunca duerme', description: 'Atiende 24/7, sin pausas, sin errores.' },
+    { icon: <Sliders />, title: 'Habla como tu clínica', description: 'Personaliza el tono, respuestas y estilo.' },
+  ];
+  return (
+    <SectionWrapper className="py-20 md:py-32 bg-white">
+      <div className="container mx-auto px-4">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="space-y-6">
+            <span className="text-teal-500 font-semibold">Por qué SORO cambia las reglas del juego</span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 leading-tight">
+              La nueva forma de atender pacientes ha llegado.
+            </h2>
+            <p className="text-lg text-gray-600">
+              “Antes necesitabas recepcionistas, recordatorios manuales y horas respondiendo mensajes. Con SORO™, tu clínica se vuelve autónoma: responde, agenda y confirma citas automáticamente.”
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {valueBullets.map(bullet => (
+              <div key={bullet.title} className="bg-gray-50/80 p-6 rounded-xl border border-gray-100 transition-all hover:border-teal-200 hover:shadow-lg">
+                <div className="flex items-center justify-center h-12 w-12 rounded-full bg-teal-100 text-teal-600 mb-4">
+                  {React.cloneElement(bullet.icon, { className: 'h-6 w-6' })}
+                </div>
+                <h3 className="font-bold text-gray-800 mb-2">{bullet.title}</h3>
+                <p className="text-gray-600 text-sm">{bullet.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </SectionWrapper>
+  );
+};
+
+const TestimonialSection: React.FC = () => {
+  return (
+    <SectionWrapper className="py-20 md:py-32 bg-gray-900 text-white">
+      <div className="container mx-auto px-4 text-center">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6">
+          De mensajes sin responder... a pacientes felices.
+        </h2>
+        <blockquote className="max-w-3xl mx-auto">
+          <p className="text-xl md:text-2xl text-gray-300 italic mb-6">
+            “Antes perdíamos pacientes cada fin de semana. Ahora, SORO responde al instante, agenda y nos notifica. Cerramos más citas que nunca.”
+          </p>
+          <footer className="text-teal-400 font-semibold">— Clínica Dental SmilePro, Bogotá</footer>
+        </blockquote>
+      </div>
+    </SectionWrapper>
+  );
+};
+
+
+const HowItWorksSection: React.FC = () => {
+  const router = useRouter();
+  const steps = [
+    { number: '1️⃣', title: 'El paciente escribe', description: 'Inicia la conversación por WhatsApp o Instagram, a cualquier hora.' },
+    { number: '2️⃣', title: 'SORO responde', description: 'Automáticamente propone horarios disponibles según tu calendario.' },
+    { number: '3️⃣', title: 'Cita confirmada', description: 'El paciente confirma y tú solo te preocupas por atenderlo.' },
+  ];
+  return (
+    <SectionWrapper className="py-20 md:py-32 bg-white">
+      <div className="container mx-auto px-4">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 leading-tight mb-4">
+            Tu clínica trabaja mientras tú descansas.
+          </h2>
+          <p className="text-lg text-gray-600">Sin apps nuevas. Sin configuraciones complicadas. Solo resultados.</p>
+        </div>
+        <div className="grid md:grid-cols-3 gap-8 text-center">
+          {steps.map((step, index) => (
+            <motion.div 
+              key={step.title}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+            >
+              <div className="text-5xl mb-4">{step.number}</div>
+              <h3 className="text-xl font-bold text-gray-800 mb-2">{step.title}</h3>
+              <p className="text-gray-600">{step.description}</p>
+            </motion.div>
+          ))}
+        </div>
+        <div className="text-center mt-16">
+          <Button size="lg" onClick={() => router.push('/personalized-demo')} className="bg-teal-500 hover:bg-teal-600 text-white">
+            Pide una demo y mira cómo SORO trabaja por ti <ArrowRight className="ml-2"/>
+          </Button>
+        </div>
+      </div>
+    </SectionWrapper>
+  );
+};
+
+const InnovationSection: React.FC = () => {
+  return (
+    <SectionWrapper className="py-20 md:py-32 bg-gray-50">
+      <div className="container mx-auto px-4">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="space-y-6">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 leading-tight">
+              Más que un chatbot, una nueva generación de atención dental.
+            </h2>
+            <p className="text-lg text-gray-600">
+              SORO™ no es un bot genérico. Es un sistema conversacional entrenado para el sector odontológico, diseñado para hablar el idioma de tus pacientes y convertir conversaciones en ingresos reales.
+            </p>
+          </div>
+          <div>
+            <Image 
+              src="https://picsum.photos/seed/dental-innovation/600/400"
+              alt="Innovación en atención dental"
+              width={600}
+              height={400}
+              className="rounded-xl shadow-2xl"
+              data-ai-hint="technology abstract"
+            />
+          </div>
+        </div>
+      </div>
+    </SectionWrapper>
+  );
+};
+
+const FinalCTASection: React.FC = () => {
+  const router = useRouter();
+  return (
+    <SectionWrapper className="py-20 md:py-32 bg-gray-900 text-white">
+      <div className="container mx-auto px-4 text-center">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4">
+          Tu clínica no necesita más horas… necesita un SORO™.
+        </h2>
+        <p className="text-lg text-gray-300 max-w-2xl mx-auto mb-10">
+          Agenda una demostración gratuita y descubre cómo automatizar el 80% de la atención sin perder el toque humano.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button size="lg" onClick={() => router.push('/personalized-demo')} className="bg-teal-500 hover:bg-teal-600 text-white">
+            Agendar Demo Gratis
+          </Button>
+          <Button size="lg" variant="outline" onClick={() => router.push('/contact')} className="border-teal-400 text-teal-400 hover:bg-teal-400 hover:text-gray-900">
+            Hablar con un Especialista
+          </Button>
+        </div>
+      </div>
+    </SectionWrapper>
+  );
+};
+
+
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col bg-white text-gray-800">
       <DynamicHeader />
       <main className="flex-1">
-        
         <Hero />
         <LogoCloud />
-        <Benefits />
-
-        {/* Features Section */}
-        <section id="caracteristicas" className="w-full py-20 md:py-24 lg:py-32">
-          <div className="container mx-auto px-4 md:px-6">
-            <div className="mb-12 text-center">
-                 <h2 className="text-3xl font-bold tracking-tighter text-gray-900 md:text-4xl/tight">
-                    Todo lo que tu clínica necesita para triunfar
-                </h2>
-                <p className="mx-auto max-w-2xl text-gray-600 md:text-xl/relaxed mt-4">
-                    SORO™ te da las herramientas para automatizar la comunicación, optimizar flujos y crecer tu negocio.
-                </p>
-            </div>
-            <div className="grid gap-10 md:grid-cols-3">
-              {features.map((feature) => (
-                <div key={feature.title} className="flex flex-col items-center gap-4 text-center md:items-start md:text-left">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-teal-100">
-                    {feature.icon}
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900">{feature.title}</h3>
-                  <p className="text-gray-600">{feature.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Explore Section */}
-        <section id="explore" className="w-full bg-gray-50 py-20 md:py-24 lg:py-32">
-          <div className="container mx-auto grid items-center justify-center gap-4 px-4 text-center md:px-6">
-            <div className="space-y-3">
-              <h2 className="text-3xl font-bold tracking-tighter text-gray-900 md:text-4xl/tight">
-                Explora nuestras Páginas de Aterrizaje
-              </h2>
-              <p className="mx-auto max-w-[600px] text-gray-600 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                Descubre plantillas de alta conversión diseñadas para hacer crecer tu práctica.
-              </p>
-            </div>
-            <div className="flex justify-center">
-                <Button asChild size="lg" variant="link" className="text-teal-600">
-                  <Link href="/landing-pages">
-                    Ver todas las plantillas <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-            </div>
-          </div>
-        </section>
+        <WhySoroSection />
+        <TestimonialSection />
+        <HowItWorksSection />
+        <InnovationSection />
+        <FinalCTASection />
       </main>
       <Footer />
     </div>
   );
 }
-
-    
