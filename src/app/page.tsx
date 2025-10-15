@@ -168,10 +168,10 @@ const Hero: React.FC = () => {
         <div className="flex flex-col lg:flex-row items-center text-center lg:text-left">
 
           {/* Chat Mockup - Mobile first, then text */}
-          <div className="relative w-full lg:w-1/2 flex justify-center lg:mb-0 lg:order-last">
+          <div className="relative w-full lg:w-1/2 flex justify-center mb-1 lg:mb-1 lg:order-last">
             {/* Mobile/Tablet Mockup */}
-            <div className="relative block lg:hidden mb-8">
-              <div className="bg-white rounded-3xl p-4 md:p-6 w-[360px] h-[560px] flex flex-col justify-between relative mx-auto overflow-hidden">
+            <div className="relative block lg:hidden mb-2">
+              <div className="bg-white rounded-3xl p-4 md:p-6 w-[360px] h-[380px] flex flex-col justify-between relative mx-auto overflow-hidden">
                 <div className="absolute top-2 right-2 z-20">
                     <Image src="https://cdn.pixabay.com/photo/2015/08/03/13/58/whatsapp-873316_1280.png" alt="Whatsapp Icon" width={48} height={48} className="object-contain" />
                 </div>
