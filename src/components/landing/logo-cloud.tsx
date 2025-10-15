@@ -1,14 +1,5 @@
 import React from 'react';
 
-const Merca2Logo = () => (
-    <svg width="140" height="40" viewBox="0 0 140 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <text x="0" y="30" fontFamily="Arial, sans-serif" fontSize="30" fill="#A0A0A0" fontWeight="bold">
-        merca
-        <tspan fill="#C0C0C0">2</tspan>
-      </text>
-    </svg>
-  );
-  
   const ClinicaDentalRobLogo = () => (
     <svg width="200" height="40" viewBox="0 0 200 40" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M10 20C10 14.4772 14.4772 10 20 10C25.5228 10 30 14.4772 30 20C30 25.5228 25.5228 30 20 30H10Z" stroke="#A0A0A0" strokeWidth="2"/>
@@ -67,7 +58,6 @@ const Merca2Logo = () => (
   
 
 const logos = [
-  <Merca2Logo key="merca2" />,
   <ClinicaDentalRobLogo key="dentalrob" />,
   <DraEdurnePalaciosLogo key="edurne" />,
   <AtelierDentalLogo key="atelier" />,
