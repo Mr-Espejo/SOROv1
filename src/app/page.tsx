@@ -168,10 +168,13 @@ const Hero: React.FC = () => {
         <div className="flex flex-col lg:flex-row items-center text-center lg:text-left">
 
           {/* Chat Mockup - Mobile first, then text */}
-          <div className="relative w-full lg:w-1/2 flex justify-center mb-8 lg:mb-0 lg:order-2">
+          <div className="relative w-full lg:w-1/2 flex justify-center lg:mb-0 lg:order-1">
             {/* Mobile/Tablet Mockup */}
-            <div className="relative block lg:hidden">
-              <div className="bg-white rounded-3xl p-4 md:p-6 w-[360px] h-[400px] flex flex-col justify-between relative mx-auto overflow-hidden">
+            <div className="relative block lg:hidden mb-8">
+              <div className="bg-white rounded-3xl p-4 md:p-6 w-[360px] h-[560px] flex flex-col justify-between relative mx-auto overflow-hidden">
+                <div className="absolute top-2 left-2 z-20">
+                    <Image src="https://cdn.pixabay.com/photo/2015/08/03/13/58/whatsapp-873316_1280.png" alt="Whatsapp Icon" width={48} height={48} className="object-contain" />
+                </div>
                 <div className="flex items-center border-b pb-3 mb-4 shrink-0">
                   <div className="w-12 h-12 rounded-full bg-teal-100 flex items-center justify-center">
                     <Bot className="h-6 w-6 text-teal-500" />
@@ -197,11 +200,6 @@ const Hero: React.FC = () => {
                 </div>
               </div>
               <div className="absolute bottom-0 left-0 right-0 h-1/2 pointer-events-none bg-gradient-to-t from-cyan-50 to-transparent z-10 mx-auto w-[360px]"></div>
-               <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-20">
-                <div className="w-24 h-24 bg-gray-200 rounded-full border-4 border-white shadow-lg flex items-center justify-center">
-                  <Image src="https://cdn.pixabay.com/photo/2015/08/03/13/58/whatsapp-873316_1280.png" alt="Whatsapp Icon" width={64} height={64} className="object-contain" />
-                </div>
-              </div>
             </div>
 
             {/* Desktop Mockup */}
@@ -229,17 +227,7 @@ const Hero: React.FC = () => {
                     <p className="text-gray-700">¿Tienen disponibilidad para este viernes en la tarde?</p>
                   </div>
                 </div>
-                <div className="flex">
-                  <input
-                    type="text"
-                    placeholder="Escribe tu mensaje..."
-                    className="flex-grow px-4 py-2 bg-gray-100 rounded-l-lg focus:outline-none"
-                    readOnly
-                  />
-                  <button className="bg-teal-500 text-white px-4 py-2 rounded-r-lg">
-                    Enviar
-                  </button>
-                </div>
+                <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-white to-transparent"></div>
               </div>
               <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg transform -rotate-3 hidden md:block">
                 <div className="flex items-center">
@@ -251,7 +239,7 @@ const Hero: React.FC = () => {
           </div>
           
           {/* Text Content */}
-          <div className="max-w-3xl lg:w-1/2 lg:order-1">
+          <div className="max-w-3xl lg:w-1/2 lg:order-2">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-gray-800">
               Gestiona tu clínica dental con <span className="bg-gradient-to-r from-teal-500 to-cyan-600 bg-clip-text text-transparent">SORO™</span>
             </h1>
