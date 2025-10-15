@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { ArrowRight, Bot, Calendar, Clock, Menu, X, CheckCircle2, MessageSquare } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 import { SoroLogo } from '@/components/logo';
 import { Button } from '@/components/ui/button';
@@ -198,7 +199,7 @@ const Hero: React.FC = () => {
               <div className="absolute bottom-0 left-0 right-0 h-1/2 pointer-events-none bg-gradient-to-t from-cyan-50 to-transparent z-10 mx-auto w-[360px]"></div>
                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-20">
                 <div className="w-24 h-24 bg-gray-200 rounded-full border-4 border-white shadow-lg flex items-center justify-center">
-                  <WhatsappIcon className="h-12 w-12 text-green-500" />
+                  <Image src="https://cdn.pixabay.com/photo/2015/08/03/13/58/whatsapp-873316_1280.png" alt="Whatsapp Icon" width={64} height={64} className="object-contain" />
                 </div>
               </div>
             </div>
@@ -226,9 +227,6 @@ const Hero: React.FC = () => {
                   </div>
                   <div className="bg-teal-50 rounded-lg p-3 max-w-xs ml-auto">
                     <p className="text-gray-700">¿Tienen disponibilidad para este viernes en la tarde?</p>
-                  </div>
-                  <div className="bg-gray-100 rounded-lg p-3 max-w-xs">
-                    <p className="text-gray-700">Sí, tenemos disponibilidad el viernes a las 3:00 PM o 5:30 PM. ¿Cuál horario prefieres?</p>
                   </div>
                 </div>
                 <div className="flex">
