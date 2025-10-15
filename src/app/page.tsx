@@ -163,7 +163,7 @@ const DynamicHeader: React.FC = () => {
       )
     },
     { 
-      name: 'Recursos', 
+      name: 'Recursos',
       isDropdown: true,
       content: (
         <div className="p-2">
