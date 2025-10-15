@@ -18,6 +18,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { LogoCloud } from '@/components/landing/logo-cloud';
 
 const features = [
   {
@@ -87,7 +88,7 @@ const DynamicHeader: React.FC = () => {
             </DropdownMenuItem>
             <DropdownMenuItem className="gap-3">
               <div className="bg-orange-100 p-2 rounded-md">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www  .w3.org/2000/svg">
                   <rect x="4" y="8" width="16" height="8" rx="2" fill="#FDE68A"/>
                   <path d="M7 12H9" stroke="#F59E0B" strokeWidth="1.5" strokeLinecap="round"/>
                   <path d="M12 12H14" stroke="#F59E0B" strokeWidth="1.5" strokeLinecap="round"/>
@@ -204,24 +205,22 @@ const DynamicHeader: React.FC = () => {
 };
 
 const WhatsappIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-      <path d="m16.14 2.86-1.12 1.12" />
-      <path d="m19.68 6.32-1.12 1.12" />
-      <path d="M12.78 2.08a6.5 6.5 0 0 1 4.9 4.9" />
-    </svg>
-  );
+  <svg
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+  </svg>
+);
+
 
 const Hero: React.FC = () => {
   const router = useRouter();
@@ -240,12 +239,12 @@ const Hero: React.FC = () => {
   return (
     <section className="pt-10 pb-20 md:pt-16 md:pb-24 bg-gradient-to-br from-cyan-50 to-teal-50">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col lg:flex-row items-center text-center lg:text-left">
+        <div className="flex flex-col items-center text-center">
 
           {/* Chat Mockup - Mobile first, then text */}
-          <div className="relative w-full lg:w-1/2 flex justify-center lg:order-last mb-4">
+          <div className="relative w-full flex justify-center mb-4 lg:hidden">
             {/* Mobile/Tablet Mockup */}
-            <div className="relative block lg:hidden">
+            <div className="relative">
               <div className="bg-white rounded-3xl p-4 md:p-6 w-[360px] h-[380px] flex flex-col justify-between relative mx-auto overflow-hidden">
                 <div className="absolute top-2 right-2 z-20">
                     <Image src="https://cdn.pixabay.com/photo/2015/08/03/13/58/whatsapp-873316_1280.png" alt="Whatsapp Icon" width={48} height={48} className="object-contain" />
@@ -275,10 +274,57 @@ const Hero: React.FC = () => {
                 </div>
               </div>
               <div className="absolute bottom-0 left-0 right-0 h-1/2 pointer-events-none bg-gradient-to-t from-cyan-50 to-transparent z-10 mx-auto w-[360px]"></div>
+               <div className="absolute -bottom-8 z-20 flex h-20 w-20 items-center justify-center rounded-full bg-gray-200">
+                <WhatsappIcon className="h-10 w-10 text-green-500" />
+              </div>
+            </div>
+          </div>
+          
+          <div className="flex flex-col lg:flex-row items-center lg:text-left w-full">
+            {/* Text Content */}
+            <div className="max-w-3xl lg:w-1/2 lg:order-first">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-gray-800">
+                Gestiona tu clínica dental con <span className="bg-gradient-to-r from-teal-500 to-cyan-600 bg-clip-text text-transparent">SORO™</span>
+              </h1>
+              
+              <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
+                Tu asistente virtual con inteligencia artificial diseñado para automatizar la comunicación con pacientes, gestionar citas y liberar a tu equipo de tareas repetitivas.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4 mb-8 justify-center lg:justify-start">
+                <Button 
+                  onClick={handleDemoClick}
+                  size="lg"
+                  className="bg-teal-500 hover:bg-teal-600 text-white text-lg font-medium"
+                >
+                  Solicitar Demostración
+                </Button>
+                <Button 
+                  onClick={scrollToFeatures}
+                  size="lg"
+                  variant="outline"
+                  className="border-teal-500 text-teal-500 hover:bg-teal-50 text-lg font-medium"
+                >
+                  Ver Cómo Funciona
+                </Button>
+              </div>
+              
+              <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+                {[
+                  { icon: <Bot className="h-5 w-5 text-teal-500" />, text: "Respuestas inteligentes" },
+                  { icon: <Calendar className="h-5 w-5 text-teal-500" />, text: "Agendamiento automático" },
+                  { icon: <Clock className="h-5 w-5 text-teal-500" />, text: "Disponible 24/7" }
+                ].map((item, index) => (
+                  <div key={index} className="flex items-center bg-white px-4 py-2 rounded-full shadow-sm">
+                    {item.icon}
+                    <span className="ml-2 text-gray-700">{item.text}</span>
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* Desktop Mockup */}
-            <div className="relative hidden lg:block">
+            <div className="relative hidden lg:block lg:w-1/2 lg:order-last">
               <div className="bg-white rounded-xl shadow-xl p-4 md:p-6 max-w-md mx-auto transform rotate-1">
                 <div className="border-b pb-3 mb-4">
                   <div className="flex items-center">
@@ -312,49 +358,6 @@ const Hero: React.FC = () => {
               </div>
             </div>
           </div>
-          
-          {/* Text Content */}
-          <div className="max-w-3xl lg:w-1/2 lg:order-first">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-gray-800">
-              Gestiona tu clínica dental con <span className="bg-gradient-to-r from-teal-500 to-cyan-600 bg-clip-text text-transparent">SORO™</span>
-            </h1>
-            
-            <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
-              Tu asistente virtual con inteligencia artificial diseñado para automatizar la comunicación con pacientes, gestionar citas y liberar a tu equipo de tareas repetitivas.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 mb-8 justify-center lg:justify-start">
-              <Button 
-                onClick={handleDemoClick}
-                size="lg"
-                className="bg-teal-500 hover:bg-teal-600 text-white text-lg font-medium"
-              >
-                Solicitar Demostración
-              </Button>
-              <Button 
-                onClick={scrollToFeatures}
-                size="lg"
-                variant="outline"
-                className="border-teal-500 text-teal-500 hover:bg-teal-50 text-lg font-medium"
-              >
-                Ver Cómo Funciona
-              </Button>
-            </div>
-            
-            <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-              {[
-                { icon: <Bot className="h-5 w-5 text-teal-500" />, text: "Respuestas inteligentes" },
-                { icon: <Calendar className="h-5 w-5 text-teal-500" />, text: "Agendamiento automático" },
-                { icon: <Clock className="h-5 w-5 text-teal-500" />, text: "Disponible 24/7" }
-              ].map((item, index) => (
-                <div key={index} className="flex items-center bg-white px-4 py-2 rounded-full shadow-sm">
-                  {item.icon}
-                  <span className="ml-2 text-gray-700">{item.text}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
         </div>
       </div>
     </section>
@@ -369,6 +372,7 @@ export default function Home() {
       <main className="flex-1">
         
         <Hero />
+        <LogoCloud />
         <Benefits />
 
         {/* Features Section */}
