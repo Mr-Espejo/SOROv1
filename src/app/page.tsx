@@ -142,12 +142,12 @@ const DynamicHeader: React.FC = () => {
         </button>
         
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-6">
+        <nav className="hidden md:flex items-center space-x-1">
           {navItems.map((item) => (
             item.isDropdown ? (
               <DropdownMenu key={item.name}>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="font-medium text-gray-700 hover:text-teal-500 data-[state=open]:text-teal-500 gap-1">
+                  <Button variant="ghost" className="font-medium text-gray-700 hover:bg-teal-50 hover:text-teal-600 data-[state=open]:bg-teal-50 data-[state=open]:text-teal-600 gap-1 rounded-md px-3 py-2">
                     {item.name}
                     <ChevronDown size={16} />
                   </Button>
@@ -162,13 +162,13 @@ const DynamicHeader: React.FC = () => {
               <Button 
                 key={item.name} 
                 variant="ghost"
-                className={`transition-colors font-medium text-gray-700 hover:text-teal-500`}
+                className={`transition-colors font-medium text-gray-700 hover:bg-teal-50 hover:text-teal-600 rounded-md px-3 py-2`}
               >
                 {item.name}
               </Button>
             )
           ))}
-          <Button onClick={handleDemoClick} className="bg-teal-500 hover:bg-teal-600 text-white">
+          <Button onClick={handleDemoClick} className="bg-teal-500 hover:bg-teal-600 text-white ml-2">
             Ver Demo
           </Button>
         </nav>
@@ -422,3 +422,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
