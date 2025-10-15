@@ -126,7 +126,59 @@ const DynamicHeader: React.FC = () => {
         </div>
       )
     },
-    { name: '¿Para quién es?', isDropdown: true },
+    { 
+      name: '¿Para quién es?', 
+      isDropdown: true,
+      content: (
+        <div className="p-2">
+          <DropdownMenuLabel className="text-muted-foreground font-semibold text-xs">SOLUCIONES PARA</DropdownMenuLabel>
+          <DropdownMenuItem className="gap-3">
+              <div className="bg-teal-100 p-2 rounded-md">
+                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 14C8 12.3431 9.34315 11 11 11H13C14.6569 11 16 12.3431 16 14V18H8V14Z" stroke="#14B8A6" strokeWidth="1.5"/>
+                    <path d="M14 8C15.1046 8 16 8.89543 16 10V11H14V10C14 9.44772 13.5523 9 13 9H11C10.4477 9 10 9.44772 10 10V11H8V10C8 8.89543 8.89543 8 10 8H14Z" stroke="#14B8A6" strokeWidth="1.5"/>
+                    <path d="M12 4L14 7H10L12 4Z" fill="#14B8A6"/>
+                    <rect x="5" y="18" width="14" height="2" rx="1" fill="#14B8A6"/>
+                 </svg>
+              </div>
+              <div>
+                <p className="font-semibold">Propietarios de Clínica</p>
+                <p className="text-xs text-muted-foreground">Soluciones para Odontólogos Propietarios</p>
+              </div>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="gap-3">
+              <div className="bg-teal-100 p-2 rounded-md">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="6" y="6" width="12" height="14" rx="2" stroke="#14B8A6" strokeWidth="1.5"/>
+                    <path d="M10 11H14" stroke="#14B8A6" strokeWidth="1.5" strokeLinecap="round"/>
+                    <path d="M10 14H14" stroke="#14B8A6" strokeWidth="1.5" strokeLinecap="round"/>
+                    <path d="M9 6V4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V6" stroke="#14B8A6" strokeWidth="1.5"/>
+                    <path d="M12 11V14" stroke="#14B8A6" strokeWidth="1.5"/>
+                </svg>
+              </div>
+              <div>
+                <p className="font-semibold">Directores de Clínica</p>
+                <p className="text-xs text-muted-foreground">Herramientas para gestionar eficientemente tu Clínica Dental</p>
+              </div>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="gap-3">
+              <div className="bg-teal-100 p-2 rounded-md">
+                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3org/2000/svg">
+                    <circle cx="12" cy="12" r="9" stroke="#14B8A6" strokeWidth="1.5"/>
+                    <path d="M12 3V21" stroke="#14B8A6" strokeWidth="1.5" strokeLinecap="round"/>
+                    <path d="M3 12H21" stroke="#14B8A6" strokeWidth="1.5" strokeLinecap="round"/>
+                    <path d="M7 8C8.85694 7.35991 10.8856 7 12 7C13.1144 7 15.1431 7.35991 17 8" stroke="#14B8A6" strokeWidth="1.5" strokeLinecap="round"/>
+                    <path d="M7 16C8.85694 16.6401 10.8856 17 12 17C13.1144 17 15.1431 16.6401 17 16" stroke="#14B8A6" strokeWidth="1sem" strokeLinecap="round"/>
+                 </svg>
+              </div>
+              <div>
+                <p className="font-semibold">Directores de Cadena de Clínicas</p>
+                <p className="text-xs text-muted-foreground">Control centralizado de múltiples centros</p>
+              </div>
+            </DropdownMenuItem>
+        </div>
+      )
+    },
     { name: 'Recursos', isDropdown: true },
   ];
 
@@ -153,7 +205,7 @@ const DynamicHeader: React.FC = () => {
                   </Button>
                 </DropdownMenuTrigger>
                 {item.content && (
-                  <DropdownMenuContent className="w-[500px]">
+                  <DropdownMenuContent className={item.name === 'Funcionalidades' ? 'w-[500px]' : 'w-auto'}>
                     {item.content}
                   </DropdownMenuContent>
                 )}
