@@ -439,7 +439,7 @@ const WhySoroSection: React.FC = () => {
     { icon: <Sliders />, title: 'Habla como tu clínica', description: 'Personaliza el tono, respuestas y estilo.' },
   ];
   return (
-    <SectionWrapper className="py-20 md:py-32 bg-white">
+    <SectionWrapper className="py-8 md:py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
