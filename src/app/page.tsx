@@ -341,7 +341,7 @@ const Hero: React.FC = () => {
               </h1>
               
               <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
-                Tu asistente virtual con inteligencia artificial diseñado para automatizar la comunicación con pacientes, gestionar citas y liberar a tu equipo de tareas repetitivas.
+                Tu asistente virtual con IA para automatizar la comunicación por WhatsApp, gestionar citas y liberar a tu equipo de tareas repetitivas.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 mb-8 justify-center lg:justify-start">
@@ -448,7 +448,7 @@ const WhySoroSection: React.FC = () => {
               La nueva forma de atender pacientes ha llegado.
             </h2>
             <p className="text-lg text-gray-600">
-              “Antes necesitabas recepcionistas, recordatorios manuales y horas respondiendo mensajes. Con SORO™, tu clínica se vuelve autónoma: responde, agenda y confirma citas automáticamente.”
+              “Antes necesitabas recepcionistas, recordatorios manuales y horas respondiendo mensajes de WhatsApp. Con SORO™, tu clínica se vuelve autónoma: responde, agenda y confirma citas automáticamente.”
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -573,12 +573,12 @@ const InnovationSection: React.FC = () => {
           </div>
           <div>
             <Image
-              src="https://picsum.photos/seed/soro-chat-mockup/600/400"
+              src="https://picsum.photos/seed/soro-chat-mockup-new/600/400"
               alt="Conversación de chat de SORO en un teléfono"
               width={600}
               height={400}
               className="rounded-xl shadow-2xl"
-              data-ai-hint="abstract technology"
+              data-ai-hint="chatbot conversation whatsapp"
             />
           </div>
         </div>
