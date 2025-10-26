@@ -1,45 +1,138 @@
 {
   "entities": {
     "Lead": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Lead",
-      "description": "A potential customer who has submitted their contact information.",
       "type": "object",
+      "description": "Represents a potential customer (lead) captured through a landing page form.",
       "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the lead."
+        },
+        "formId": {
+          "type": "string",
+          "description": "Reference to the LandingPageForm that the lead originated from. (Relationship: LandingPageForm 1:N Lead)"
+        },
         "name": {
           "type": "string",
-          "description": "The full name of the lead."
+          "description": "The lead's name."
         },
         "email": {
           "type": "string",
-          "format": "email",
-          "description": "The email address of the lead."
+          "description": "The lead's email address.",
+          "format": "email"
         },
         "phone": {
           "type": "string",
-          "description": "The phone number of the lead."
+          "description": "The lead's phone number."
         },
-        "clinicName": {
+        "company": {
           "type": "string",
-          "description": "The name of the lead's dental clinic."
+          "description": "The lead's company name (if applicable)."
         },
-        "createdAt": {
+        "position": {
           "type": "string",
-          "format": "date-time",
-          "description": "The timestamp when the lead was created."
+          "description": "The lead's job position (if applicable)."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Any additional notes about the lead."
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "The date and time when the lead was created.",
+          "format": "date-time"
         }
       },
       "required": [
-        "email"
+        "id",
+        "formId",
+        "email",
+        "dateCreated"
+      ]
+    },
+    "LandingPageForm": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "LandingPageForm",
+      "type": "object",
+      "description": "Represents a form used on a landing page to capture leads.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the landing page form."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the landing page form (e.g., 'VSL Opt-in Form', 'Personalized Demo Form')."
+        },
+        "landingPageType": {
+          "type": "string",
+          "description": "The type of landing page this form is associated with (e.g., 'VSL', 'Demo', 'Lead Magnet')."
+        },
+        "fields": {
+          "type": "array",
+          "description": "A list of the fields included in the form (e.g. name, email, phone).",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "The date and time when the landing page form was created.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "landingPageType",
+        "fields",
+        "dateCreated"
       ]
     }
   },
   "auth": {
-    "providers": []
+    "providers": [
+      "password",
+      "anonymous"
+    ]
   },
   "firestore": {
-    "/leads/{leadId}": {
-      "schema": "Lead",
-      "description": "Collection of leads from the landing page forms."
-    }
+    "structure": [
+      {
+        "path": "/landing_page_forms/{formId}",
+        "definition": {
+          "entityName": "LandingPageForm",
+          "schema": {
+            "$ref": "#/backend/entities/LandingPageForm"
+          },
+          "description": "Stores the configurations for various landing page forms. Includes metadata about the form's purpose and fields.",
+          "params": [
+            {
+              "name": "formId",
+              "description": "The unique identifier for the landing page form."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/leads/{leadId}",
+        "definition": {
+          "entityName": "Lead",
+          "schema": {
+            "$ref": "#/backend/entities/Lead"
+          },
+          "description": "Stores lead data captured from landing page forms. Each document represents a single lead submission.",
+          "params": [
+            {
+              "name": "leadId",
+              "description": "The unique identifier for the lead."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "To effectively manage landing pages and capture leads for SORO™, the recommended Firestore structure focuses on clear organization and easy querying.  The structure leverages the `LandingPageForm` and `Lead` entities.  Each landing page will have its own form, and each submission of that form will create a `Lead` document. This design ensures that leads are directly associated with the landing page they originated from.\n\n**Authorization Independence**: Authorization Independence is achieved by design, using the implicit ownership of documents within collections. There is no authorization logic specified in the user request; if authorization is required in the future (e.g. a user can only view leads submitted to *their* forms), denormalization may be required, such as by adding an `ownerId` field to the `Lead` documents, copying it from the `LandingPageForm`.\n\n**QAPs (Rules are not Filters)**: The design naturally supports secure `list` operations. List operations on `/leads` are possible without relying on filtering based on document content, as all documents in the `leads` collection will share the same security posture. If more complex access control is required, Structural Segregation can be applied. For instance, one could introduce an `adminLeads` collection with stricter access rules. With path-based ownership as described in the Authorization Independence section, rules can be applied such that a `User` can only view `/users/{userId}/leads`."
   }
 }

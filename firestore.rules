@@ -1,0 +1,51 @@
+/**
+ * @file Firestore Security Rules for SORO™ Landing Pages and Leads Management
+ *
+ * @core_philosophy This ruleset prioritizes simplicity and security by default, focusing on a flat data structure. All reads are public, and writes are denied by default.
+ * Future enhancements should employ denormalization and helper functions to implement granular access control.
+ *
+ * @data_structure
+ * - `/landing_page_forms/{formId}`: Stores landing page form configurations.
+ * - `/leads/{leadId}`: Stores lead data captured from landing page forms.
+ *
+ * @key_security_decisions
+ * - All read operations (`get`, `list`) are open to the public. This simplifies the initial implementation.
+ * - All write operations (`create`, `update`, `delete`) are initially denied. Specific write rules must be explicitly added.
+ * - The current design lacks authorization checks. If authorization is needed, implement denormalization by adding an `ownerId` field to `Lead` documents, copied from the `LandingPageForm`. This will enable owner-based access control.
+ *
+ * @denormalization_for_authorization N/A (authorization not yet implemented)
+ * @structural_segregation N/A (authorization not yet implemented)
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * @description Allows public read access to landing page form configurations, but restricts all write access.
+     * @path /landing_page_forms/{formId}
+     * @allow (get, list): Any user can read form configurations.
+     * @deny (create, update, delete): No user can create, update, or delete form configurations without authorization.
+     * @principle Provides public read access with restricted write access.
+     */
+    match /landing_page_forms/{formId} {
+      allow get, list: if true;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    /**
+     * @description Allows public read access to lead data, but restricts all write access.
+     * @path /leads/{leadId}
+     * @allow (get, list): Any user can read lead data.
+     * @deny (create, update, delete): No user can create, update, or delete lead data without authorization.
+     * @principle Provides public read access with restricted write access.
+     */
+    match /leads/{leadId} {
+      allow get, list: if true;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+  }
+}
