@@ -57,6 +57,7 @@ export default function VslOptInPage() {
                   ctaText="Obtener una Consulta Gratuita"
                   formTitle="Inicia Tu Viaje de Automatización"
                   formDescription="Completa el formulario a continuación para reclamar tu consulta gratuita y sin compromiso con uno de nuestros expertos en automatización."
+                  source="Carta de Ventas en Video (VSL)"
                 />
               </div>
             </div>

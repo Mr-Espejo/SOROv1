@@ -24,6 +24,7 @@ interface LeadFormProps {
   ctaText: string;
   formTitle: string;
   formDescription: string;
+  source: string;
 }
 
 const formSchema = z.object({
@@ -33,7 +34,7 @@ const formSchema = z.object({
   clinicName: z.string().optional().or(z.literal('')),
 });
 
-export function LeadForm({ formFields, ctaText, formTitle, formDescription }: LeadFormProps) {
+export function LeadForm({ formFields, ctaText, formTitle, formDescription, source }: LeadFormProps) {
   const firestore = useFirestore();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -56,7 +57,7 @@ export function LeadForm({ formFields, ctaText, formTitle, formDescription }: Le
     }
 
     try {
-        await saveLead(firestore, values);
+        await saveLead(firestore, { ...values, source });
         toast({
             title: '¡Éxito!',
             description: "Hemos recibido tu información y nos pondremos en contacto en breve.",

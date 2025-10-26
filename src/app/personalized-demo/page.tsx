@@ -56,6 +56,7 @@ export default function PersonalizedDemoPage() {
               ctaText="Agendar Mi Demo"
               formTitle="Solicita Tu Demo Personalizado"
               formDescription="Proporciona tus datos a continuación y nuestro equipo preparará una demostración adaptada a las necesidades específicas de tu clínica."
+              source="Demo Personalizado"
             />
           </div>
         </section>

@@ -68,6 +68,7 @@ export default function LeadMagnetPage() {
                   ctaText="Descargar Ebook Gratis"
                   formTitle="Obtén Tu Guía Gratis Ahora"
                   formDescription="Ingresa tus datos para obtener acceso instantáneo."
+                  source="Descarga de Lead Magnet"
                 />
               </div>
             </div>
