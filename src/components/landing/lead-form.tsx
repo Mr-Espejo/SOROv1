@@ -9,6 +9,8 @@ import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Loader2 } from 'lucide-react';
+import { useFirestore } from '@/firebase';
+import { saveLead } from '@/lib/firebase/firestore';
 
 type FormFieldConfig = {
     name: 'name' | 'email' | 'phone' | 'clinicName';
@@ -32,6 +34,7 @@ const formSchema = z.object({
 });
 
 export function LeadForm({ formFields, ctaText, formTitle, formDescription }: LeadFormProps) {
+  const firestore = useFirestore();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -43,15 +46,30 @@ export function LeadForm({ formFields, ctaText, formTitle, formDescription }: Le
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    // Aquí normalmente enviarías los datos a tu backend o un CRM
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    toast({
-      title: '¡Éxito!',
-      description: "Hemos recibido tu información y nos pondremos en contacto en breve.",
-    });
-    form.reset();
+    if (!firestore) {
+        toast({
+            variant: "destructive",
+            title: "Error",
+            description: "No se pudo conectar a la base de datos. Por favor, inténtalo más tarde.",
+        });
+        return;
+    }
+
+    try {
+        await saveLead(firestore, values);
+        toast({
+            title: '¡Éxito!',
+            description: "Hemos recibido tu información y nos pondremos en contacto en breve.",
+        });
+        form.reset();
+    } catch (error) {
+        console.error("Error saving lead:", error);
+        toast({
+            variant: "destructive",
+            title: "¡Uy! Algo salió mal.",
+            description: "No pudimos guardar tu información. Por favor, inténtalo de nuevo.",
+        });
+    }
   }
 
   return (
