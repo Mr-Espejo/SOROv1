@@ -573,12 +573,12 @@ const InnovationSection: React.FC = () => {
           </div>
           <div>
             <Image
-              src="https://picsum.photos/seed/soro-chat-innovation/600/400"
+              src="https://picsum.photos/seed/soro-chat-mockup/600/400"
               alt="Conversación de chat de SORO en un teléfono"
               width={600}
               height={400}
               className="rounded-xl shadow-2xl"
-              data-ai-hint="chat interface dental"
+              data-ai-hint="abstract technology"
             />
           </div>
         </div>
@@ -593,7 +593,7 @@ const FinalCTASection: React.FC = () => {
     <SectionWrapper className="py-20 md:py-32 bg-gray-900 text-white">
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4">
-          Tu clínica no necesita más horas… necesita un SORO™.
+          Tu clínica no necesita más horas… necesita a SORO.
         </h2>
         <p className="text-lg text-gray-300 max-w-2xl mx-auto mb-10">
           Agenda una demostración gratuita y descubre cómo automatizar el 80% de la atención sin perder el toque humano.
