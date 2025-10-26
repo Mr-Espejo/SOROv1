@@ -477,7 +477,7 @@ const TestimonialSection: React.FC = () => {
         </h2>
         <blockquote className="max-w-3xl mx-auto">
           <p className="text-xl md:text-2xl text-gray-300 italic mb-6">
-            “Antes perdíamos pacientes cada fin de semana. Ahora, SORO responde al instante, agenda y nos notifica. Cerramos más citas que nunca.”
+            “Antes perdíamos pacientes cada fin de semana. Ahora, SORO responde al instante por WhatsApp, agenda y nos notifica. Cerramos más citas que nunca.”
           </p>
           <footer className="text-teal-400 font-semibold">— Clínica Dental SmilePro, Bogotá</footer>
         </blockquote>
@@ -568,7 +568,7 @@ const InnovationSection: React.FC = () => {
               Más que un chatbot, una nueva generación de atención dental.
             </h2>
             <p className="text-lg text-gray-600">
-              SORO™ no es un bot genérico. Es un sistema conversacional entrenado para el sector odontológico, diseñado para hablar el idioma de tus pacientes y convertir conversaciones en ingresos reales.
+              SORO™ no es un bot genérico. Es un sistema conversacional entrenado para el sector odontológico, diseñado para hablar el idioma de tus pacientes, realizar seguimiento y convertir conversaciones en ingresos reales.
             </p>
           </div>
           <div>
