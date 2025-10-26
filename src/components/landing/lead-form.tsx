@@ -11,6 +11,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Loader2 } from 'lucide-react';
 import { useFirestore } from '@/firebase';
 import { saveLead } from '@/lib/firebase/firestore';
+import { useState } from 'react';
 
 type FormFieldConfig = {
     name: 'name' | 'email' | 'phone' | 'clinicName';
@@ -36,6 +37,7 @@ const formSchema = z.object({
 
 export function LeadForm({ formFields, ctaText, formTitle, formDescription, source }: LeadFormProps) {
   const firestore = useFirestore();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -47,30 +49,29 @@ export function LeadForm({ formFields, ctaText, formTitle, formDescription, sour
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsSubmitting(true);
+
     if (!firestore) {
         toast({
             variant: "destructive",
             title: "Error",
             description: "No se pudo conectar a la base de datos. Por favor, inténtalo más tarde.",
         });
+        setIsSubmitting(false);
         return;
     }
+    
+    // We are not awaiting here. The UI will show a success message optimistically.
+    // The saveLead function will handle permission errors in the background.
+    saveLead(firestore, { ...values, source });
 
-    try {
-        await saveLead(firestore, { ...values, source });
-        toast({
-            title: '¡Éxito!',
-            description: "Hemos recibido tu información y nos pondremos en contacto en breve.",
-        });
-        form.reset();
-    } catch (error) {
-        console.error("Error saving lead:", error);
-        toast({
-            variant: "destructive",
-            title: "¡Uy! Algo salió mal.",
-            description: "No pudimos guardar tu información. Por favor, inténtalo de nuevo.",
-        });
-    }
+    toast({
+        title: '¡Éxito!',
+        description: "Hemos recibido tu información y nos pondremos en contacto en breve.",
+    });
+    
+    form.reset();
+    setIsSubmitting(false);
   }
 
   return (
@@ -98,8 +99,8 @@ export function LeadForm({ formFields, ctaText, formTitle, formDescription, sour
                 )}
               />
             ))}
-            <Button type="submit" size="lg" className="w-full bg-accent text-lg font-semibold hover:bg-accent/90" disabled={form.formState.isSubmitting}>
-              {form.formState.isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            <Button type="submit" size="lg" className="w-full bg-accent text-lg font-semibold hover:bg-accent/90" disabled={isSubmitting}>
+              {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               {ctaText}
             </Button>
           </form>
