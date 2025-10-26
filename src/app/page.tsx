@@ -337,6 +337,7 @@ const Hero: React.FC = () => {
             <div className="max-w-3xl lg:w-1/2 lg:order-first">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-gray-800">
                 Gestiona tu clínica dental con <span className="bg-gradient-to-r from-teal-500 to-cyan-600 bg-clip-text text-transparent">SORO™</span>
+                <span className="text-3xl md:text-4xl lg:text-5xl text-green-600 font-semibold ml-2">+ Whatsapp</span>
               </h1>
               
               <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
@@ -571,13 +572,13 @@ const InnovationSection: React.FC = () => {
             </p>
           </div>
           <div>
-            <Image 
-              src="https://picsum.photos/seed/soro-chat-mockup/600/400"
+            <Image
+              src="https://picsum.photos/seed/soro-chat-innovation/600/400"
               alt="Conversación de chat de SORO en un teléfono"
               width={600}
               height={400}
               className="rounded-xl shadow-2xl"
-              data-ai-hint="phone chat interface"
+              data-ai-hint="chat interface dental"
             />
           </div>
         </div>
