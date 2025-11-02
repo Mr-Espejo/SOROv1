@@ -67,14 +67,6 @@ export const updateDemoDocuments = async (
   const clinicRef = doc(db, 'clinics', clinicId);
   const demoRequestRef = doc(db, 'demo_requests', clinicId);
   
-  const payload: Partial<DemoFormData> = {};
-  if (data.city) payload.city = data.city;
-  if (data.address) payload.address = data.address;
-  if (data.openingHours) payload.openingHours = data.openingHours;
-  if (data.services) payload.services = data.services;
-  if (data.testMode) payload.testMode = data.testMode;
-
-
   // Update Clinic doc if there's relevant data
   const clinicData: Partial<DemoFormData> = {};
    if (data.city) clinicData.city = data.city;
