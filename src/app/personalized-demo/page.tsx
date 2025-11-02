@@ -33,7 +33,7 @@ export default function PersonalizedDemoPage() {
                 </p>
               </div>
               <Button asChild size="lg" className="bg-accent text-lg font-semibold hover:bg-accent/90">
-                <Link href="#demo-form">
+                <Link href="/demo">
                   Agendar Mi Demo Gratis
                   <ArrowDown className="ml-2 h-5 w-5" />
                 </Link>

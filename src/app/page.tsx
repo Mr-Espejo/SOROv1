@@ -41,7 +41,7 @@ const DynamicHeader: React.FC = () => {
   };
 
   const handleDemoClick = () => {
-    router.push('/personalized-demo');
+    router.push('/demo');
     setIsMenuOpen(false);
   };
 
@@ -168,7 +168,7 @@ const DynamicHeader: React.FC = () => {
       content: (
         <div className="p-2">
           <DropdownMenuLabel className="text-muted-foreground font-semibold text-xs">APRENDE MÁS</DropdownMenuLabel>
-          <Link href="/personalized-demo">
+          <Link href="/demo">
             <DropdownMenuItem className="gap-3"><PlayCircle size={20}/> Realizar Demo</DropdownMenuItem>
           </Link>
           <Link href="/lead-magnet">
@@ -281,7 +281,7 @@ const Hero: React.FC = () => {
   const router = useRouter();
 
   const handleDemoClick = () => {
-    router.push('/personalized-demo');
+    router.push('/demo');
   };
 
   const scrollToFeatures = () => {
@@ -292,7 +292,7 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <section className="pt-10 pb-20 md:pt-16 md:pb-24 bg-gradient-to-br from-cyan-50 to-teal-50">
+    <section className="pt-10 pb-12 md:pt-16 md:pb-20 bg-gradient-to-br from-cyan-50 to-teal-50">
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center text-center">
 
@@ -470,7 +470,7 @@ const WhySoroSection: React.FC = () => {
 
 const TestimonialSection: React.FC = () => {
   return (
-    <SectionWrapper className="py-20 md:py-32 bg-gray-900 text-white">
+    <SectionWrapper className="py-12 md:py-20 bg-gray-900 text-white">
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6">
           De mensajes sin responder... a pacientes felices.
@@ -507,7 +507,7 @@ const HowItWorksSection: React.FC = () => {
     },
   ];
   return (
-    <SectionWrapper className="py-20 md:py-32 bg-gradient-to-b from-cyan-50 to-teal-50/50">
+    <SectionWrapper className="py-12 md:py-20 bg-gradient-to-b from-cyan-50 to-teal-50/50">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 leading-tight mb-4">
@@ -547,7 +547,7 @@ const HowItWorksSection: React.FC = () => {
         <div className="text-center mt-16">
           <Button
             size="lg"
-            onClick={() => router.push('/personalized-demo')}
+            onClick={() => router.push('/demo')}
             className="bg-teal-500 hover:bg-teal-600 text-white"
           >
             Pide una demo y mira cómo SORO trabaja por ti <ArrowRight className="ml-2" />
@@ -560,7 +560,7 @@ const HowItWorksSection: React.FC = () => {
 
 const InnovationSection: React.FC = () => {
   return (
-    <SectionWrapper className="py-20 md:py-32 bg-white">
+    <SectionWrapper className="py-12 md:py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
@@ -590,7 +590,7 @@ const InnovationSection: React.FC = () => {
 const FinalCTASection: React.FC = () => {
   const router = useRouter();
   return (
-    <SectionWrapper className="py-20 md:py-32 bg-gray-900 text-white">
+    <SectionWrapper className="py-12 md:py-20 bg-gray-900 text-white">
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4">
           Tu clínica no necesita más horas… necesita a SORO.
@@ -599,7 +599,7 @@ const FinalCTASection: React.FC = () => {
           Agenda una demostración gratuita y descubre cómo automatizar el 80% de la atención sin perder el toque humano.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg" onClick={() => router.push('/personalized-demo')} className="bg-teal-500 hover:bg-teal-600 text-white">
+          <Button size="lg" onClick={() => router.push('/demo')} className="bg-teal-500 hover:bg-teal-600 text-white">
             Agendar Demo Gratis
           </Button>
           <Button size="lg" variant="outline" onClick={() => router.push('/contact')} className="border-teal-400 text-teal-400 hover:bg-teal-400 hover:text-gray-900">

@@ -16,7 +16,7 @@ export function Footer() {
           <Link href="/vsl-opt-in" className="text-sm font-medium hover:text-gray-900">
             Ver VSL
           </Link>
-          <Link href="/personalized-demo" className="text-sm font-medium hover:text-gray-900">
+          <Link href="/demo" className="text-sm font-medium hover:text-gray-900">
             Demo
           </Link>
           <Link href="/lead-magnet" className="text-sm font-medium hover:text-gray-900">

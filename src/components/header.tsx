@@ -11,7 +11,7 @@ export function Header() {
         </Link>
         <nav className="flex items-center gap-4">
           <Button asChild className="bg-teal-500 text-white hover:bg-teal-600">
-            <Link href="/personalized-demo#demo-form">Solicitar un Demo</Link>
+            <Link href="/demo">Solicitar un Demo</Link>
           </Button>
         </nav>
       </div>
