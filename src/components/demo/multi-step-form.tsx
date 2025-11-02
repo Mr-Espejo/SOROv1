@@ -49,8 +49,8 @@ const validationSchemas = [
 
 
 const countryCodes = [
-    { value: '+1', label: '🇨🇦 Canadá (+1)' },
-    { value: '+1', label: '🇺🇸 Estados Unidos (+1)' },
+    { value: '+1-CA', label: '🇨🇦 Canadá (+1)' },
+    { value: '+1-US', label: '🇺🇸 Estados Unidos (+1)' },
     { value: '+52', label: '🇲🇽 México (+52)' },
     { value: '+54', label: '🇦🇷 Argentina (+54)' },
     { value: '+55', label: '🇧🇷 Brasil (+55)' },
@@ -287,6 +287,7 @@ export function MultiStepForm() {
 
   // Generate a unique ID for the session once
   useEffect(() => {
+    if (!firestore) return;
     if (!clinicId) {
       setClinicId(doc(collection(firestore, 'clinics')).id);
     }
@@ -322,13 +323,16 @@ export function MultiStepForm() {
     }
     
     const values = methods.getValues();
+    const countryCodeValue = values.countryCode?.split('-')[0];
+    const dataToSend = { ...values, countryCode: countryCodeValue };
+
 
     if (currentStep === 1) {
       // First step with data, create the documents
-      createInitialDemoDocuments(firestore, clinicId, values);
+      createInitialDemoDocuments(firestore, clinicId, dataToSend);
     } else if (currentStep > 1) {
       // Subsequent steps, update the documents
-      updateDemoDocuments(firestore, clinicId, values);
+      updateDemoDocuments(firestore, clinicId, dataToSend);
     }
 
     if (currentStep === totalSteps - 1) {
@@ -403,3 +407,5 @@ export function MultiStepForm() {
     </div>
   );
 }
+
+    
