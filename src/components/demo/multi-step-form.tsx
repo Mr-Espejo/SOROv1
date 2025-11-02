@@ -126,9 +126,6 @@ const Step1 = () => (
                         value={field.value}
                         onChange={field.onChange}
                         inputClassName="w-full"
-                        inputProps={{
-                          className: "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
-                        }}
                       />
                   </FormControl>
                   <FormMessage />
@@ -318,7 +315,10 @@ const Step3 = () => (
     </Card>
 );
 
-const Step4 = () => (
+const Step4 = () => {
+  const { control, getValues, setValue } = useFormContext();
+
+  return (
      <Card className="w-full">
         <CardHeader>
             <CardTitle>4. Elige cómo quieres probar SORO</CardTitle>
@@ -327,6 +327,7 @@ const Step4 = () => (
         <CardContent className="pt-6">
            <FormField
             name="testMode"
+            control={control}
             render={({ field }) => (
                 <FormItem>
                     <FormControl>
@@ -374,7 +375,8 @@ const Step4 = () => (
             />
         </CardContent>
     </Card>
-);
+  );
+};
 
 export function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState(0);
@@ -414,17 +416,27 @@ export function MultiStepForm() {
         { day: 'domingo', isOpen: false, openTime: '10:00', closeTime: '14:00' },
       ],
       services: [],
-      testMode: undefined,
+      testMode: undefined as 'qr_connect' | 'sandbox' | 'expert_call' | undefined,
     },
   });
 
-  const handleNext = async () => {
-    const isValid = await methods.trigger();
-    if (!isValid) return;
+  const watchedTestMode = methods.watch('testMode');
 
+  useEffect(() => {
+    const handleSandboxRedirect = async () => {
+        if (watchedTestMode === 'sandbox' && currentStep === totalSteps - 1) {
+            await saveData();
+            router.push('/demo/sandbox');
+        }
+    };
+    handleSandboxRedirect();
+  }, [watchedTestMode, currentStep, router]);
+
+
+  const saveData = async () => {
     if (!firestore || !clinicId) {
         console.error("Firestore not ready or clinicId not set");
-        return;
+        return false;
     }
     
     const values = methods.getValues();
@@ -435,21 +447,31 @@ export function MultiStepForm() {
         } else if (currentStep > 1) {
           await updateDemoDocuments(firestore, clinicId, values);
         }
+        return true;
     } catch (error) {
         console.error("Error saving data to Firestore:", error);
-        return;
+        return false;
     }
+  };
+
+
+  const handleNext = async () => {
+    const isValid = await methods.trigger();
+    if (!isValid) return;
+
+    const dataSaved = await saveData();
+    if (!dataSaved) return;
 
     if (currentStep === totalSteps - 1) {
       const selectedTestMode = methods.getValues('testMode');
       if (selectedTestMode === 'sandbox') {
+        // This is now handled by the useEffect, but we keep it as a fallback.
         router.push('/demo/sandbox');
         return;
       }
       alert(`Flujo para "${selectedTestMode}" en construcción.`);
-      return; // Stop here for the final step
+      return;
     }
-
 
     if (currentStep < totalSteps - 1) {
         setCurrentStep(currentStep + 1);
@@ -504,7 +526,7 @@ export function MultiStepForm() {
             {currentStep > 0 && (
                 <div className="mt-8 flex justify-between">
                     <Button variant="ghost" onClick={handleBack} disabled={currentStep === 1}>Atrás</Button>
-                    <Button onClick={handleNext}>
+                    <Button onClick={handleNext} disabled={watchedTestMode === 'sandbox'}>
                         {isFinalStep ? 'Finalizar' : 'Siguiente'}
                         {!isFinalStep && <ArrowRight className="ml-2 h-4 w-4" />}
                     </Button>
@@ -514,3 +536,5 @@ export function MultiStepForm() {
     </div>
   );
 }
+
+    
