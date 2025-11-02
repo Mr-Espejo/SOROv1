@@ -1,63 +1,28 @@
-/**
- * @file Overview
- * This ruleset governs access to the `leads` and `landing_page_forms` collections.
- *
- * Core Philosophy:
- * In its initial prototyping phase, this ruleset prioritizes capturing leads and managing landing page forms without complex authorization.
- * Public read access is enabled for all collections, allowing for easy data retrieval, while writes are initially open to facilitate quick data capture.
- * However, a crucial enhancement is planned: the introduction of an `ownerId` field to the `Lead` documents.
- * This will pave the way for a more refined security model where write access to leads is restricted to the owner of the corresponding landing page form.
- * Data validation is intentionally minimal at this stage to accelerate development, with a focus on relational integrity.
- *
- * Data Structure:
- * - `/landing_page_forms/{formId}`: Stores landing page form configurations.
- * - `/leads/{leadId}`: Stores lead data captured from landing page forms.
- *
- * Key Security Decisions:
- * - Public Read Access: All `get` and `list` operations are currently open to all users. This is a temporary measure for the prototyping phase.
- * - Unrestricted Writes: All `create`, `update`, and `delete` operations are open to all users. This is a temporary measure that will be secured once the `ownerId` field is added to the `Lead` documents.
- * - No User Listing: Listing of users is implicitly disallowed as there is no `/users` collection.
- *
- * Denormalization for Authorization:
- * - Future Enhancement: The `Lead` entity will be extended with an `ownerId` field, which will be copied from the associated `LandingPageForm`.
- *   This denormalization will enable efficient and secure owner-based access control for lead data.
- *
- * Structural Segregation:
- * - Not implemented. All leads are stored in a single `/leads` collection. Future access control requirements may necessitate the introduction of separate collections (e.g., `/adminLeads`).
- */
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    /**
-     * @description Allows anyone to read LandingPageForm documents.
-     * @path /landing_page_forms/{formId}
-     * @allow (get, list) Any user can read any landing page form.
-     * @deny (create, update, delete) No one can modify landing page forms (temporarily).
-     * @principle Read access is public, write access is temporarily disabled.
-     */
-    match /landing_page_forms/{formId} {
-      allow get: if true;
-      allow list: if true;
-      allow create: if false;
-      allow update: if false;
-      allow delete: if false;
-    }
-
-    /**
-     * @description Allows anyone to read Leads documents and create new Lead documents.
-     * @path /leads/{leadId}
-     * @allow (get, list) Any user can read any lead.
-     * @allow (create) Any user can create a new lead.
-     * @deny (update, delete) No one can update or delete a lead (temporarily).
-     * @principle Read and create access is public, update and delete access is temporarily disabled.
-     */
+    // Allow public creation of leads for capture forms.
+    // Reading, updating, or deleting is not allowed for security.
     match /leads/{leadId} {
-      allow get: if true;
-      allow list: if true;
+      allow get: if false;
+      allow list: if false;
       allow create: if true;
       allow update: if false;
       allow delete: if false;
+    }
+    
+    // Allow public creation of clinic and demo request data during the onboarding flow.
+    // This is necessary for anonymous users to complete the multi-step demo form.
+    // More restrictive rules should be applied post-MVP.
+    match /clinics/{clinicId} {
+      allow create: if true;
+      allow read, update, delete: if false; 
+    }
+
+    match /demo_requests/{requestId} {
+      allow create: if true;
+      allow read, update, delete: if false;
     }
   }
 }
