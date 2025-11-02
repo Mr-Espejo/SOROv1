@@ -17,12 +17,13 @@ import { useRouter } from 'next/navigation';
 import { useFirestore } from '@/firebase';
 import { createInitialDemoDocuments, updateDemoDocuments } from '@/lib/firebase/demo';
 import { collection, doc } from 'firebase/firestore';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 
 const step1Schema = z.object({
   clinicName: z.string().min(2, 'El nombre de la clínica es requerido'),
   email: z.string().email('El correo electrónico no es válido'),
-  countryCode: z.string().min(1, 'Requerido').max(4),
+  countryCode: z.string().min(1, 'Requerido'),
   phone: z.string().min(7, 'El número de teléfono no es válido'),
 });
 
@@ -46,6 +47,45 @@ const validationSchemas = [
     step3Schema
 ];
 
+
+const countryCodes = [
+    { value: '+1', label: '🇨🇦 Canadá (+1)' },
+    { value: '+1', label: '🇺🇸 Estados Unidos (+1)' },
+    { value: '+52', label: '🇲🇽 México (+52)' },
+    { value: '+54', label: '🇦🇷 Argentina (+54)' },
+    { value: '+55', label: '🇧🇷 Brasil (+55)' },
+    { value: '+56', label: '🇨🇱 Chile (+56)' },
+    { value: '+57', label: '🇨🇴 Colombia (+57)' },
+    { value: '+58', label: '🇻🇪 Venezuela (+58)' },
+    { value: '+51', label: '🇵🇪 Perú (+51)' },
+    { value: '+591', label: '🇧🇴 Bolivia (+591)' },
+    { value: '+593', label: '🇪🇨 Ecuador (+593)' },
+    { value: '+595', label: '🇵🇾 Paraguay (+595)' },
+    { value: '+598', label: '🇺🇾 Uruguay (+598)' },
+    { value: '+502', label: '🇬🇹 Guatemala (+502)' },
+    { value: '+503', label: '🇸🇻 El Salvador (+503)' },
+    { value: '+504', label: '🇭🇳 Honduras (+504)' },
+    { value: '+505', label: '🇳🇮 Nicaragua (+505)' },
+    { value: '+506', label: '🇨🇷 Costa Rica (+506)' },
+    { value: '+507', label: '🇵🇦 Panamá (+507)' },
+    { value: '+53', label: '🇨🇺 Cuba (+53)' },
+    { value: '+34', label: '🇪🇸 España (+34)' },
+    { value: '+44', label: '🇬🇧 Reino Unido (+44)' },
+    { value: '+49', label: '🇩🇪 Alemania (+49)' },
+    { value: '+33', label: '🇫🇷 Francia (+33)' },
+    { value: '+39', label: '🇮🇹 Italia (+39)' },
+    { value: '+351', label: '🇵🇹 Portugal (+351)' },
+    { value: '+31', label: '🇳🇱 Países Bajos (+31)' },
+    { value: '+32', label: '🇧🇪 Bélgica (+32)' },
+    { value: '+41', label: '🇨🇭 Suiza (+41)' },
+    { value: '+43', label: '🇦🇹 Austria (+43)' },
+    { value: '+45', label: '🇩🇰 Dinamarca (+45)' },
+    { value: '+46', label: '🇸🇪 Suecia (+46)' },
+    { value: '+47', label: '🇳🇴 Noruega (+47)' },
+    { value: '+48', label: '🇵🇱 Polonia (+48)' },
+    { value: '+353', label: '🇮🇪 Irlanda (+353)' },
+    { value: '+358', label: '🇫🇮 Finlandia (+358)' },
+];
 
 const WelcomeStep = ({ onNext }: { onNext: () => void }) => (
     <div className="text-center">
@@ -94,20 +134,31 @@ const Step1 = () => (
                 <FormLabel>Número de Teléfono</FormLabel>
                 <div className="flex gap-2">
                     <FormField
-                    name="countryCode"
-                    render={({ field }) => (
-                        <FormItem className="w-1/4">
-                        <FormControl>
-                            <Input placeholder="+57" {...field} />
-                        </FormControl>
-                        <FormMessage />
+                      name="countryCode"
+                      render={({ field }) => (
+                        <FormItem className="w-2/5">
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="País" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {countryCodes.map((country) => (
+                                <SelectItem key={country.label} value={country.value}>
+                                  {country.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
                         </FormItem>
-                    )}
+                      )}
                     />
                     <FormField
-                    name="phone"
-                    render={({ field }) => (
-                        <FormItem className="w-3/4">
+                      name="phone"
+                      render={({ field }) => (
+                        <FormItem className="w-3/5">
                         <FormControl>
                             <Input placeholder="3001234567" {...field} />
                         </FormControl>
