@@ -9,7 +9,6 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '../ui/input';
-import { Label } from '../ui/label';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 import { ArrowRight, MessageSquare, Phone, User } from 'lucide-react';
@@ -17,8 +16,7 @@ import { useRouter } from 'next/navigation';
 import { useFirestore } from '@/firebase';
 import { createInitialDemoDocuments, updateDemoDocuments } from '@/lib/firebase/demo';
 import { collection, doc } from 'firebase/firestore';
-import PhoneInput from 'react-phone-number-input';
-import es from 'react-phone-number-input/locale/es';
+import { PhoneInput } from 'react-international-phone';
 
 
 const step1Schema = z.object({
@@ -98,14 +96,14 @@ const Step1 = () => (
                   <FormLabel>Número de Teléfono</FormLabel>
                    <FormControl>
                      <PhoneInput
-                        labels={es}
-                        international
-                        countryCallingCodeEditable={false}
-                        defaultCountry="CO"
-                        countries={['CO', 'MX', 'AR', 'PE', 'CL', 'EC', 'GT', 'BO', 'HN', 'PY', 'SV', 'NI', 'CR', 'PA', 'UY', 'US', 'CA', 'ES', 'PT', 'FR', 'DE', 'IT', 'GB']}
+                        defaultCountry="co"
+                        preferredCountries={['co', 'mx', 'ar', 'pe', 'cl', 'ec', 'gt', 'bo', 'hn', 'py', 'sv', 'ni', 'cr', 'pa', 'uy', 'us', 'ca', 'es', 'pt', 'fr', 'de', 'it', 'gb']}
                         value={field.value}
                         onChange={field.onChange}
-                        className="soro-phone-input"
+                        inputClassName="w-full"
+                        inputProps={{
+                          className: "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                        }}
                       />
                   </FormControl>
                   <FormMessage />
@@ -262,7 +260,6 @@ export function MultiStepForm() {
 
     if (!firestore || !clinicId) {
         console.error("Firestore not ready or clinicId not set");
-        // Optionally, show a toast to the user
         return;
     }
     
@@ -270,16 +267,13 @@ export function MultiStepForm() {
 
     try {
         if (currentStep === 1) {
-          // First step with data, create the documents
           await createInitialDemoDocuments(firestore, clinicId, values);
         } else if (currentStep > 1) {
-          // Subsequent steps, update the documents
           await updateDemoDocuments(firestore, clinicId, values);
         }
     } catch (error) {
         console.error("Error saving data to Firestore:", error);
-        // Handle error appropriately, maybe show a toast to the user
-        return; // Prevent moving to next step if there's an error
+        return;
     }
 
 
@@ -287,9 +281,8 @@ export function MultiStepForm() {
       const selectedTestMode = methods.getValues('testMode');
       if (selectedTestMode === 'sandbox') {
         router.push('/demo/sandbox');
-        return; // Early return to prevent advancing step
+        return;
       }
-      // Handle final submission for other cases
       alert(`Flujo para "${selectedTestMode}" en construcción.`);
     }
 
