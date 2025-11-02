@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useForm, FormProvider } from 'react-hook-form';
+import { useForm, FormProvider, useFieldArray, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -17,7 +17,9 @@ import { useFirestore } from '@/firebase';
 import { createInitialDemoDocuments, updateDemoDocuments } from '@/lib/firebase/demo';
 import { collection, doc } from 'firebase/firestore';
 import { PhoneInput } from 'react-international-phone';
-
+import { Label } from '../ui/label';
+import { Checkbox } from '../ui/checkbox';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 
 const step1Schema = z.object({
   clinicName: z.string().min(2, 'El nombre de la clínica es requerido'),
@@ -25,13 +27,35 @@ const step1Schema = z.object({
   phone: z.string().min(10, 'El número de teléfono no es válido'),
 });
 
+const dayOpeningHoursSchema = z.object({
+    day: z.string(),
+    isOpen: z.boolean().default(false),
+    openTime: z.string().optional(),
+    closeTime: z.string().optional(),
+});
+
 const step2Schema = z.object({
   city: z.string().min(2, 'La ciudad es requerida'),
   address: z.string().min(5, 'La dirección es requerida'),
-  openingHours: z.string().min(5, 'El horario es requerido'),
+  openingHours: z.array(dayOpeningHoursSchema),
 });
 
+
+const services = [
+  "Limpieza Dental", "Blanqueamiento Dental", "Ortodoncia", 
+  "Implantes Dentales", "Endodoncia", "Periodoncia", "Prótesis Dentales",
+  "Odontopediatría", "Cirugía Oral"
+] as const;
+
+
 const step3Schema = z.object({
+    services: z.array(z.string()).refine(value => value.some(item => item), {
+    message: "Tienes que seleccionar al menos un servicio.",
+  }),
+});
+
+
+const step4Schema = z.object({
   testMode: z.enum(['qr_connect', 'sandbox', 'expert_call'], {
     required_error: 'Debes seleccionar una opción',
   }),
@@ -42,7 +66,8 @@ const validationSchemas = [
     null, // Welcome step has no validation
     step1Schema,
     step2Schema,
-    step3Schema
+    step3Schema,
+    step4Schema
 ];
 
 
@@ -114,6 +139,99 @@ const Step1 = () => (
     </Card>
 );
 
+const OpeningHoursField = () => {
+    const { control, getValues, setValue } = useFormContext();
+    const { fields } = useFieldArray({
+        control,
+        name: "openingHours",
+    });
+
+    const handleApplyToAll = () => {
+        const values = getValues('openingHours');
+        const firstChecked = values.find((day: any) => day.isOpen);
+        if (firstChecked) {
+            const { openTime, closeTime } = firstChecked;
+            values.forEach((day: any, index: number) => {
+                if (day.isOpen) {
+                    setValue(`openingHours.${index}.openTime`, openTime);
+                    setValue(`openingHours.${index}.closeTime`, closeTime);
+                }
+            });
+        }
+    };
+    
+    const timeOptions = Array.from({ length: 24 * 2 }, (_, i) => {
+        const hour = Math.floor(i / 2);
+        const minute = (i % 2) * 30;
+        const formattedHour = hour.toString().padStart(2, '0');
+        const formattedMinute = minute.toString().padStart(2, '0');
+        return `${formattedHour}:${formattedMinute}`;
+    });
+
+    return (
+        <div className="space-y-4">
+             <div className="flex justify-end">
+                <Button type="button" variant="link" size="sm" onClick={handleApplyToAll}>
+                    Aplicar horario a todos los días marcados
+                </Button>
+            </div>
+            <div className="rounded-md border">
+                <div className="w-full">
+                    {fields.map((field, index) => (
+                        <div key={field.id} className="grid grid-cols-[100px_1fr_1fr] items-center gap-4 p-4 border-b last:border-b-0">
+                            <FormField
+                                control={control}
+                                name={`openingHours.${index}.isOpen`}
+                                render={({ field }) => (
+                                    <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                                        <FormControl>
+                                            <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                                        </FormControl>
+                                        <FormLabel className="font-normal capitalize">{getValues(`openingHours.${index}.day`)}</FormLabel>
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={control}
+                                name={`openingHours.${index}.openTime`}
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <Select onValueChange={field.onChange} defaultValue={field.value} disabled={!getValues(`openingHours.${index}.isOpen`)}>
+                                            <FormControl>
+                                                <SelectTrigger><SelectValue placeholder="Abre" /></SelectTrigger>
+                                            </FormControl>
+                                            <SelectContent>
+                                                {timeOptions.map(time => <SelectItem key={time} value={time}>{time}</SelectItem>)}
+                                            </SelectContent>
+                                        </Select>
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={control}
+                                name={`openingHours.${index}.closeTime`}
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <Select onValueChange={field.onChange} defaultValue={field.value} disabled={!getValues(`openingHours.${index}.isOpen`)}>
+                                            <FormControl>
+                                                <SelectTrigger><SelectValue placeholder="Cierra" /></SelectTrigger>
+                                            </FormControl>
+                                            <SelectContent>
+                                                {timeOptions.map(time => <SelectItem key={time} value={time}>{time}</SelectItem>)}
+                                            </SelectContent>
+                                        </Select>
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+
 const Step2 = () => (
     <Card className="w-full">
         <CardHeader>
@@ -147,14 +265,51 @@ const Step2 = () => (
                   )}
                 />
             </div>
+            <OpeningHoursField />
+        </CardContent>
+    </Card>
+);
+
+const Step3 = () => (
+    <Card className="w-full">
+        <CardHeader>
+            <CardTitle>3. Servicios de la Clínica</CardTitle>
+            <CardDescription>Selecciona los servicios que ofreces. Esto ayudará a SORO a responder mejor a tus pacientes.</CardDescription>
+        </CardHeader>
+        <CardContent className="pt-6">
             <FormField
-              name="openingHours"
-              render={({ field }) => (
+              name="services"
+              render={() => (
                 <FormItem>
-                  <FormLabel>Horario de atención</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Ej. Lunes a Viernes 8am – 6pm" {...field} />
-                  </FormControl>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    {services.map((item) => (
+                      <FormField
+                        key={item}
+                        name="services"
+                        render={({ field }) => {
+                          return (
+                            <FormItem key={item} className="flex flex-row items-center space-x-3 space-y-0">
+                              <FormControl>
+                                <Checkbox
+                                  checked={field.value?.includes(item)}
+                                  onCheckedChange={(checked) => {
+                                    return checked
+                                      ? field.onChange([...(field.value || []), item])
+                                      : field.onChange(
+                                          field.value?.filter(
+                                            (value) => value !== item
+                                          )
+                                        )
+                                  }}
+                                />
+                              </FormControl>
+                              <FormLabel className="font-normal">{item}</FormLabel>
+                            </FormItem>
+                          )
+                        }}
+                      />
+                    ))}
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
@@ -163,10 +318,10 @@ const Step2 = () => (
     </Card>
 );
 
-const Step3 = () => (
+const Step4 = () => (
      <Card className="w-full">
         <CardHeader>
-            <CardTitle>3. Elige cómo quieres probar SORO</CardTitle>
+            <CardTitle>4. Elige cómo quieres probar SORO</CardTitle>
             <CardDescription>Ambas opciones te permitirán ver cómo el asistente agenda citas automáticamente.</CardDescription>
         </CardHeader>
         <CardContent className="pt-6">
@@ -249,7 +404,16 @@ export function MultiStepForm() {
       phone: '',
       city: '',
       address: '',
-      openingHours: '',
+      openingHours: [
+        { day: 'lunes', isOpen: false, openTime: '09:00', closeTime: '18:00' },
+        { day: 'martes', isOpen: false, openTime: '09:00', closeTime: '18:00' },
+        { day: 'miércoles', isOpen: false, openTime: '09:00', closeTime: '18:00' },
+        { day: 'jueves', isOpen: false, openTime: '09:00', closeTime: '18:00' },
+        { day: 'viernes', isOpen: false, openTime: '09:00', closeTime: '18:00' },
+        { day: 'sábado', isOpen: false, openTime: '10:00', closeTime: '14:00' },
+        { day: 'domingo', isOpen: false, openTime: '10:00', closeTime: '14:00' },
+      ],
+      services: [],
       testMode: undefined,
     },
   });
@@ -276,7 +440,6 @@ export function MultiStepForm() {
         return;
     }
 
-
     if (currentStep === totalSteps - 1) {
       const selectedTestMode = methods.getValues('testMode');
       if (selectedTestMode === 'sandbox') {
@@ -284,7 +447,9 @@ export function MultiStepForm() {
         return;
       }
       alert(`Flujo para "${selectedTestMode}" en construcción.`);
+      return; // Stop here for the final step
     }
+
 
     if (currentStep < totalSteps - 1) {
         setCurrentStep(currentStep + 1);
@@ -297,7 +462,7 @@ export function MultiStepForm() {
     }
   };
   
-  const totalSteps = 4; // Including welcome
+  const totalSteps = 5; // Including welcome + new services step
   const progress = ((currentStep) / (totalSteps - 1)) * 100;
 
   const stepsComponents = [
@@ -305,6 +470,7 @@ export function MultiStepForm() {
       <Step1 key="step1" />,
       <Step2 key="step2" />,
       <Step3 key="step3" />,
+      <Step4 key="step4" />,
   ];
 
   const isFinalStep = currentStep === totalSteps - 1;

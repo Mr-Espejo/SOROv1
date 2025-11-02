@@ -8,6 +8,14 @@ import {
   Firestore,
 } from 'firebase/firestore';
 
+
+type DayOpeningHours = {
+  day: string;
+  isOpen: boolean;
+  openTime?: string;
+  closeTime?: string;
+};
+
 // Type for the combined form data
 type DemoFormData = {
   clinicName?: string;
@@ -15,7 +23,8 @@ type DemoFormData = {
   phone?: string;
   city?: string;
   address?: string;
-  openingHours?: string;
+  openingHours?: DayOpeningHours[];
+  services?: string[];
   testMode?: 'qr_connect' | 'sandbox' | 'expert_call';
 };
 
@@ -62,6 +71,7 @@ export const updateDemoDocuments = async (
   if (data.city) payload.city = data.city;
   if (data.address) payload.address = data.address;
   if (data.openingHours) payload.openingHours = data.openingHours;
+  if (data.services) payload.services = data.services;
   if (data.testMode) payload.testMode = data.testMode;
 
 
@@ -70,6 +80,7 @@ export const updateDemoDocuments = async (
    if (data.city) clinicData.city = data.city;
    if (data.address) clinicData.address = data.address;
    if (data.openingHours) clinicData.openingHours = data.openingHours;
+   if (data.services) clinicData.services = data.services;
 
   const updatePromises = [];
 

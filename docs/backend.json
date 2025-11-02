@@ -56,7 +56,22 @@
         "countryCode": { "type": "string" },
         "city": { "type": "string" },
         "address": { "type": "string" },
-        "openingHours": { "type": "string" },
+        "openingHours": { 
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "day": { "type": "string" },
+              "isOpen": { "type": "boolean" },
+              "openTime": { "type": "string" },
+              "closeTime": { "type": "string" }
+            }
+          }
+        },
+        "services": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
         "logoUrl": { "type": "string", "format": "uri", "description": "URL to the clinic's logo." }
       },
       "required": ["id", "name", "email", "phone"]
