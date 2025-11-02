@@ -3,6 +3,7 @@ import './globals.css';
 import {Toaster} from '@/components/ui/toaster';
 import {Chatbot} from '@/components/chatbot';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
+import 'react-phone-number-input/style.css'
 
 export const metadata: Metadata = {
   title: 'SORO™ - Automatiza Tu Clínica Dental',

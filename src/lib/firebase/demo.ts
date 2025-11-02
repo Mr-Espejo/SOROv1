@@ -14,7 +14,6 @@ import { FirestorePermissionError } from '@/firebase/errors';
 type DemoFormData = {
   clinicName?: string;
   email?: string;
-  countryCode?: string;
   phone?: string;
   city?: string;
   address?: string;
@@ -36,7 +35,6 @@ export const createInitialDemoDocuments = (
     name: data.clinicName,
     email: data.email,
     phone: data.phone,
-    countryCode: data.countryCode,
   };
 
   const demoRequestPayload = {
@@ -113,5 +111,3 @@ export const updateDemoDocuments = (
     });
   }
 };
-
-    
