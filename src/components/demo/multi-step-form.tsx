@@ -252,22 +252,24 @@ export function MultiStepForm() {
   const handleNext = async () => {
     const isValid = await methods.trigger();
     if (isValid) {
-        const values = methods.getValues();
-        setFormData(prev => ({...prev, ...values}));
-      if (currentStep < 4 - 1) { // 4 steps in total (0-indexed)
-        setCurrentStep(currentStep + 1);
-      } else {
-        // Final step, handle submission
-        const finalData = {...formData, ...values};
-        console.log('Final form data:', finalData);
+      const values = methods.getValues();
+      const updatedFormData = { ...formData, ...values };
+      setFormData(updatedFormData);
+
+      // If on the last step, handle final submission
+      if (currentStep === totalSteps - 1) {
+        console.log('Final form data:', updatedFormData);
         // Here you would save to Firestore
-        // For now, navigate based on selection
-        if (finalData.testMode === 'sandbox') {
-            router.push('/demo/sandbox');
+
+        // Navigate based on selection
+        if (updatedFormData.testMode === 'sandbox') {
+          router.push('/demo/sandbox');
         } else {
-            // Placeholder for other routes
-            alert(`Flujo para "${finalData.testMode}" en construcción.`);
+          // Placeholder for other routes
+          alert(`Flujo para "${updatedFormData.testMode}" en construcción.`);
         }
+      } else {
+        setCurrentStep(currentStep + 1);
       }
     }
   };
