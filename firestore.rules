@@ -12,17 +12,17 @@ service cloud.firestore {
       allow delete: if false;
     }
     
-    // Allow public creation of clinic and demo request data during the onboarding flow.
+    // Allow public creation and updates of clinic and demo request data during the onboarding flow.
     // This is necessary for anonymous users to complete the multi-step demo form.
     // More restrictive rules should be applied post-MVP.
     match /clinics/{clinicId} {
-      allow create: if true;
-      allow read, update, delete: if false; 
+      allow create, update: if true;
+      allow read, delete: if false; 
     }
 
     match /demo_requests/{requestId} {
-      allow create: if true;
-      allow read, update, delete: if false;
+      allow create, update: if true;
+      allow read, delete: if false;
     }
   }
 }
