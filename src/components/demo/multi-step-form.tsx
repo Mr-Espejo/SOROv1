@@ -16,6 +16,7 @@ import { ArrowRight, MessageSquare, Phone, User } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useFirestore } from '@/firebase';
 import { createInitialDemoDocuments, updateDemoDocuments } from '@/lib/firebase/demo';
+import { collection, doc } from 'firebase/firestore';
 
 
 const step1Schema = z.object({
@@ -280,12 +281,13 @@ export function MultiStepForm() {
     }
 
     if (currentStep === totalSteps - 1) {
-      if (values.testMode === 'sandbox') {
+      const selectedTestMode = methods.getValues('testMode');
+      if (selectedTestMode === 'sandbox') {
         router.push('/demo/sandbox');
         return; // Early return to prevent advancing step
       }
       // Handle final submission for other cases
-      alert(`Flujo para "${values.testMode}" en construcción.`);
+      alert(`Flujo para "${selectedTestMode}" en construcción.`);
     }
 
     if (currentStep < totalSteps - 1) {
