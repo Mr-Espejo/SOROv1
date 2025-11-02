@@ -3,32 +3,38 @@
     {
       "id": "vsl_thumbnail",
       "description": "Thumbnail for the Video Sales Letter",
-      "imageUrl": "https://picsum.photos/seed/soro-vsl/1280/720",
+      "imageUrl": "https://images.unsplash.com/photo-1497366754035-f200968a6e72?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxkZW50YWwlMjBvZmZpY2V8ZW58MHx8fHwxNzYyMDE3MDA2fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "dental office"
     },
     {
       "id": "ebook_cover",
       "description": "Cover for the lead magnet ebook",
-      "imageUrl": "https://picsum.photos/seed/soro-ebook/800/1200",
+      "imageUrl": "https://images.unsplash.com/photo-1599389153811-fe7586739184?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxib29rJTIwdGVjaG5vbG9neXxlbnwwfHx8fDE3NjIwNDE2ODV8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "book technology"
     },
     {
       "id": "testimonial_avatar_1",
       "description": "Avatar for the first testimonial",
-      "imageUrl": "https://picsum.photos/seed/soro-avatar1/100/100",
+      "imageUrl": "https://images.unsplash.com/photo-1669998966162-9837617177cd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxkZW50aXN0JTIwcG9ydHJhaXR8ZW58MHx8fHwxNzYyMDUyMDQwfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "dentist portrait"
     },
     {
       "id": "testimonial_avatar_2",
       "description": "Avatar for the second testimonial",
-      "imageUrl": "https://picsum.photos/seed/soro-avatar2/100/100",
+      "imageUrl": "https://images.unsplash.com/flagged/photo-1559855603-ce4c8f480d76?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHx3b21hbiUyMHNtaWxpbmd8ZW58MHx8fHwxNzYxOTgwMjIyfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "woman smiling"
     },
     {
       "id": "testimonial_avatar_3",
       "description": "Avatar for the third testimonial",
-      "imageUrl": "https://picsum.photos/seed/soro-avatar3/100/100",
+      "imageUrl": "https://images.unsplash.com/photo-1607031542107-f6f46b5d54e9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtYW4lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjE5OTU4ODd8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "man portrait"
+    },
+    {
+      "id": "qr_code_placeholder",
+      "description": "Placeholder for a QR code",
+      "imageUrl": "https://images.unsplash.com/photo-1662383729882-e03ce8e00887?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxxciUyMGNvZGV8ZW58MHx8fHwxNzYyMDI0NjM1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "qr code"
     }
   ]
 }

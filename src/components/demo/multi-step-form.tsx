@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useForm, FormProvider, useFieldArray, Controller, useFormContext } from 'react-hook-form';
+import { useForm, FormProvider, useFieldArray, useFormContext } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -316,7 +316,7 @@ const Step3 = () => (
 );
 
 const Step4 = () => {
-  const { control, getValues, setValue } = useFormContext();
+  const { control } = useFormContext();
 
   return (
      <Card className="w-full">
@@ -423,13 +423,20 @@ export function MultiStepForm() {
   const watchedTestMode = methods.watch('testMode');
 
   useEffect(() => {
-    const handleSandboxRedirect = async () => {
-        if (watchedTestMode === 'sandbox' && currentStep === totalSteps - 1) {
+    const handleAutoNavigation = async () => {
+        if (currentStep !== totalSteps - 1) return;
+
+        const selectedMode = methods.getValues('testMode');
+        
+        if (selectedMode === 'sandbox') {
             await saveData();
             router.push('/demo/sandbox');
+        } else if (selectedMode === 'qr_connect') {
+            await saveData();
+            router.push('/demo/qr-connect');
         }
     };
-    handleSandboxRedirect();
+    handleAutoNavigation();
   }, [watchedTestMode, currentStep, router]);
 
 
@@ -461,16 +468,16 @@ export function MultiStepForm() {
 
     const dataSaved = await saveData();
     if (!dataSaved) return;
+    
+    const selectedTestMode = methods.getValues('testMode');
 
     if (currentStep === totalSteps - 1) {
-      const selectedTestMode = methods.getValues('testMode');
-      if (selectedTestMode === 'sandbox') {
-        // This is now handled by the useEffect, but we keep it as a fallback.
-        router.push('/demo/sandbox');
-        return;
+      if (selectedTestMode === 'expert_call') {
+          alert('Flujo para "Hablar con un experto" en construcción.');
+          return;
       }
-      alert(`Flujo para "${selectedTestMode}" en construcción.`);
-      return;
+      // Sandbox and QR connect are handled by useEffect, but we can leave this as a fallback.
+      return; 
     }
 
     if (currentStep < totalSteps - 1) {
@@ -496,6 +503,7 @@ export function MultiStepForm() {
   ];
 
   const isFinalStep = currentStep === totalSteps - 1;
+  const selectedTestMode = methods.watch('testMode');
 
   const handleWelcomeNext = () => {
     setCurrentStep(1);
@@ -526,7 +534,7 @@ export function MultiStepForm() {
             {currentStep > 0 && (
                 <div className="mt-8 flex justify-between">
                     <Button variant="ghost" onClick={handleBack} disabled={currentStep === 1}>Atrás</Button>
-                    <Button onClick={handleNext} disabled={watchedTestMode === 'sandbox'}>
+                    <Button onClick={handleNext} disabled={isFinalStep && (selectedTestMode === 'sandbox' || selectedTestMode === 'qr_connect')}>
                         {isFinalStep ? 'Finalizar' : 'Siguiente'}
                         {!isFinalStep && <ArrowRight className="ml-2 h-4 w-4" />}
                     </Button>
@@ -536,5 +544,3 @@ export function MultiStepForm() {
     </div>
   );
 }
-
-    
