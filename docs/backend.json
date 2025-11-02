@@ -51,13 +51,15 @@
       "properties": {
         "id": { "type": "string" },
         "name": { "type": "string", "description": "Clinic's name." },
-        "serviceType": { "type": "string", "enum": ["Odontología", "Estética", "Medicina", "Otro"] },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "countryCode": { "type": "string" },
         "city": { "type": "string" },
-        "country": { "type": "string" },
+        "address": { "type": "string" },
         "openingHours": { "type": "string" },
         "logoUrl": { "type": "string", "format": "uri", "description": "URL to the clinic's logo." }
       },
-      "required": ["id", "name", "serviceType"]
+      "required": ["id", "name", "email", "phone"]
     },
     "DemoRequest": {
       "title": "DemoRequest",
@@ -65,16 +67,12 @@
       "description": "Stores all information related to a user's request for a SORO demo.",
       "properties": {
         "id": { "type": "string" },
-        "requesterName": { "type": "string" },
-        "requesterEmail": { "type": "string", "format": "email" },
-        "requesterPhone": { "type": "string" },
         "clinicId": { "type": "string", "$ref": "#/entities/Clinic" },
-        "testMode": { "type": "string", "enum": ["qr_connect", "sandbox"] },
-        "testObjective": { "type": "string", "enum": ["agenda", "respuestas", "general"] },
+        "testMode": { "type": "string", "enum": ["qr_connect", "sandbox", "expert_call"] },
         "status": { "type": "string", "enum": ["pending", "in_progress", "completed"], "default": "pending" },
         "createdAt": { "type": "string", "format": "date-time" }
       },
-      "required": ["id", "requesterEmail", "testMode", "createdAt"]
+      "required": ["id", "clinicId", "testMode", "createdAt"]
     }
   },
   "auth": {
