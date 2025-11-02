@@ -7,8 +7,6 @@ import {
   serverTimestamp,
   Firestore,
 } from 'firebase/firestore';
-import { errorEmitter } from '@/firebase/error-emitter';
-import { FirestorePermissionError } from '@/firebase/errors';
 
 // Type for the combined form data
 type DemoFormData = {
@@ -22,7 +20,7 @@ type DemoFormData = {
 };
 
 // This function creates both clinic and demo_request documents initially
-export const createInitialDemoDocuments = (
+export const createInitialDemoDocuments = async (
   db: Firestore,
   clinicId: string,
   data: Partial<DemoFormData>
@@ -44,29 +42,15 @@ export const createInitialDemoDocuments = (
     createdAt: serverTimestamp(),
   };
 
-  // Create Clinic doc
-  setDoc(clinicRef, clinicPayload, { merge: true }).catch((serverError) => {
-    const permissionError = new FirestorePermissionError({
-      path: clinicRef.path,
-      operation: 'create',
-      requestResourceData: clinicPayload,
-    });
-    errorEmitter.emit('permission-error', permissionError);
-  });
-
-  // Create DemoRequest doc
-  setDoc(demoRequestRef, demoRequestPayload, { merge: true }).catch((serverError) => {
-    const permissionError = new FirestorePermissionError({
-      path: demoRequestRef.path,
-      operation: 'create',
-      requestResourceData: demoRequestPayload,
-    });
-    errorEmitter.emit('permission-error', permissionError);
-  });
+  // Using Promise.all to run writes in parallel
+  await Promise.all([
+    setDoc(clinicRef, clinicPayload, { merge: true }),
+    setDoc(demoRequestRef, demoRequestPayload, { merge: true })
+  ]);
 };
 
 // This function updates the existing documents
-export const updateDemoDocuments = (
+export const updateDemoDocuments = async (
   db: Firestore,
   clinicId: string,
   data: Partial<DemoFormData>
@@ -87,27 +71,19 @@ export const updateDemoDocuments = (
    if (data.address) clinicData.address = data.address;
    if (data.openingHours) clinicData.openingHours = data.openingHours;
 
+  const updatePromises = [];
+
   if (Object.keys(clinicData).length > 0) {
-    updateDoc(clinicRef, clinicData).catch((serverError) => {
-        const permissionError = new FirestorePermissionError({
-        path: clinicRef.path,
-        operation: 'update',
-        requestResourceData: clinicData,
-        });
-        errorEmitter.emit('permission-error', permissionError);
-    });
+    updatePromises.push(updateDoc(clinicRef, clinicData));
   }
 
   // Update DemoRequest doc if there's a testMode
   if (data.testMode) {
      const demoRequestData = { testMode: data.testMode, status: 'in_progress' };
-     updateDoc(demoRequestRef, demoRequestData).catch((serverError) => {
-        const permissionError = new FirestorePermissionError({
-        path: demoRequestRef.path,
-        operation: 'update',
-        requestResourceData: demoRequestData,
-        });
-        errorEmitter.emit('permission-error', permissionError);
-    });
+     updatePromises.push(updateDoc(demoRequestRef, demoRequestData));
+  }
+
+  if (updatePromises.length > 0) {
+    await Promise.all(updatePromises);
   }
 };

@@ -57,3 +57,30 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  /* Custom styles for react-phone-number-input */
+  .soro-phone-input {
+    @apply flex items-center;
+  }
+  .soro-phone-input .PhoneInputCountry {
+    @apply relative flex items-center;
+    /* You might need to adjust margin/padding if needed */
+  }
+  .soro-phone-input .PhoneInputCountrySelect {
+    @apply absolute inset-0 opacity-0 w-full h-full cursor-pointer;
+  }
+  .soro-phone-input .PhoneInputCountryIcon {
+    @apply h-6 w-auto rounded-sm;
+  }
+  .soro-phone-input .PhoneInputCountrySelectArrow {
+    @apply w-4 h-4 ml-2 opacity-50;
+  }
+  .soro-phone-input .PhoneInputInput {
+    @apply flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm;
+    @apply border-l-0 rounded-l-none;
+  }
+   .soro-phone-input .PhoneInputCountry {
+    @apply flex h-10 items-center justify-center rounded-l-md border border-r-0 border-input bg-background px-3;
+  }
+}
