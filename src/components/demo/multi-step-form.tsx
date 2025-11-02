@@ -17,8 +17,8 @@ import { useRouter } from 'next/navigation';
 import { useFirestore } from '@/firebase';
 import { createInitialDemoDocuments, updateDemoDocuments } from '@/lib/firebase/demo';
 import { collection, doc } from 'firebase/firestore';
-import PhoneInput, { getCountryCallingCode } from 'react-phone-number-input';
-import { es } from 'react-phone-number-input/locale'
+import PhoneInput from 'react-phone-number-input';
+import es from 'react-phone-number-input/locale/es';
 
 
 const step1Schema = z.object({
