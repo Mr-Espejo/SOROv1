@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -14,6 +14,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 import { ArrowRight, MessageSquare, Phone, User } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useFirestore } from '@/firebase';
+import { createInitialDemoDocuments, updateDemoDocuments } from '@/lib/firebase/demo';
 
 
 const step1Schema = z.object({
@@ -227,8 +229,16 @@ const Step3 = () => (
 
 export function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState(0);
-  const [formData, setFormData] = useState({});
+  const [clinicId, setClinicId] = useState<string | null>(null);
+  const firestore = useFirestore();
   const router = useRouter();
+
+  // Generate a unique ID for the session once
+  useEffect(() => {
+    if (!clinicId) {
+      setClinicId(doc(collection(firestore, 'clinics')).id);
+    }
+  }, [firestore, clinicId]);
 
   const methods = useForm({
     resolver: async (data, context, options) => {
@@ -251,26 +261,35 @@ export function MultiStepForm() {
 
   const handleNext = async () => {
     const isValid = await methods.trigger();
-    if (isValid) {
-      const values = methods.getValues();
-      const updatedFormData = { ...formData, ...values };
-      setFormData(updatedFormData);
+    if (!isValid) return;
 
-      // If on the last step, handle final submission
-      if (currentStep === totalSteps - 1) {
-        console.log('Final form data:', updatedFormData);
-        // Here you would save to Firestore
+    if (!firestore || !clinicId) {
+        console.error("Firestore not ready or clinicId not set");
+        // Optionally, show a toast to the user
+        return;
+    }
+    
+    const values = methods.getValues();
 
-        // Navigate based on selection
-        if (updatedFormData.testMode === 'sandbox') {
-          router.push('/demo/sandbox');
-        } else {
-          // Placeholder for other routes
-          alert(`Flujo para "${updatedFormData.testMode}" en construcción.`);
-        }
-      } else {
-        setCurrentStep(currentStep + 1);
+    if (currentStep === 1) {
+      // First step with data, create the documents
+      createInitialDemoDocuments(firestore, clinicId, values);
+    } else if (currentStep > 1) {
+      // Subsequent steps, update the documents
+      updateDemoDocuments(firestore, clinicId, values);
+    }
+
+    if (currentStep === totalSteps - 1) {
+      if (values.testMode === 'sandbox') {
+        router.push('/demo/sandbox');
+        return; // Early return to prevent advancing step
       }
+      // Handle final submission for other cases
+      alert(`Flujo para "${values.testMode}" en construcción.`);
+    }
+
+    if (currentStep < totalSteps - 1) {
+        setCurrentStep(currentStep + 1);
     }
   };
 
@@ -292,6 +311,10 @@ export function MultiStepForm() {
 
   const isFinalStep = currentStep === totalSteps - 1;
 
+  const handleWelcomeNext = () => {
+    setCurrentStep(1);
+  };
+
   return (
     <div className="w-full">
         <FormProvider {...methods}>
@@ -310,13 +333,13 @@ export function MultiStepForm() {
                   exit={{ opacity: 0, x: -50 }}
                   transition={{ duration: 0.3 }}
                 >
-                  {stepsComponents[currentStep]}
+                  {currentStep === 0 ? <WelcomeStep onNext={handleWelcomeNext} /> : stepsComponents[currentStep]}
                 </motion.div>
             </AnimatePresence>
 
             {currentStep > 0 && (
                 <div className="mt-8 flex justify-between">
-                    <Button variant="ghost" onClick={handleBack} disabled={currentStep === 0}>Atrás</Button>
+                    <Button variant="ghost" onClick={handleBack} disabled={currentStep === 1}>Atrás</Button>
                     <Button onClick={handleNext}>
                         {isFinalStep ? 'Finalizar' : 'Siguiente'}
                         {!isFinalStep && <ArrowRight className="ml-2 h-4 w-4" />}
