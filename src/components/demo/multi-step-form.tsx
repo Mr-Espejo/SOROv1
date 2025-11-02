@@ -237,6 +237,16 @@ export function MultiStepForm() {
         return await zodResolver(schema)(data, context, options);
     },
     mode: "onChange",
+    defaultValues: {
+      clinicName: '',
+      email: '',
+      countryCode: '',
+      phone: '',
+      city: '',
+      address: '',
+      openingHours: '',
+      testMode: undefined,
+    },
   });
 
   const handleNext = async () => {
