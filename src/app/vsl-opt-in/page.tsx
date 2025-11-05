@@ -11,6 +11,9 @@ import { PlayCircle } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
   DialogTrigger,
 } from "@/components/ui/dialog"
 
@@ -64,6 +67,12 @@ export default function VslOptInPage() {
                       </button>
                     </DialogTrigger>
                     <DialogContent className="max-w-4xl p-0">
+                        <DialogHeader className="sr-only">
+                           <DialogTitle>Video de Ventas</DialogTitle>
+                           <DialogDescription>
+                             Una ventana modal que contiene un video de ventas incrustado de YouTube.
+                           </DialogDescription>
+                        </DialogHeader>
                        <AspectRatio ratio={16 / 9}>
                           <iframe 
                             src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" 
