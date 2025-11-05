@@ -87,8 +87,6 @@ export default function AdminPage() {
                         <Link 
                             href={page.href} 
                             key={page.title} 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
                             className="block rounded-lg border bg-card p-4 text-card-foreground shadow-sm transition-shadow hover:shadow-md"
                         >
                             <h3 className="font-semibold text-primary">{page.title}</h3>
