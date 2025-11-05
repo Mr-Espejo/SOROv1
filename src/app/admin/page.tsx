@@ -75,8 +75,6 @@ export default function AdminPage() {
                 <div className="grid gap-4 md:grid-cols-2">
                     <Link 
                         href="/" 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
                         className="block rounded-lg border bg-card p-4 text-card-foreground shadow-sm transition-shadow hover:shadow-md"
                     >
                         <h3 className="font-semibold text-primary">Página de Inicio</h3>
