@@ -174,7 +174,7 @@ const DynamicHeader: React.FC = () => {
           <Link href="/lead-magnet">
             <DropdownMenuItem className="gap-3"><BookOpen size={20}/> Ver Ebook</DropdownMenuItem>
           </Link>
-          <Link href="#">
+          <Link href="/demo">
             <DropdownMenuItem className="gap-3"><Presentation size={20}/> Ver Webinars</DropdownMenuItem>
           </Link>
           <Link href="/vsl-opt-in">
@@ -602,7 +602,7 @@ const FinalCTASection: React.FC = () => {
           <Button size="lg" onClick={() => router.push('/demo')} className="bg-teal-500 hover:bg-teal-600 text-white">
             Agendar Demo Gratis
           </Button>
-          <Button size="lg" variant="outline" onClick={() => router.push('/contact')} className="border-teal-400 text-teal-400 hover:bg-teal-400 hover:text-gray-900">
+          <Button size="lg" variant="outline" onClick={() => router.push('/demo')} className="border-teal-400 text-teal-400 hover:bg-teal-400 hover:text-gray-900">
             Hablar con un Especialista
           </Button>
         </div>
