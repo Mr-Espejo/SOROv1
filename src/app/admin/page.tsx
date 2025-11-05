@@ -43,11 +43,6 @@ export default function AdminPage() {
 
   const createdPages = [
     {
-        title: 'Página de Inicio',
-        href: '/',
-        description: 'La página principal de bienvenida a SORO.'
-    },
-    {
       title: 'Carta de Ventas en Video (VSL)',
       href: '/vsl-opt-in',
       description: 'Página con video para capturar leads de alto interés.'
@@ -78,6 +73,18 @@ export default function AdminPage() {
             </CardHeader>
             <CardContent>
                 <div className="grid gap-4 md:grid-cols-2">
+                    <Link 
+                        href="/" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="block rounded-lg border bg-card p-4 text-card-foreground shadow-sm transition-shadow hover:shadow-md"
+                    >
+                        <h3 className="font-semibold text-primary">Página de Inicio</h3>
+                        <p className="text-sm text-muted-foreground">La página principal de bienvenida a SORO.</p>
+                        <div className="mt-2 flex items-center text-xs font-semibold text-primary/80">
+                            Ver página <ArrowRight className="ml-1 h-3 w-3" />
+                        </div>
+                    </Link>
                     {createdPages.map((page) => (
                         <Link 
                             href={page.href} 
