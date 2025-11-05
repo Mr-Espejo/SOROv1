@@ -174,7 +174,7 @@ const DynamicHeader: React.FC = () => {
           <Link href="/lead-magnet">
             <DropdownMenuItem className="gap-3"><BookOpen size={20}/> Ver Ebook</DropdownMenuItem>
           </Link>
-          <Link href="/demo">
+          <Link href="/webinars">
             <DropdownMenuItem className="gap-3"><Presentation size={20}/> Ver Webinars</DropdownMenuItem>
           </Link>
           <Link href="/vsl-opt-in">
