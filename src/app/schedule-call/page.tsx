@@ -25,7 +25,7 @@ export default function ScheduleCallPage() {
               style={{
                 minWidth: '320px',
                 height: '700px',
-                backgroundColor: '#f8fafc',
+                backgroundColor: 'hsl(162 70% 95%)',
                 borderRadius: '12px',
                 padding: '10px'
               }}
