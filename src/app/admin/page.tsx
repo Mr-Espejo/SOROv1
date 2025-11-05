@@ -79,14 +79,18 @@ export default function AdminPage() {
             <CardContent>
                 <div className="grid gap-4 md:grid-cols-2">
                     {createdPages.map((page) => (
-                        <Link href={page.href} key={page.title} legacyBehavior>
-                            <a target="_blank" rel="noopener noreferrer" className="block rounded-lg border bg-card p-4 text-card-foreground shadow-sm transition-shadow hover:shadow-md">
-                                <h3 className="font-semibold text-primary">{page.title}</h3>
-                                <p className="text-sm text-muted-foreground">{page.description}</p>
-                                <div className="mt-2 flex items-center text-xs font-semibold text-primary/80">
-                                    Ver página <ArrowRight className="ml-1 h-3 w-3" />
-                                </div>
-                            </a>
+                        <Link 
+                            href={page.href} 
+                            key={page.title} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="block rounded-lg border bg-card p-4 text-card-foreground shadow-sm transition-shadow hover:shadow-md"
+                        >
+                            <h3 className="font-semibold text-primary">{page.title}</h3>
+                            <p className="text-sm text-muted-foreground">{page.description}</p>
+                            <div className="mt-2 flex items-center text-xs font-semibold text-primary/80">
+                                Ver página <ArrowRight className="ml-1 h-3 w-3" />
+                            </div>
                         </Link>
                     ))}
                 </div>
