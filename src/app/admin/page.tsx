@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import Link from 'next/link';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
@@ -9,7 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { LeadsTable } from '@/components/admin/leads-table';
 import type { Lead } from '@/lib/types';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Loader2 } from 'lucide-react';
+import { Loader2, ArrowRight } from 'lucide-react';
 
 export default function AdminPage() {
   const firestore = useFirestore();
@@ -40,12 +41,57 @@ export default function AdminPage() {
     'Descarga de Lead Magnet'
   ];
 
+  const createdPages = [
+    {
+        title: 'Página de Inicio',
+        href: '/',
+        description: 'La página principal de bienvenida a SORO.'
+    },
+    {
+      title: 'Carta de Ventas en Video (VSL)',
+      href: '/vsl-opt-in',
+      description: 'Página con video para capturar leads de alto interés.'
+    },
+    {
+      title: 'Demo Personalizado',
+      href: '/personalized-demo',
+      description: 'Ofrece una demo a medida para clínicas.'
+    },
+    {
+      title: 'Ebook (Lead Magnet)',
+      href: '/lead-magnet',
+      description: 'Página para descargar la guía gratuita a cambio de datos.'
+    },
+  ];
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <Header />
       <main className="flex-1 bg-muted/40 py-12 md:py-16">
-        <div className="container mx-auto max-w-7xl px-4">
-          <h1 className="mb-8 text-4xl font-bold tracking-tighter">Panel de Administración</h1>
+        <div className="container mx-auto max-w-7xl space-y-8 px-4">
+          <h1 className="text-4xl font-bold tracking-tighter">Panel de Administración</h1>
+
+          <Card>
+            <CardHeader>
+                <CardTitle>Páginas Creadas</CardTitle>
+                <CardDescription>Accede y revisa las páginas de destino que están activas.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <div className="grid gap-4 md:grid-cols-2">
+                    {createdPages.map((page) => (
+                        <Link href={page.href} key={page.title} legacyBehavior>
+                            <a target="_blank" rel="noopener noreferrer" className="block rounded-lg border bg-card p-4 text-card-foreground shadow-sm transition-shadow hover:shadow-md">
+                                <h3 className="font-semibold text-primary">{page.title}</h3>
+                                <p className="text-sm text-muted-foreground">{page.description}</p>
+                                <div className="mt-2 flex items-center text-xs font-semibold text-primary/80">
+                                    Ver página <ArrowRight className="ml-1 h-3 w-3" />
+                                </div>
+                            </a>
+                        </Link>
+                    ))}
+                </div>
+            </CardContent>
+          </Card>
           
           <Card>
             <CardHeader>
