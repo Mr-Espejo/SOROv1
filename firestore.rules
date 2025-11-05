@@ -5,8 +5,7 @@ service cloud.firestore {
     // Allow public creation of leads for capture forms.
     // Reading, updating, or deleting is not allowed for security.
     match /leads/{leadId} {
-      allow get: if false;
-      allow list: if false;
+      allow get, list: if true;
       allow create: if true;
       allow update: if false;
       allow delete: if false;
