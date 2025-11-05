@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from 'react';
 import Image from 'next/image';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -5,6 +8,11 @@ import { LeadForm } from '@/components/landing/lead-form';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { PlayCircle } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 
 const formFields = [
   { name: 'name' as const, label: 'Nombre Completo', placeholder: 'Ej: Ana Pérez', type: 'text' },
@@ -14,6 +22,7 @@ const formFields = [
 
 export default function VslOptInPage() {
   const vslThumbnail = PlaceHolderImages.find(p => p.id === 'vsl_thumbnail');
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -33,22 +42,40 @@ export default function VslOptInPage() {
                   </p>
                 </div>
                 <div className="w-full max-w-lg">
-                  <AspectRatio ratio={16 / 9} className="overflow-hidden rounded-xl">
-                    {vslThumbnail && (
-                      <div className="relative group h-full w-full">
-                        <Image
-                          src={vslThumbnail.imageUrl}
-                          alt="Miniatura VSL"
-                          fill
-                          className="object-cover transition-transform duration-300 group-hover:scale-105"
-                          data-ai-hint={vslThumbnail.imageHint}
-                        />
-                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                          <PlayCircle className="h-20 w-20 text-white/70 group-hover:text-white transition-colors" />
-                        </div>
-                      </div>
-                    )}
-                  </AspectRatio>
+                  <Dialog open={isOpen} onOpenChange={setIsOpen}>
+                    <DialogTrigger asChild>
+                      <button className="w-full">
+                        <AspectRatio ratio={16 / 9} className="overflow-hidden rounded-xl">
+                          {vslThumbnail && (
+                            <div className="relative group h-full w-full">
+                              <Image
+                                src={vslThumbnail.imageUrl}
+                                alt="Miniatura VSL"
+                                fill
+                                className="object-cover transition-transform duration-300 group-hover:scale-105"
+                                data-ai-hint={vslThumbnail.imageHint}
+                              />
+                              <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                                <PlayCircle className="h-20 w-20 text-white/70 group-hover:text-white transition-colors" />
+                              </div>
+                            </div>
+                          )}
+                        </AspectRatio>
+                      </button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-4xl p-0">
+                       <AspectRatio ratio={16 / 9}>
+                          <iframe 
+                            src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" 
+                            title="YouTube video player" 
+                            frameBorder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowFullScreen
+                            className="w-full h-full rounded-lg"
+                          ></iframe>
+                        </AspectRatio>
+                    </DialogContent>
+                  </Dialog>
                 </div>
               </div>
               <div className="flex items-center justify-center">
