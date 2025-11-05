@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -434,6 +435,9 @@ export function MultiStepForm() {
         } else if (selectedMode === 'qr_connect') {
             await saveData();
             router.push('/demo/qr-connect');
+        } else if (selectedMode === 'expert_call') {
+            await saveData();
+            router.push('/schedule-call');
         }
     };
     handleAutoNavigation();
@@ -472,10 +476,10 @@ export function MultiStepForm() {
     const selectedTestMode = methods.getValues('testMode');
 
     if (currentStep === totalSteps - 1) {
-      if (selectedTestMode === 'expert_call') {
-          alert('Flujo para "Hablar con un experto" en construcción.');
-          return;
-      }
+        if (selectedTestMode === 'expert_call') {
+            router.push('/schedule-call');
+            return;
+        }
       // Sandbox and QR connect are handled by useEffect, but we can leave this as a fallback.
       return; 
     }
@@ -534,7 +538,7 @@ export function MultiStepForm() {
             {currentStep > 0 && (
                 <div className="mt-8 flex justify-between">
                     <Button variant="ghost" onClick={handleBack} disabled={currentStep === 1}>Atrás</Button>
-                    <Button onClick={handleNext} disabled={isFinalStep && (selectedTestMode === 'sandbox' || selectedTestMode === 'qr_connect')}>
+                    <Button onClick={handleNext} disabled={isFinalStep && (selectedTestMode === 'sandbox' || selectedTestMode === 'qr_connect' || selectedTestMode === 'expert_call')}>
                         {isFinalStep ? 'Finalizar' : 'Siguiente'}
                         {!isFinalStep && <ArrowRight className="ml-2 h-4 w-4" />}
                     </Button>
