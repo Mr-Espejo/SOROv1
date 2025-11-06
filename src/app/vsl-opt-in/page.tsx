@@ -68,7 +68,7 @@ export default function VslOptInPage() {
             </div>
             
             {/* Video container */}
-            <div className="w-full max-w-4xl">
+            <div className="w-full max-w-4xl mx-auto">
               <AspectRatio ratio={16 / 9} className="overflow-hidden rounded-xl shadow-2xl bg-black">
                 <video
                   src="https://file.notion.so/f/f/ed6477b8-cb1b-4174-8d7a-3c87e939e5b9/f969228a-d764-42b6-84cd-f75b4eec0e85/1106_(1).mp4?table=block&id=2a35454f-b3d8-80cf-9116-e5816446e804&spaceId=ed6477b8-cb1b-4174-8d7a-3c87e939e5b9&expirationTimestamp=1762488000000&signature=PqTcfWQPHosNhjBJuIcz-_lia2-wqGmzQE5nOV9Q9zU&downloadName=1106+%281%29.mp4"
