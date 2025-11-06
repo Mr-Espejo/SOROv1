@@ -7,7 +7,7 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { LeadForm } from '@/components/landing/lead-form';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
-import { PlayCircle, Calendar, Presentation } from 'lucide-react';
+import { PlayCircle, Calendar, Presentation, CheckCircle } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -100,6 +100,24 @@ export default function VslOptInPage() {
                   Ingresar a Webinar
                 </Link>
               </Button>
+            </div>
+
+             <div className="w-full max-w-2xl text-center space-y-4">
+              <p className="font-bold text-destructive animate-pulse">SOLO 12 CUPOS ESTA SEMANA</p>
+              <div className="flex justify-center items-center gap-4 text-muted-foreground text-sm">
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="h-4 w-4 text-primary" />
+                  <span>4 minutos de valor puro</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="h-4 w-4 text-primary" />
+                  <span>Casos reales verificados</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="h-4 w-4 text-primary" />
+                  <span>Estrategia paso a paso</span>
+                </div>
+              </div>
             </div>
 
             <div className="w-full max-w-lg pt-8">
