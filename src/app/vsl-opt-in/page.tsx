@@ -1,20 +1,17 @@
 
 'use client';
 
-import { useState } from 'react';
-import Image from 'next/image';
+import { useState, useEffect } from 'react';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { LeadForm } from '@/components/landing/lead-form';
 import { Footer } from '@/components/footer';
-import { PlayCircle, Calendar, Presentation, CheckCircle } from 'lucide-react';
+import { Calendar, Presentation, CheckCircle } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogDescription,
-  DialogTrigger,
 } from "@/components/ui/dialog"
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -27,22 +24,27 @@ const formFields = [
 ];
 
 export default function VslOptInPage() {
-  const vslThumbnail = PlaceHolderImages.find(p => p.id === 'vsl_thumbnail');
-  const [isOpen, setIsOpen] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isLeadCaptured, setIsLeadCaptured] = useState(false);
+
+  // Open the lead capture popup after 10 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!isLeadCaptured) { // Only open if the lead hasn't been captured yet
+        setIsPopupOpen(true);
+      }
+    }, 10000); // 10 seconds
+
+    return () => clearTimeout(timer);
+  }, [isLeadCaptured]);
+
 
   const handleFormSuccess = () => {
     setIsLeadCaptured(true);
-  };
-
-  const handleOpenChange = (open: boolean) => {
-    setIsOpen(open);
-    // Reset state if dialog is closed
-    if (!open) {
-      setTimeout(() => {
-        setIsLeadCaptured(false);
-      }, 300); // Delay to allow for exit animation
-    }
+    // Keep the popup open for a moment to show a success message, then close it.
+    setTimeout(() => {
+       setIsPopupOpen(false);
+    }, 2000);
   };
 
   return (
@@ -64,65 +66,42 @@ export default function VslOptInPage() {
                 Mira esta breve presentación para ver cómo SORO™ puede duplicar tus agendamientos de citas y liberar a tu personal de tareas repetitivas.
               </p>
             </div>
-            <div className="w-full max-w-2xl">
-              <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-                <DialogTrigger asChild>
-                  <button className="w-full">
-                    <AspectRatio ratio={16 / 9} className="overflow-hidden rounded-xl shadow-2xl">
-                      {vslThumbnail && (
-                        <div className="relative group h-full w-full">
-                          <Image
-                            src={vslThumbnail.imageUrl}
-                            alt="Miniatura VSL"
-                            fill
-                            className="object-cover transition-transform duration-300 group-hover:scale-105"
-                            data-ai-hint={vslThumbnail.imageHint}
-                          />
-                          <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                            <PlayCircle className="h-20 w-20 text-white/70 group-hover:text-white transition-colors" />
-                          </div>
-                        </div>
-                      )}
-                    </AspectRatio>
-                  </button>
-                </DialogTrigger>
-                <DialogContent className="max-w-4xl p-0">
-                   <DialogHeader className="sr-only">
-                    <DialogTitle>Video de Ventas y Captura de Lead de SORO</DialogTitle>
-                    <DialogDescription>
-                      {isLeadCaptured
-                        ? "Una presentación en video que muestra cómo SORO puede automatizar y mejorar la comunicación de una clínica dental."
-                        : "Completa el formulario para ver la presentación en video sobre cómo SORO puede ayudar a tu clínica."}
-                    </DialogDescription>
-                  </DialogHeader>
-
-                  {isLeadCaptured ? (
-                     <AspectRatio ratio={16 / 9}>
-                      <iframe
-                        src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1"
-                        title="YouTube video player"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                        className="h-full w-full rounded-lg"
-                      ></iframe>
-                    </AspectRatio>
-                  ) : (
-                    <div className="p-8">
-                       <LeadForm
-                          formFields={formFields}
-                          ctaText="Ver Video Ahora"
-                          formTitle="Accede a la Presentación Exclusiva"
-                          formDescription="Ingresa tus datos para desbloquear el video y descubrir el sistema."
-                          source="VSL Opt-in"
-                          onSuccess={handleFormSuccess}
-                        />
-                    </div>
-                  )}
-
-                </DialogContent>
-              </Dialog>
+            
+            {/* Video container - plays automatically */}
+            <div className="w-full max-w-4xl">
+              <AspectRatio ratio={16 / 9} className="overflow-hidden rounded-xl shadow-2xl">
+                <iframe
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&controls=0"
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="h-full w-full"
+                ></iframe>
+              </AspectRatio>
             </div>
+
+            {/* Lead Capture Popup */}
+            <Dialog open={isPopupOpen} onOpenChange={setIsPopupOpen}>
+              <DialogContent className="max-w-lg p-0">
+                 <DialogHeader className="p-6 pb-0">
+                  <DialogTitle className="text-2xl">Accede a la Presentación Exclusiva</DialogTitle>
+                  <DialogDescription>
+                    Ingresa tus datos para desbloquear el contenido completo y recibir más información.
+                  </DialogDescription>
+                </DialogHeader>
+                  <div className="p-6 pt-0">
+                     <LeadForm
+                        formFields={formFields}
+                        ctaText="Continuar Viendo"
+                        formTitle=""
+                        formDescription=""
+                        source="VSL Popup"
+                        onSuccess={handleFormSuccess}
+                      />
+                  </div>
+              </DialogContent>
+            </Dialog>
             
             <div className="flex w-full max-w-2xl flex-col items-center justify-center gap-4 sm:flex-row">
               <Button asChild size="lg" className="w-full sm:w-auto">
