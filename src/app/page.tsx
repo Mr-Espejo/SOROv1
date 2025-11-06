@@ -19,6 +19,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { LogoCloud } from '@/components/landing/logo-cloud';
+import { Testimonials } from '@/components/landing/testimonials';
 import { Card, CardContent } from '@/components/ui/card';
 
 const DynamicHeader: React.FC = () => {
@@ -468,25 +469,6 @@ const WhySoroSection: React.FC = () => {
   );
 };
 
-const TestimonialSection: React.FC = () => {
-  return (
-    <SectionWrapper className="py-12 md:py-20 bg-gray-900 text-white">
-      <div className="container mx-auto px-4 text-center">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6">
-          De mensajes sin responder... a pacientes felices.
-        </h2>
-        <blockquote className="max-w-3xl mx-auto">
-          <p className="text-xl md:text-2xl text-gray-300 italic mb-6">
-            “Antes perdíamos pacientes cada fin de semana. Ahora, SORO responde al instante por WhatsApp, agenda y nos notifica. Cerramos más citas que nunca.”
-          </p>
-          <footer className="text-teal-400 font-semibold">— Clínica Dental SmilePro, Bogotá</footer>
-        </blockquote>
-      </div>
-    </SectionWrapper>
-  );
-};
-
-
 const HowItWorksSection: React.FC = () => {
   const router = useRouter();
   const steps = [
@@ -620,7 +602,7 @@ export default function Home() {
         <Hero />
         <LogoCloud />
         <WhySoroSection />
-        <TestimonialSection />
+        <Testimonials />
         <HowItWorksSection />
         <InnovationSection />
         <FinalCTASection />
