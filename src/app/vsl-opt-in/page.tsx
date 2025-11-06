@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { LeadForm } from '@/components/landing/lead-form';
-import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { PlayCircle, Calendar, Presentation, CheckCircle } from 'lucide-react';
 import {
@@ -33,7 +32,11 @@ export default function VslOptInPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <Header />
+      <header className="bg-primary text-primary-foreground py-2 px-4 text-center">
+        <p className="font-semibold text-sm uppercase tracking-wider">
+          PARA DUEÑOS DE CLÍNICAS DENTALES QUE BUSCAN LLENAR SU AGENDA Y AUMENTAR SUS INGRESOS CON INTELIGENCIA ARTIFICIAL
+        </p>
+      </header>
       <main className="flex-1">
         <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container flex flex-col items-center justify-center gap-10 px-4 text-center md:px-6">
@@ -69,10 +72,10 @@ export default function VslOptInPage() {
                   </button>
                 </DialogTrigger>
                 <DialogContent className="max-w-4xl p-0">
-                  <DialogHeader className="sr-only">
-                    <DialogTitle>Video de Ventas</DialogTitle>
+                   <DialogHeader className="sr-only">
+                    <DialogTitle>Video de Ventas de SORO</DialogTitle>
                     <DialogDescription>
-                      Una ventana modal que contiene un video de ventas incrustado de YouTube.
+                      Una presentación en video que muestra cómo SORO puede automatizar y mejorar la comunicación de una clínica dental.
                     </DialogDescription>
                   </DialogHeader>
                   <AspectRatio ratio={16 / 9}>
