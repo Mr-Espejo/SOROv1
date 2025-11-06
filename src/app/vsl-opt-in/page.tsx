@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -37,7 +38,7 @@ export default function VslOptInPage() {
         <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container flex flex-col items-center justify-center gap-10 px-4 text-center md:px-6">
             <div className="space-y-4">
-              <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm font-semibold">Oferta por Tiempo Limitado</div>
+              <div className="inline-block rounded-lg bg-accent px-3 py-1 text-sm font-semibold text-accent-foreground">Oferta por Tiempo Limitado</div>
               <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
                 Descubre Cómo <span className="text-primary">Automatizar el 90%</span> de la Comunicación de Tu Clínica en Menos de 5 Minutos
               </h1>
