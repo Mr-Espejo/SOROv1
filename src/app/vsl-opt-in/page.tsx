@@ -27,13 +27,13 @@ export default function VslOptInPage() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isLeadCaptured, setIsLeadCaptured] = useState(false);
 
-  // Open the lead capture popup after 10 seconds
+  // Open the lead capture popup after 5 seconds
   useEffect(() => {
     const timer = setTimeout(() => {
       if (!isLeadCaptured) { // Only open if the lead hasn't been captured yet
         setIsPopupOpen(true);
       }
-    }, 10000); // 10 seconds
+    }, 5000); // 5 seconds
 
     return () => clearTimeout(timer);
   }, [isLeadCaptured]);
