@@ -67,14 +67,14 @@ export default function VslOptInPage() {
               </p>
             </div>
             
-            {/* Video container - plays automatically */}
+            {/* Video container */}
             <div className="w-full max-w-4xl">
               <AspectRatio ratio={16 / 9} className="overflow-hidden rounded-xl shadow-2xl">
                 <iframe
                   src="https://www.youtube.com/embed/dQw4w9WgXcQ?mute=1&controls=0"
                   title="YouTube video player"
                   frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                   className="h-full w-full"
                 ></iframe>
@@ -83,7 +83,13 @@ export default function VslOptInPage() {
 
             {/* Lead Capture Popup */}
             <Dialog open={isPopupOpen} onOpenChange={setIsPopupOpen}>
-              <DialogContent className="max-w-lg p-0">
+              <DialogContent 
+                className="max-w-lg p-0"
+                onInteractOutside={(e) => {
+                    e.preventDefault();
+                }}
+                hideCloseButton={true}
+              >
                  <DialogHeader className="p-6 pb-0">
                   <DialogTitle className="text-2xl">Accede a la Presentación Exclusiva</DialogTitle>
                   <DialogDescription>
