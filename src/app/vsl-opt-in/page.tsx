@@ -29,6 +29,21 @@ const formFields = [
 export default function VslOptInPage() {
   const vslThumbnail = PlaceHolderImages.find(p => p.id === 'vsl_thumbnail');
   const [isOpen, setIsOpen] = useState(false);
+  const [isLeadCaptured, setIsLeadCaptured] = useState(false);
+
+  const handleFormSuccess = () => {
+    setIsLeadCaptured(true);
+  };
+
+  const handleOpenChange = (open: boolean) => {
+    setIsOpen(open);
+    // Reset state if dialog is closed
+    if (!open) {
+      setTimeout(() => {
+        setIsLeadCaptured(false);
+      }, 300); // Delay to allow for exit animation
+    }
+  };
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -50,7 +65,7 @@ export default function VslOptInPage() {
               </p>
             </div>
             <div className="w-full max-w-2xl">
-              <Dialog open={isOpen} onOpenChange={setIsOpen}>
+              <Dialog open={isOpen} onOpenChange={handleOpenChange}>
                 <DialogTrigger asChild>
                   <button className="w-full">
                     <AspectRatio ratio={16 / 9} className="overflow-hidden rounded-xl shadow-2xl">
@@ -73,21 +88,38 @@ export default function VslOptInPage() {
                 </DialogTrigger>
                 <DialogContent className="max-w-4xl p-0">
                    <DialogHeader className="sr-only">
-                    <DialogTitle>Video de Ventas de SORO</DialogTitle>
+                    <DialogTitle>Video de Ventas y Captura de Lead de SORO</DialogTitle>
                     <DialogDescription>
-                      Una presentación en video que muestra cómo SORO puede automatizar y mejorar la comunicación de una clínica dental.
+                      {isLeadCaptured
+                        ? "Una presentación en video que muestra cómo SORO puede automatizar y mejorar la comunicación de una clínica dental."
+                        : "Completa el formulario para ver la presentación en video sobre cómo SORO puede ayudar a tu clínica."}
                     </DialogDescription>
                   </DialogHeader>
-                  <AspectRatio ratio={16 / 9}>
-                    <iframe
-                      src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
-                      title="YouTube video player"
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      className="h-full w-full rounded-lg"
-                    ></iframe>
-                  </AspectRatio>
+
+                  {isLeadCaptured ? (
+                     <AspectRatio ratio={16 / 9}>
+                      <iframe
+                        src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+                        title="YouTube video player"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        className="h-full w-full rounded-lg"
+                      ></iframe>
+                    </AspectRatio>
+                  ) : (
+                    <div className="p-8">
+                       <LeadForm
+                          formFields={formFields}
+                          ctaText="Ver Video Ahora"
+                          formTitle="Accede a la Presentación Exclusiva"
+                          formDescription="Ingresa tus datos para desbloquear el video y descubrir el sistema."
+                          source="VSL Opt-in"
+                          onSuccess={handleFormSuccess}
+                        />
+                    </div>
+                  )}
+
                 </DialogContent>
               </Dialog>
             </div>
@@ -123,16 +155,6 @@ export default function VslOptInPage() {
                   <span>Estrategia paso a paso</span>
                 </div>
               </div>
-            </div>
-
-            <div className="w-full max-w-lg pt-8">
-              <LeadForm
-                formFields={formFields}
-                ctaText="Obtener una Consulta Gratuita"
-                formTitle="Inicia Tu Viaje de Automatización"
-                formDescription="Completa el formulario a continuación para reclamar tu consulta gratuita y sin compromiso."
-                source="Carta de Ventas en Video (VSL)"
-              />
             </div>
           </div>
         </section>

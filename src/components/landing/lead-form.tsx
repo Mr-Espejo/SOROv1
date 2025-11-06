@@ -26,6 +26,7 @@ interface LeadFormProps {
   formTitle: string;
   formDescription: string;
   source: string;
+  onSuccess?: () => void;
 }
 
 const formSchema = z.object({
@@ -35,7 +36,7 @@ const formSchema = z.object({
   clinicName: z.string().optional().or(z.literal('')),
 });
 
-export function LeadForm({ formFields, ctaText, formTitle, formDescription, source }: LeadFormProps) {
+export function LeadForm({ formFields, ctaText, formTitle, formDescription, source, onSuccess }: LeadFormProps) {
   const firestore = useFirestore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -67,15 +68,19 @@ export function LeadForm({ formFields, ctaText, formTitle, formDescription, sour
 
     toast({
         title: '¡Éxito!',
-        description: "Hemos recibido tu información y nos pondremos en contacto en breve.",
+        description: "Hemos recibido tu información. El video se mostrará ahora.",
     });
     
     form.reset();
     setIsSubmitting(false);
+
+    if (onSuccess) {
+      onSuccess();
+    }
   }
 
   return (
-    <Card className="w-full max-w-lg mx-auto bg-background/50 shadow-xl">
+    <Card className="w-full max-w-lg mx-auto bg-background/50 shadow-xl border-none">
       <CardHeader>
         <CardTitle className="text-3xl font-bold">{formTitle}</CardTitle>
         <CardDescription>{formDescription}</CardDescription>
