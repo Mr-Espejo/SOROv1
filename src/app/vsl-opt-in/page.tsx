@@ -33,66 +33,64 @@ export default function VslOptInPage() {
       <main className="flex-1">
         <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
-            <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
-              <div className="flex flex-col justify-center space-y-6">
-                <div className="space-y-4">
-                  <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm font-semibold">Oferta por Tiempo Limitado</div>
-                  <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-                    Descubre Cómo Automatizar el 90% de la Comunicación de Tu Clínica en Menos de 5 Minutos
-                  </h1>
-                  <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                    Mira esta breve presentación para ver cómo SORO™ puede duplicar tus agendamientos de citas y liberar a tu personal de tareas repetitivas.
-                  </p>
-                </div>
-                <div className="w-full max-w-lg">
-                  <Dialog open={isOpen} onOpenChange={setIsOpen}>
-                    <DialogTrigger asChild>
-                      <button className="w-full">
-                        <AspectRatio ratio={16 / 9} className="overflow-hidden rounded-xl">
-                          {vslThumbnail && (
-                            <div className="relative group h-full w-full">
-                              <Image
-                                src={vslThumbnail.imageUrl}
-                                alt="Miniatura VSL"
-                                fill
-                                className="object-cover transition-transform duration-300 group-hover:scale-105"
-                                data-ai-hint={vslThumbnail.imageHint}
-                              />
-                              <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                                <PlayCircle className="h-20 w-20 text-white/70 group-hover:text-white transition-colors" />
-                              </div>
-                            </div>
-                          )}
-                        </AspectRatio>
-                      </button>
-                    </DialogTrigger>
-                    <DialogContent className="max-w-4xl p-0">
-                        <DialogHeader className="sr-only">
-                           <DialogTitle>Video de Ventas</DialogTitle>
-                           <DialogDescription>
-                             Una ventana modal que contiene un video de ventas incrustado de YouTube.
-                           </DialogDescription>
-                        </DialogHeader>
-                       <AspectRatio ratio={16 / 9}>
-                          <iframe 
-                            src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" 
-                            title="YouTube video player" 
-                            frameBorder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowFullScreen
-                            className="w-full h-full rounded-lg"
-                          ></iframe>
-                        </AspectRatio>
-                    </DialogContent>
-                  </Dialog>
-                </div>
+            <div className="flex flex-col items-center justify-center gap-10 text-center">
+              <div className="space-y-4">
+                <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm font-semibold">Oferta por Tiempo Limitado</div>
+                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
+                  Descubre Cómo Automatizar el 90% de la Comunicación de Tu Clínica en Menos de 5 Minutos
+                </h1>
+                <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
+                  Mira esta breve presentación para ver cómo SORO™ puede duplicar tus agendamientos de citas y liberar a tu personal de tareas repetitivas.
+                </p>
               </div>
-              <div className="flex items-center justify-center">
+              <div className="w-full max-w-2xl">
+                <Dialog open={isOpen} onOpenChange={setIsOpen}>
+                  <DialogTrigger asChild>
+                    <button className="w-full">
+                      <AspectRatio ratio={16 / 9} className="overflow-hidden rounded-xl shadow-2xl">
+                        {vslThumbnail && (
+                          <div className="relative group h-full w-full">
+                            <Image
+                              src={vslThumbnail.imageUrl}
+                              alt="Miniatura VSL"
+                              fill
+                              className="object-cover transition-transform duration-300 group-hover:scale-105"
+                              data-ai-hint={vslThumbnail.imageHint}
+                            />
+                            <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                              <PlayCircle className="h-20 w-20 text-white/70 group-hover:text-white transition-colors" />
+                            </div>
+                          </div>
+                        )}
+                      </AspectRatio>
+                    </button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-4xl p-0">
+                      <DialogHeader className="sr-only">
+                         <DialogTitle>Video de Ventas</DialogTitle>
+                         <DialogDescription>
+                           Una ventana modal que contiene un video de ventas incrustado de YouTube.
+                         </DialogDescription>
+                      </DialogHeader>
+                     <AspectRatio ratio={16 / 9}>
+                        <iframe 
+                          src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" 
+                          title="YouTube video player" 
+                          frameBorder="0" 
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                          allowFullScreen
+                          className="w-full h-full rounded-lg"
+                        ></iframe>
+                      </AspectRatio>
+                  </DialogContent>
+                </Dialog>
+              </div>
+              <div className="w-full max-w-lg pt-8">
                 <LeadForm
                   formFields={formFields}
                   ctaText="Obtener una Consulta Gratuita"
                   formTitle="Inicia Tu Viaje de Automatización"
-                  formDescription="Completa el formulario a continuación para reclamar tu consulta gratuita y sin compromiso con uno de nuestros expertos en automatización."
+                  formDescription="Completa el formulario a continuación para reclamar tu consulta gratuita y sin compromiso."
                   source="Carta de Ventas en Video (VSL)"
                 />
               </div>
