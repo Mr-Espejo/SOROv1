@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { Testimonials } from '@/components/landing/testimonials';
 
 const formFields = [
   { name: 'name' as const, label: 'Nombre Completo', placeholder: 'Ej: Ana Pérez', type: 'text' },
@@ -131,6 +132,7 @@ export default function VslOptInPage() {
             </div>
           </div>
         </section>
+        <Testimonials />
       </main>
       <Footer />
     </div>
