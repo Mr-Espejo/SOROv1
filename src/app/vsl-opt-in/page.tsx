@@ -40,7 +40,7 @@ export default function VslOptInPage() {
             <div className="space-y-4">
               <div className="inline-block rounded-lg bg-accent px-3 py-1 text-sm font-semibold text-accent-foreground">Oferta por Tiempo Limitado</div>
               <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-                Descubre Cómo <span className="text-primary">Automatizar el 90%</span> de la Comunicación de Tu Clínica en Menos de 5 Minutos
+                Descubre Cómo <span className="text-accent">Automatizar el 90%</span> de la Comunicación de Tu Clínica en Menos de 5 Minutos
               </h1>
               <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
                 Mira esta breve presentación para ver cómo SORO™ puede duplicar tus agendamientos de citas y liberar a tu personal de tareas repetitivas.
