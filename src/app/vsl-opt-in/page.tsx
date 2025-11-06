@@ -99,7 +99,7 @@ export default function VslOptInPage() {
                   {isLeadCaptured ? (
                      <AspectRatio ratio={16 / 9}>
                       <iframe
-                        src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+                        src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1"
                         title="YouTube video player"
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
