@@ -136,7 +136,7 @@ export default function VslOptInPage() {
               <Button asChild size="lg" className="w-full sm:w-auto">
                 <Link href="/schedule-call">
                   <Calendar className="mr-2 h-5 w-5" />
-                  Agendar Reunión
+                  AGENDAR UNA DEMO AHORA
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
