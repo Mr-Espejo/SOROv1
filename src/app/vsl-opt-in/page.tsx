@@ -71,7 +71,7 @@ export default function VslOptInPage() {
             <div className="w-full max-w-4xl">
               <AspectRatio ratio={16 / 9} className="overflow-hidden rounded-xl shadow-2xl">
                 <iframe
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&controls=0"
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?mute=1&controls=0"
                   title="YouTube video player"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
