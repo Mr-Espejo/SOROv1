@@ -32,13 +32,13 @@ export default function VslOptInPage() {
   // Open the lead capture popup after 5 seconds
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (!isLeadCaptured) { // Only open if the lead hasn't been captured yet
+      if (!isLeadCaptured && !isPopupOpen) { // Only open if lead not captured and popup not already open
         setIsPopupOpen(true);
       }
     }, 5000); // 5 seconds
 
     return () => clearTimeout(timer);
-  }, [isLeadCaptured]);
+  }, [isLeadCaptured, isPopupOpen]);
 
 
   const handleFormSuccess = () => {
@@ -81,7 +81,7 @@ export default function VslOptInPage() {
               <AspectRatio ratio={16 / 9} className="overflow-hidden rounded-xl shadow-2xl bg-black">
                 <video
                   ref={videoRef}
-                  src="https://file.notion.so/f/f/ed6477b8-cb1b-4174-8d7a-3c87e939e5b9/f969228a-d764-42b6-84cd-f75b4eec0e85/1106_(1).mp4?table=block&id=2a35454f-b3d8-80cf-9116-e5816446e804&spaceId=ed6477b8-cb1b-4174-8d7a-3c87e939e5b9&expirationTimestamp=1762488000000&signature=PqTcfWQPHosNhjBJuIcz-_lia2-wqGmzQE5nOV9Q9zU&downloadName=1106+%281%29.mp4"
+                  src="https://firebasestorage.googleapis.com/v0/b/soro-c3b3e.firebasestorage.app/o/1106%20(1).mp4?alt=media&token=b4f13b7f-81ce-4b1c-9fbd-9e3e5d708d3c"
                   controls={isVideoPlaying}
                   className="h-full w-full"
                 >
