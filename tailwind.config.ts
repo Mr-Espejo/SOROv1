@@ -94,9 +94,9 @@ export default {
             '100%': { transform: 'translateX(-100%)' },
         },
         'strong-pulse': {
-            '0%': { transform: 'scale(1)', boxShadow: '0 0 0 0 rgba(var(--primary-rgb), 0.7)' },
-            '50%': { transform: 'scale(1.05)', boxShadow: '0 0 10px 15px rgba(var(--primary-rgb), 0)' },
-            '100%': { transform: 'scale(1)', boxShadow: '0 0 0 0 rgba(var(--primary-rgb), 0)' },
+            '0%': { transform: 'scale(1)', boxShadow: '0 0 0 0 rgba(50, 205, 50, 0.7)' },
+            '70%': { transform: 'scale(1.05)', boxShadow: '0 0 10px 20px rgba(50, 205, 50, 0)' },
+            '100%': { transform: 'scale(1)', boxShadow: '0 0 0 0 rgba(50, 205, 50, 0)' },
         },
       },
       animation: {

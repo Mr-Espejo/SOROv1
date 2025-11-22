@@ -16,6 +16,7 @@ import {
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Testimonials } from '@/components/landing/testimonials';
+import { cn } from '@/lib/utils';
 
 const formFields = [
   { name: 'name' as const, label: 'Nombre Completo', placeholder: 'Ej: Ana Pérez', type: 'text' },
@@ -139,7 +140,7 @@ export default function VslOptInPage() {
             </Dialog>
             
             <div className="flex w-full max-w-2xl flex-col items-center justify-center gap-4 sm:flex-row">
-              <Button asChild size="lg" className={`w-full sm:w-auto ${animateCta ? 'animate-strong-pulse' : ''}`}>
+              <Button asChild size="lg" className={cn('w-full sm:w-auto', animateCta && 'animate-strong-pulse bg-lime-500 hover:bg-lime-600')}>
                 <Link href="/schedule-call">
                   <Calendar className="mr-2 h-5 w-5" />
                   AGENDAR UNA DEMO AHORA
@@ -179,7 +180,7 @@ export default function VslOptInPage() {
             <p className="max-w-md text-muted-foreground">
                 No dejes que tu clínica se quede atrás. Agenda una demo hoy mismo y descubre el poder de la automatización con IA.
             </p>
-            <Button asChild size="lg" className={`w-full sm:w-auto ${animateCta ? 'animate-strong-pulse' : ''}`}>
+            <Button asChild size="lg" className={cn('w-full sm:w-auto', animateCta && 'animate-strong-pulse bg-lime-500 hover:bg-lime-600')}>
               <Link href="/schedule-call">
                 <Calendar className="mr-2 h-5 w-5" />
                 AGENDAR UNA DEMO AHORA
