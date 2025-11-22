@@ -4,7 +4,7 @@ import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Presentation } from 'lucide-react';
+import { Presentation, Calendar } from 'lucide-react';
 
 const WhatsappIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
@@ -35,16 +35,29 @@ export default function WebinarsPage() {
             Conviértete en un Experto con Nuestros Webinars
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-muted-foreground md:text-xl">
-            Estamos preparando nuevas sesiones en vivo con estrategias avanzadas para automatizar y hacer crecer tu clínica. ¿Quieres ser el primero en saberlo y acceder a contenido exclusivo?
+            Accede a nuestro grupo exclusivo de WhatsApp donde te mantendremos al tanto de los próximos webinars con estrategias avanzadas para automatizar y hacer crecer tu clínica.
           </p>
-          <div className="mt-10">
+          <div className="mt-10 flex flex-col items-center gap-4">
             <Button asChild size="lg">
                 <Link href="https://chat.whatsapp.com/HT9nzujcIy2C6sW4m9UVZt" target="_blank" rel="noopener noreferrer">
                     <WhatsappIcon className="mr-2 h-5 w-5" />
                     Unirme al Grupo Exclusivo
                 </Link>
             </Button>
-            <p className="mt-4 text-sm text-muted-foreground">Accede a nuestro grupo de WhatsApp y no te pierdas ninguna novedad.</p>
+            <p className="text-sm text-muted-foreground">Serás el primero en saber de nuevas fechas y contenido.</p>
+
+            <div className="mt-8 flex w-full flex-col items-center justify-center gap-4 sm:flex-row">
+                <div className="h-px w-20 bg-border"></div>
+                <span className="text-xs font-medium text-muted-foreground">O SI PREFIERES</span>
+                <div className="h-px w-20 bg-border"></div>
+            </div>
+
+            <Button asChild size="lg" variant="secondary" className="mt-4">
+                <Link href="/schedule-call">
+                    <Calendar className="mr-2 h-5 w-5" />
+                    AGENDAR UNA DEMO AHORA
+                </Link>
+            </Button>
           </div>
         </div>
       </main>
