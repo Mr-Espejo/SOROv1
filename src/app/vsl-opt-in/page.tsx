@@ -27,23 +27,31 @@ export default function VslOptInPage() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isLeadCaptured, setIsLeadCaptured] = useState(false);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [animateCta, setAnimateCta] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   // Open the lead capture popup after 5 seconds
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!isLeadCaptured && !isPopupOpen) { // Only open if lead not captured and popup not already open
+    const popupTimer = setTimeout(() => {
+      if (!isLeadCaptured && !isPopupOpen) {
         setIsPopupOpen(true);
       }
     }, 5000); // 5 seconds
 
-    return () => clearTimeout(timer);
+    // Set timer to animate the CTA button after 3 minutes
+    const ctaTimer = setTimeout(() => {
+      setAnimateCta(true);
+    }, 180000); // 3 minutes
+
+    return () => {
+      clearTimeout(popupTimer);
+      clearTimeout(ctaTimer);
+    };
   }, [isLeadCaptured, isPopupOpen]);
 
 
   const handleFormSuccess = () => {
     setIsLeadCaptured(true);
-    // Keep the popup open for a moment to show a success message, then close it.
     setTimeout(() => {
        setIsPopupOpen(false);
     }, 2000);
@@ -76,7 +84,6 @@ export default function VslOptInPage() {
               </p>
             </div>
             
-            {/* Video container */}
             <div className="relative w-full max-w-4xl mx-auto">
               <AspectRatio ratio={16 / 9} className="overflow-hidden rounded-xl shadow-2xl bg-black">
                 <video
@@ -104,7 +111,6 @@ export default function VslOptInPage() {
               )}
             </div>
 
-            {/* Lead Capture Popup */}
             <Dialog open={isPopupOpen} onOpenChange={setIsPopupOpen}>
               <DialogContent 
                 className="max-w-lg p-0"
@@ -133,7 +139,7 @@ export default function VslOptInPage() {
             </Dialog>
             
             <div className="flex w-full max-w-2xl flex-col items-center justify-center gap-4 sm:flex-row">
-              <Button asChild size="lg" className="w-full sm:w-auto">
+              <Button asChild size="lg" className={`w-full sm:w-auto ${animateCta ? 'animate-pulse' : ''}`}>
                 <Link href="/schedule-call">
                   <Calendar className="mr-2 h-5 w-5" />
                   AGENDAR UNA DEMO AHORA
