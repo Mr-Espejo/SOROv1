@@ -1,3 +1,4 @@
+
 import type {Config} from 'tailwindcss';
 
 export default {
@@ -92,12 +93,18 @@ export default {
             '0%': { transform: 'translateX(0)' },
             '100%': { transform: 'translateX(-100%)' },
         },
+        'strong-pulse': {
+            '0%': { transform: 'scale(1)', boxShadow: '0 0 0 0 rgba(var(--primary-rgb), 0.7)' },
+            '50%': { transform: 'scale(1.05)', boxShadow: '0 0 10px 15px rgba(var(--primary-rgb), 0)' },
+            '100%': { transform: 'scale(1)', boxShadow: '0 0 0 0 rgba(var(--primary-rgb), 0)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'scroll': 'scroll 40s linear infinite',
-        'scroll-alternate': 'scroll 40s linear infinite alternate'
+        'scroll-alternate': 'scroll 40s linear infinite alternate',
+        'strong-pulse': 'strong-pulse 2s infinite',
       },
     },
   },

@@ -139,7 +139,7 @@ export default function VslOptInPage() {
             </Dialog>
             
             <div className="flex w-full max-w-2xl flex-col items-center justify-center gap-4 sm:flex-row">
-              <Button asChild size="lg" className={`w-full sm:w-auto ${animateCta ? 'animate-pulse' : ''}`}>
+              <Button asChild size="lg" className={`w-full sm:w-auto ${animateCta ? 'animate-strong-pulse' : ''}`}>
                 <Link href="/schedule-call">
                   <Calendar className="mr-2 h-5 w-5" />
                   AGENDAR UNA DEMO AHORA
@@ -173,6 +173,20 @@ export default function VslOptInPage() {
           </div>
         </section>
         <Testimonials />
+        <section className="w-full py-16 bg-background">
+          <div className="container flex flex-col items-center justify-center gap-4 text-center">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">¿Listo para transformar tu clínica?</h2>
+            <p className="max-w-md text-muted-foreground">
+                No dejes que tu clínica se quede atrás. Agenda una demo hoy mismo y descubre el poder de la automatización con IA.
+            </p>
+            <Button asChild size="lg" className={`w-full sm:w-auto ${animateCta ? 'animate-strong-pulse' : ''}`}>
+              <Link href="/schedule-call">
+                <Calendar className="mr-2 h-5 w-5" />
+                AGENDAR UNA DEMO AHORA
+              </Link>
+            </Button>
+          </div>
+        </section>
       </main>
       <Footer />
     </div>
