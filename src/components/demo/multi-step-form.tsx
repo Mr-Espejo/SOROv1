@@ -327,6 +327,8 @@ export function MultiStepForm() {
 
   const watchedTestMode = methods.watch('testMode');
 
+  const totalSteps = 5; // Including welcome + new services step
+
   useEffect(() => {
     const handleAutoNavigation = async () => {
         if (currentStep !== totalSteps - 1) return;
@@ -407,7 +409,6 @@ export function MultiStepForm() {
     }
   };
   
-  const totalSteps = 5; // Including welcome + new services step
   const progress = ((currentStep) / (totalSteps - 1)) * 100;
 
   const stepsComponents = [
@@ -460,5 +461,6 @@ export function MultiStepForm() {
     </div>
   );
 }
+
 
     
