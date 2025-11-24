@@ -55,6 +55,12 @@ const DynamicHeader: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleTrackEvent = (eventName: string) => {
+    if (typeof window !== 'undefined' && window.fbq) {
+      window.fbq('track', eventName);
+    }
+  };
+
   const handleLogoClick = () => {
     router.push('/');
     setIsMenuOpen(false);
@@ -202,7 +208,7 @@ const DynamicHeader: React.FC = () => {
           <Link href="/vsl-opt-in">
             <DropdownMenuItem className="gap-3"><Video size={20}/> Ver Video de Ventas</DropdownMenuItem>
           </Link>
-          <Link href={whatsappLink} target="_blank">
+          <Link href={whatsappLink} target="_blank" onClick={() => handleTrackEvent('Contact')}>
             <DropdownMenuItem className="gap-3"><WhatsappIcon className="h-5 w-5"/> Contactar por WhatsApp</DropdownMenuItem>
           </Link>
         </div>
@@ -577,6 +583,13 @@ const InnovationSection: React.FC = () => {
 const FinalCTASection: React.FC = () => {
   const router = useRouter();
   const whatsappLink = "https://api.whatsapp.com/send/?phone=%2B573192992780&text=Hola%2C+me+gustar%C3%ADa+obtener+m%C3%A1s+informaci%C3%B3n+sobre+SORO.&type=phone_number&app_absent=0";
+  
+  const handleTrackEvent = (eventName: string) => {
+    if (typeof window !== 'undefined' && window.fbq) {
+      window.fbq('track', eventName);
+    }
+  };
+
   return (
     <SectionWrapper className="py-12 md:py-20 bg-gray-900 text-white">
       <div className="container mx-auto px-4 text-center">
@@ -590,7 +603,7 @@ const FinalCTASection: React.FC = () => {
           <Button size="lg" onClick={() => router.push('/schedule-call')} className="bg-teal-500 hover:bg-teal-600 text-white">
             Agendar Demo Gratis
           </Button>
-          <Button asChild size="lg" variant="outline" className="border-teal-400 text-teal-400 hover:bg-teal-400 hover:text-gray-900">
+          <Button asChild size="lg" variant="outline" className="border-teal-400 text-teal-400 hover:bg-teal-400 hover:text-gray-900" onClick={() => handleTrackEvent('Contact')}>
             <Link href={whatsappLink} target="_blank">
               Hablar con un Especialista
             </Link>
@@ -619,5 +632,7 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     

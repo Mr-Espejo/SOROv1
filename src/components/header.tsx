@@ -9,12 +9,14 @@ interface HeaderProps {
   buttonText?: string;
   buttonLink?: string;
   buttonTarget?: string;
+  onButtonClick?: () => void;
 }
 
 export function Header({
   buttonText = "Solicitar un Demo",
   buttonLink = "/demo",
   buttonTarget = "_self",
+  onButtonClick,
 }: HeaderProps) {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -23,7 +25,7 @@ export function Header({
           <SoroLogo />
         </Link>
         <nav className="flex items-center gap-4">
-          <Button asChild className="bg-teal-500 text-white hover:bg-teal-600">
+          <Button asChild className="bg-teal-500 text-white hover:bg-teal-600" onClick={onButtonClick}>
             <Link href={buttonLink} target={buttonTarget}>
               {buttonText}
             </Link>
@@ -33,3 +35,5 @@ export function Header({
     </header>
   );
 }
+
+    

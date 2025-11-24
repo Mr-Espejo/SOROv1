@@ -25,6 +25,12 @@ const WhatsappIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 
 export default function WebinarsPage() {
+  const handleTrackEvent = (eventName: string) => {
+    if (typeof window !== 'undefined' && window.fbq) {
+      window.fbq('track', eventName);
+    }
+  };
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <Header />
@@ -38,7 +44,7 @@ export default function WebinarsPage() {
             Accede a nuestro grupo exclusivo de WhatsApp donde te mantendremos al tanto de los próximos webinars con estrategias avanzadas para automatizar y hacer crecer tu clínica.
           </p>
           <div className="mt-10 flex flex-col items-center gap-4">
-            <Button asChild size="lg">
+            <Button asChild size="lg" onClick={() => handleTrackEvent('JoinGroup')}>
                 <Link href="https://chat.whatsapp.com/HT9nzujcIy2C6sW4m9UVZt" target="_blank" rel="noopener noreferrer">
                     <WhatsappIcon className="mr-2 h-5 w-5" />
                     Unirme al Grupo Exclusivo
@@ -65,3 +71,5 @@ export default function WebinarsPage() {
     </div>
   );
 }
+
+    
