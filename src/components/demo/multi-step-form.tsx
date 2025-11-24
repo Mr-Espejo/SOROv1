@@ -80,7 +80,7 @@ const validationSchemas = [
 
 const WelcomeStep = ({ onNext }: { onNext: () => void }) => (
     <div className="text-center">
-        <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
+        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
          ¡Hola! 👋 Soy SORO, tu asistente automatizado para clínicas.
         </h1>
         <p className="mt-4 text-muted-foreground md:text-xl">
@@ -93,7 +93,7 @@ const WelcomeStep = ({ onNext }: { onNext: () => void }) => (
 const Step1 = () => (
     <Card className="w-full">
         <CardHeader>
-            <CardTitle>1. Datos de tu clínica</CardTitle>
+            <CardTitle className="text-2xl md:text-3xl">1. Datos de tu clínica</CardTitle>
             <CardDescription>Estos datos nos permiten personalizar el entorno de prueba.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6 pt-6">
@@ -146,7 +146,7 @@ const Step1 = () => (
 const Step2 = () => (
     <Card className="w-full">
         <CardHeader>
-            <CardTitle>2. Detalles de la clínica</CardTitle>
+            <CardTitle className="text-2xl md:text-3xl">2. Detalles de la clínica</CardTitle>
             <CardDescription>Esta información nos ayuda a entender mejor tus necesidades.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6 pt-6">
@@ -193,7 +193,7 @@ const Step3 = () => {
     return (
         <Card className="w-full">
             <CardHeader>
-                <CardTitle>3. Servicios de la Clínica</CardTitle>
+                <CardTitle className="text-2xl md:text-3xl">3. Servicios de la Clínica</CardTitle>
                 <CardDescription>Selecciona los servicios que ofreces. Esto ayudará a SORO a responder mejor a tus pacientes.</CardDescription>
             </CardHeader>
             <CardContent className="pt-6">
@@ -235,7 +235,7 @@ const Step4 = () => {
   return (
      <Card className="w-full">
         <CardHeader>
-            <CardTitle>4. Elige cómo quieres probar SORO</CardTitle>
+            <CardTitle className="text-2xl md:text-3xl">4. Elige cómo quieres probar SORO</CardTitle>
             <CardDescription>Ambas opciones te permitirán ver cómo el asistente agenda citas automáticamente.</CardDescription>
         </CardHeader>
         <CardContent className="pt-6">
@@ -461,6 +461,5 @@ export function MultiStepForm() {
     </div>
   );
 }
-
 
     
