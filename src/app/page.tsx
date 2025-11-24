@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -281,15 +282,12 @@ const WhatsappIcon = (props: React.SVGProps<SVGSVGElement>) => (
 const Hero: React.FC = () => {
   const router = useRouter();
 
-  const handleDemoClick = () => {
-    router.push('/demo');
+  const handleScheduleClick = () => {
+    router.push('/schedule-call');
   };
 
-  const scrollToFeatures = () => {
-    const element = document.getElementById('caracteristicas');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+  const handleDemoClick = () => {
+    router.push('/demo');
   };
 
   return (
@@ -347,14 +345,14 @@ const Hero: React.FC = () => {
               
               <div className="flex flex-col sm:flex-row gap-4 mb-8 justify-center lg:justify-start">
                 <Button 
-                  onClick={handleDemoClick}
+                  onClick={handleScheduleClick}
                   size="lg"
                   className="bg-teal-500 hover:bg-teal-600 text-white text-lg font-medium"
                 >
                   Solicitar Demostración
                 </Button>
                 <Button 
-                  onClick={scrollToFeatures}
+                  onClick={handleDemoClick}
                   size="lg"
                   variant="outline"
                   className="border-teal-500 text-teal-500 hover:bg-teal-50 text-lg font-medium"
@@ -529,7 +527,7 @@ const HowItWorksSection: React.FC = () => {
         <div className="text-center mt-16">
           <Button
             size="lg"
-            onClick={() => router.push('/demo')}
+            onClick={() => router.push('/schedule-call')}
             className="bg-teal-500 hover:bg-teal-600 text-white"
           >
             Pide una demo y mira cómo SORO trabaja por ti <ArrowRight className="ml-2" />
@@ -571,6 +569,7 @@ const InnovationSection: React.FC = () => {
 
 const FinalCTASection: React.FC = () => {
   const router = useRouter();
+  const whatsappLink = "https://api.whatsapp.com/send/?phone=%2B573192992780&text=Hola%2C+me+gustar%C3%ADa+obtener+m%C3%A1s+informaci%C3%B3n+sobre+SORO.&type=phone_number&app_absent=0";
   return (
     <SectionWrapper className="py-12 md:py-20 bg-gray-900 text-white">
       <div className="container mx-auto px-4 text-center">
@@ -581,11 +580,13 @@ const FinalCTASection: React.FC = () => {
           Agenda una demostración gratuita y descubre cómo automatizar el 80% de la atención sin perder el toque humano.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg" onClick={() => router.push('/demo')} className="bg-teal-500 hover:bg-teal-600 text-white">
+          <Button size="lg" onClick={() => router.push('/schedule-call')} className="bg-teal-500 hover:bg-teal-600 text-white">
             Agendar Demo Gratis
           </Button>
-          <Button size="lg" variant="outline" onClick={() => router.push('/demo')} className="border-teal-400 text-teal-400 hover:bg-teal-400 hover:text-gray-900">
-            Hablar con un Especialista
+          <Button asChild size="lg" variant="outline" className="border-teal-400 text-teal-400 hover:bg-teal-400 hover:text-gray-900">
+            <Link href={whatsappLink} target="_blank">
+              Hablar con un Especialista
+            </Link>
           </Button>
         </div>
       </div>
@@ -611,3 +612,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
