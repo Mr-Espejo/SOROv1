@@ -66,6 +66,11 @@ export function LeadForm({ formFields, ctaText, formTitle, formDescription, sour
     // The saveLead function will handle permission errors in the background.
     saveLead(firestore, { ...values, source });
 
+    // Track Facebook Pixel Lead event
+    if (typeof window !== 'undefined' && window.fbq) {
+      window.fbq('track', 'Lead');
+    }
+
     toast({
         title: '¡Éxito!',
         description: "Hemos recibido tu información. El video se mostrará ahora.",

@@ -458,6 +458,14 @@ export function MultiStepForm() {
         } else if (currentStep > 1) {
           await updateDemoDocuments(firestore, clinicId, values);
         }
+        
+        // Track Facebook Pixel Schedule event on the final step
+        if (currentStep === totalSteps - 1 && values.testMode) {
+            if (typeof window !== 'undefined' && window.fbq) {
+                window.fbq('track', 'Schedule');
+            }
+        }
+
         return true;
     } catch (error) {
         console.error("Error saving data to Firestore:", error);
