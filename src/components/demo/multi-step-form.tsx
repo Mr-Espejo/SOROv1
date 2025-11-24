@@ -12,7 +12,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '../ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
-import { ArrowRight, MessageSquare, Phone, User, HeartPulse, Tooth, Bone, Smile, Baby, Scissors } from 'lucide-react';
+import { ArrowRight, MessageSquare, Phone, User, HeartPulse, Bone, Smile, Baby, Scissors } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useFirestore } from '@/firebase';
 import { createInitialDemoDocuments, updateDemoDocuments } from '@/lib/firebase/demo';
@@ -29,12 +29,21 @@ const step1Schema = z.object({
 
 const step2Schema = z.object({
   city: z.string().min(2, 'La ciudad es requerida'),
-  website: z.string().optional(),
+  website: z.string().url('Por favor, introduce una URL válida.').optional().or(z.literal('')),
 });
+
+const ToothIcon = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+        <path d="M6.1 20.4c.4-1.2.9-2.6 1.2-4.4.3-2.3.4-4.8.4-7.3V3h5.7v5.7c0 2.5.1 5 .4 7.3.3 1.8.8 3.2 1.2 4.4"/>
+        <path d="m18.5 3-3.6 4.3c-.3.4-.6.8-.8 1.2"/>
+        <path d="m5.5 3 3.6 4.3c.3.4.6.8.8 1.2"/>
+        <path d="M15 22h-6"/>
+    </svg>
+);
 
 
 const services = [
-  { id: "Limpieza Dental", label: "Limpieza Dental", icon: <Tooth className="h-6 w-6" /> },
+  { id: "Limpieza Dental", label: "Limpieza Dental", icon: <ToothIcon className="h-6 w-6" /> },
   { id: "Blanqueamiento Dental", label: "Blanqueamiento", icon: <Smile className="h-6 w-6" /> },
   { id: "Ortodoncia", label: "Ortodoncia", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 8c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2z"></path><path d="M16 8h-2a2 2 0 1 0 0-4h2v4Z"></path><path d="M8 16H6a2 2 0 1 1 0-4h2v4Z"></path><path d="M16 16v2a2 2 0 1 1-4 0v-2h4Z"></path><path d="M8 8v-2a2 2 0 1 0-4 0v2h4Z"></path></svg> },
   { id: "Implantes Dentales", label: "Implantes", icon: <Bone className="h-6 w-6" /> },
@@ -451,3 +460,5 @@ export function MultiStepForm() {
     </div>
   );
 }
+
+    
