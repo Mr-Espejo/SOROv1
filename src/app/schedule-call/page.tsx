@@ -46,10 +46,10 @@ export default function ScheduleCallPage() {
       <main className="flex-1 py-12 md:py-20">
         <div className="container mx-auto max-w-4xl px-4 text-center">
           <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl">
-            Agenda tu Demostración
+            Agenda tu Demostración Gratuita
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-muted-foreground md:text-xl">
-            Elige un horario que te convenga para una demostración personalizada de SORO™.
+          <p className="mx-auto mt-4 max-w-3xl text-muted-foreground md:text-xl">
+            En <span className="font-bold text-primary">solo 15 minutos</span>, descubrirás si el Sistema Odontológico de Respuesta Oportuna (SORO) es para ti. Sin compromiso.
           </p>
           <div className="mt-10">
             {/* Calendly inline widget begin */}
@@ -86,5 +86,3 @@ export default function ScheduleCallPage() {
     </div>
   );
 }
-
-    
