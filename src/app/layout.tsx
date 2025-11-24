@@ -1,4 +1,5 @@
 import type {Metadata} from 'next';
+import Script from 'next/script';
 import './globals.css';
 import {Toaster} from '@/components/ui/toaster';
 import {Chatbot} from '@/components/chatbot';
@@ -41,6 +42,28 @@ export default function RootLayout({
         </FirebaseClientProvider>
         <Toaster />
         <Chatbot />
+
+        {/* --- Píxel de Seguimiento --- */}
+        <Script id="tracking-pixel" strategy="afterInteractive">
+          {`
+            // Pega aquí el código de tu píxel (ej. Meta Pixel, Google Analytics)
+            // Ejemplo de Meta Pixel:
+            /*
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', 'TU_PIXEL_ID');
+            fbq('track', 'PageView');
+            */
+            console.log("El píxel de seguimiento se cargaría aquí.");
+          `}
+        </Script>
+        {/* --- Fin del Píxel de Seguimiento --- */}
       </body>
     </html>
   );
