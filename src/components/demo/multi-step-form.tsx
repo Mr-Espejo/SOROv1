@@ -28,17 +28,9 @@ const step1Schema = z.object({
   phone: z.string().min(10, 'El número de teléfono no es válido'),
 });
 
-const dayOpeningHoursSchema = z.object({
-    day: z.string(),
-    isOpen: z.boolean().default(false),
-    openTime: z.string().optional(),
-    closeTime: z.string().optional(),
-});
-
 const step2Schema = z.object({
   city: z.string().min(2, 'La ciudad es requerida'),
-  address: z.string().min(5, 'La dirección es requerida'),
-  openingHours: z.array(dayOpeningHoursSchema),
+  website: z.string().optional(),
 });
 
 
@@ -137,99 +129,6 @@ const Step1 = () => (
     </Card>
 );
 
-const OpeningHoursField = () => {
-    const { control, getValues, setValue } = useFormContext();
-    const { fields } = useFieldArray({
-        control,
-        name: "openingHours",
-    });
-
-    const handleApplyToAll = () => {
-        const values = getValues('openingHours');
-        const firstChecked = values.find((day: any) => day.isOpen);
-        if (firstChecked) {
-            const { openTime, closeTime } = firstChecked;
-            values.forEach((day: any, index: number) => {
-                if (day.isOpen) {
-                    setValue(`openingHours.${index}.openTime`, openTime);
-                    setValue(`openingHours.${index}.closeTime`, closeTime);
-                }
-            });
-        }
-    };
-    
-    const timeOptions = Array.from({ length: 24 * 2 }, (_, i) => {
-        const hour = Math.floor(i / 2);
-        const minute = (i % 2) * 30;
-        const formattedHour = hour.toString().padStart(2, '0');
-        const formattedMinute = minute.toString().padStart(2, '0');
-        return `${formattedHour}:${formattedMinute}`;
-    });
-
-    return (
-        <div className="space-y-4">
-             <div className="flex justify-end">
-                <Button type="button" variant="link" size="sm" onClick={handleApplyToAll}>
-                    Aplicar horario a todos los días marcados
-                </Button>
-            </div>
-            <div className="rounded-md border">
-                <div className="w-full">
-                    {fields.map((field, index) => (
-                        <div key={field.id} className="grid grid-cols-[100px_1fr_1fr] items-center gap-4 p-4 border-b last:border-b-0">
-                            <FormField
-                                control={control}
-                                name={`openingHours.${index}.isOpen`}
-                                render={({ field }) => (
-                                    <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                                        <FormControl>
-                                            <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-                                        </FormControl>
-                                        <FormLabel className="font-normal capitalize">{getValues(`openingHours.${index}.day`)}</FormLabel>
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={control}
-                                name={`openingHours.${index}.openTime`}
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <Select onValueChange={field.onChange} defaultValue={field.value} disabled={!getValues(`openingHours.${index}.isOpen`)}>
-                                            <FormControl>
-                                                <SelectTrigger><SelectValue placeholder="Abre" /></SelectTrigger>
-                                            </FormControl>
-                                            <SelectContent>
-                                                {timeOptions.map(time => <SelectItem key={time} value={time}>{time}</SelectItem>)}
-                                            </SelectContent>
-                                        </Select>
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={control}
-                                name={`openingHours.${index}.closeTime`}
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <Select onValueChange={field.onChange} defaultValue={field.value} disabled={!getValues(`openingHours.${index}.isOpen`)}>
-                                            <FormControl>
-                                                <SelectTrigger><SelectValue placeholder="Cierra" /></SelectTrigger>
-                                            </FormControl>
-                                            <SelectContent>
-                                                {timeOptions.map(time => <SelectItem key={time} value={time}>{time}</SelectItem>)}
-                                            </SelectContent>
-                                        </Select>
-                                    </FormItem>
-                                )}
-                            />
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
-    );
-};
-
-
 const Step2 = () => (
     <Card className="w-full">
         <CardHeader>
@@ -237,33 +136,30 @@ const Step2 = () => (
             <CardDescription>Esta información nos ayuda a entender mejor tus necesidades.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6 pt-6">
-            <div className="grid grid-cols-2 gap-4">
-                <FormField
-                  name="city"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Ciudad</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Ej: Bogotá" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  name="address"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Dirección</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Ej: Cra 7 #71-21" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-            </div>
-            <OpeningHoursField />
+            <FormField
+                name="city"
+                render={({ field }) => (
+                <FormItem>
+                    <FormLabel>Ciudad</FormLabel>
+                    <FormControl>
+                    <Input placeholder="Ej: Bogotá" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                </FormItem>
+                )}
+            />
+            <FormField
+                name="website"
+                render={({ field }) => (
+                <FormItem>
+                    <FormLabel>Tu dirección web (Opcional)</FormLabel>
+                    <FormControl>
+                    <Input placeholder="https://tuclinica.com" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                </FormItem>
+                )}
+            />
         </CardContent>
     </Card>
 );
@@ -406,16 +302,7 @@ export function MultiStepForm() {
       email: '',
       phone: '',
       city: '',
-      address: '',
-      openingHours: [
-        { day: 'lunes', isOpen: false, openTime: '09:00', closeTime: '18:00' },
-        { day: 'martes', isOpen: false, openTime: '09:00', closeTime: '18:00' },
-        { day: 'miércoles', isOpen: false, openTime: '09:00', closeTime: '18:00' },
-        { day: 'jueves', isOpen: false, openTime: '09:00', closeTime: '18:00' },
-        { day: 'viernes', isOpen: false, openTime: '09:00', closeTime: '18:00' },
-        { day: 'sábado', isOpen: false, openTime: '10:00', closeTime: '14:00' },
-        { day: 'domingo', isOpen: false, openTime: '10:00', closeTime: '14:00' },
-      ],
+      website: '',
       services: [],
       testMode: undefined as 'qr_connect' | 'sandbox' | 'expert_call' | undefined,
     },

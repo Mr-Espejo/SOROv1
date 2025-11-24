@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -22,7 +23,7 @@ type DemoFormData = {
   email?: string;
   phone?: string;
   city?: string;
-  address?: string;
+  website?: string;
   openingHours?: DayOpeningHours[];
   services?: string[];
   testMode?: 'qr_connect' | 'sandbox' | 'expert_call';
@@ -70,7 +71,7 @@ export const updateDemoDocuments = async (
   // Update Clinic doc if there's relevant data
   const clinicData: Partial<DemoFormData> = {};
    if (data.city) clinicData.city = data.city;
-   if (data.address) clinicData.address = data.address;
+   if (data.website) clinicData.website = data.website;
    if (data.openingHours) clinicData.openingHours = data.openingHours;
    if (data.services) clinicData.services = data.services;
 
