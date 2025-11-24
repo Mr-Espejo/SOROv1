@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useForm, FormProvider, useFieldArray, useFormContext } from 'react-hook-form';
+import { useForm, FormProvider, useFormContext } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -12,15 +12,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '../ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
-import { ArrowRight, MessageSquare, Phone, User } from 'lucide-react';
+import { ArrowRight, MessageSquare, Phone, User, HeartPulse, Tooth, Bone, Smile, Baby, Scissors } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useFirestore } from '@/firebase';
 import { createInitialDemoDocuments, updateDemoDocuments } from '@/lib/firebase/demo';
 import { collection, doc } from 'firebase/firestore';
 import { PhoneInput } from 'react-international-phone';
 import { Label } from '../ui/label';
-import { Checkbox } from '../ui/checkbox';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
+import { cn } from '@/lib/utils';
 
 const step1Schema = z.object({
   clinicName: z.string().min(2, 'El nombre de la clínica es requerido'),
@@ -35,9 +34,15 @@ const step2Schema = z.object({
 
 
 const services = [
-  "Limpieza Dental", "Blanqueamiento Dental", "Ortodoncia", 
-  "Implantes Dentales", "Endodoncia", "Periodoncia", "Prótesis Dentales",
-  "Odontopediatría", "Cirugía Oral"
+  { id: "Limpieza Dental", label: "Limpieza Dental", icon: <Tooth className="h-6 w-6" /> },
+  { id: "Blanqueamiento Dental", label: "Blanqueamiento", icon: <Smile className="h-6 w-6" /> },
+  { id: "Ortodoncia", label: "Ortodoncia", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 8c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2z"></path><path d="M16 8h-2a2 2 0 1 0 0-4h2v4Z"></path><path d="M8 16H6a2 2 0 1 1 0-4h2v4Z"></path><path d="M16 16v2a2 2 0 1 1-4 0v-2h4Z"></path><path d="M8 8v-2a2 2 0 1 0-4 0v2h4Z"></path></svg> },
+  { id: "Implantes Dentales", label: "Implantes", icon: <Bone className="h-6 w-6" /> },
+  { id: "Endodoncia", label: "Endodoncia", icon: <HeartPulse className="h-6 w-6" /> },
+  { id: "Periodoncia", label: "Periodoncia", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12.4 3.4C11.1 2 9.4 2 8.2 3.4L4.9 7c-1.2 1.4-1.2 3.6 0 5l6.9 8.4c.6.8 1.5 1.2 2.5 1.2s1.9-.4 2.5-1.2l3.4-4.2c1.2-1.4 1.2-3.6 0-5l-3.2-3.8c-1.2-1.4-2.9-1.4-4.1-.1z"></path><path d="m14 7 3 3"></path></svg> },
+  { id: "Prótesis Dentales", label: "Prótesis", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 12c0-2.2-1.8-4-4-4H8c-2.2 0-4 1.8-4 4v4c0 2.2 1.8 4 4 4h8c2.2 0 4-1.8 4-4v-4Z"></path><path d="M16 8V7a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v1"></path></svg> },
+  { id: "Odontopediatría", label: "Odontopediatría", icon: <Baby className="h-6 w-6" /> },
+  { id: "Cirugía Oral", label: "Cirugía Oral", icon: <Scissors className="h-6 w-6" /> }
 ] as const;
 
 
@@ -164,53 +169,56 @@ const Step2 = () => (
     </Card>
 );
 
-const Step3 = () => (
-    <Card className="w-full">
-        <CardHeader>
-            <CardTitle>3. Servicios de la Clínica</CardTitle>
-            <CardDescription>Selecciona los servicios que ofreces. Esto ayudará a SORO a responder mejor a tus pacientes.</CardDescription>
-        </CardHeader>
-        <CardContent className="pt-6">
-            <FormField
-              name="services"
-              render={() => (
-                <FormItem>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    {services.map((item) => (
-                      <FormField
-                        key={item}
-                        name="services"
-                        render={({ field }) => {
-                          return (
-                            <FormItem key={item} className="flex flex-row items-center space-x-3 space-y-0">
-                              <FormControl>
-                                <Checkbox
-                                  checked={field.value?.includes(item)}
-                                  onCheckedChange={(checked) => {
-                                    return checked
-                                      ? field.onChange([...(field.value || []), item])
-                                      : field.onChange(
-                                          field.value?.filter(
-                                            (value) => value !== item
-                                          )
-                                        )
-                                  }}
-                                />
-                              </FormControl>
-                              <FormLabel className="font-normal">{item}</FormLabel>
-                            </FormItem>
-                          )
-                        }}
-                      />
-                    ))}
-                  </div>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-        </CardContent>
-    </Card>
-);
+const Step3 = () => {
+    const { control, setValue, getValues } = useFormContext();
+    const selectedServices = getValues('services') || [];
+
+    const handleServiceClick = (serviceId: string) => {
+        const currentServices = getValues('services') || [];
+        const newServices = currentServices.includes(serviceId)
+            ? currentServices.filter((s: string) => s !== serviceId)
+            : [...currentServices, serviceId];
+        setValue('services', newServices, { shouldValidate: true });
+    };
+
+    return (
+        <Card className="w-full">
+            <CardHeader>
+                <CardTitle>3. Servicios de la Clínica</CardTitle>
+                <CardDescription>Selecciona los servicios que ofreces. Esto ayudará a SORO a responder mejor a tus pacientes.</CardDescription>
+            </CardHeader>
+            <CardContent className="pt-6">
+                <FormField
+                    control={control}
+                    name="services"
+                    render={() => (
+                        <FormItem>
+                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                                {services.map((service) => (
+                                    <button
+                                        type="button"
+                                        key={service.id}
+                                        onClick={() => handleServiceClick(service.id)}
+                                        className={cn(
+                                            "flex flex-col items-center justify-center gap-2 rounded-lg border-2 p-4 text-center transition-all duration-200",
+                                            selectedServices.includes(service.id)
+                                                ? "border-primary bg-primary/10 text-primary"
+                                                : "border-border bg-card hover:bg-muted/50"
+                                        )}
+                                    >
+                                        {service.icon}
+                                        <span className="text-sm font-medium">{service.label}</span>
+                                    </button>
+                                ))}
+                            </div>
+                            <FormMessage className="pt-4" />
+                        </FormItem>
+                    )}
+                />
+            </CardContent>
+        </Card>
+    );
+};
 
 const Step4 = () => {
   const { control } = useFormContext();
