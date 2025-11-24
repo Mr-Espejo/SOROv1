@@ -46,9 +46,6 @@ export default function RootLayout({
         {/* --- Píxel de Seguimiento --- */}
         <Script id="tracking-pixel" strategy="afterInteractive">
           {`
-            // Pega aquí el código de tu píxel (ej. Meta Pixel, Google Analytics)
-            // Ejemplo de Meta Pixel:
-            /*
             !function(f,b,e,v,n,t,s)
             {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
             n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -59,10 +56,13 @@ export default function RootLayout({
             'https://connect.facebook.net/en_US/fbevents.js');
             fbq('init', 'TU_PIXEL_ID');
             fbq('track', 'PageView');
-            */
-            console.log("El píxel de seguimiento se cargaría aquí.");
           `}
         </Script>
+        <noscript>
+          {/* Fallback para navegadores sin JavaScript. Reemplaza TU_PIXEL_ID aquí también. */}
+          <img height="1" width="1" style={{display: 'none'}}
+               src="https://www.facebook.com/tr?id=TU_PIXEL_ID&ev=PageView&noscript=1" />
+        </noscript>
         {/* --- Fin del Píxel de Seguimiento --- */}
       </body>
     </html>
