@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -23,6 +24,23 @@ import { LogoCloud } from '@/components/landing/logo-cloud';
 import { Testimonials } from '@/components/landing/testimonials';
 import { Card, CardContent } from '@/components/ui/card';
 
+const WhatsappIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+  </svg>
+);
+
 const DynamicHeader: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -46,6 +64,8 @@ const DynamicHeader: React.FC = () => {
     router.push('/demo');
     setIsMenuOpen(false);
   };
+  
+  const whatsappLink = "https://api.whatsapp.com/send/?phone=%2B573192992780&text=Hola%2C+me+gustar%C3%ADa+obtener+m%C3%A1s+informaci%C3%B3n+sobre+SORO.&type=phone_number&app_absent=0";
 
   const navItems = [
     { 
@@ -182,6 +202,9 @@ const DynamicHeader: React.FC = () => {
           <Link href="/vsl-opt-in">
             <DropdownMenuItem className="gap-3"><Video size={20}/> Ver Video de Ventas</DropdownMenuItem>
           </Link>
+          <Link href={whatsappLink} target="_blank">
+            <DropdownMenuItem className="gap-3"><WhatsappIcon className="h-5 w-5"/> Contactar por WhatsApp</DropdownMenuItem>
+          </Link>
         </div>
       )
     },
@@ -261,22 +284,6 @@ const DynamicHeader: React.FC = () => {
   );
 };
 
-const WhatsappIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-  </svg>
-);
 
 
 const Hero: React.FC = () => {
