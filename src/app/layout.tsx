@@ -5,6 +5,7 @@ import {Toaster} from '@/components/ui/toaster';
 import {Chatbot} from '@/components/chatbot';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import 'react-international-phone/style.css';
+import { GoogleAnalytics } from '@/components/analytics';
 
 export const metadata: Metadata = {
   title: 'SORO™ - Automatiza Tu Clínica Dental',
@@ -42,6 +43,7 @@ export default function RootLayout({
         </FirebaseClientProvider>
         <Toaster />
         <Chatbot />
+        <GoogleAnalytics />
 
         {/* --- Píxel de Seguimiento --- */}
         <Script id="tracking-pixel" strategy="afterInteractive">
