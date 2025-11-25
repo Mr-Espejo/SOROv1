@@ -38,13 +38,13 @@ export default function RootLayout({
         />
       </head>
       <body className="font-body antialiased">
+        <GoogleAnalytics />
         <FirebaseClientProvider>
           {children}
         </FirebaseClientProvider>
         <Toaster />
         <Chatbot />
-        <GoogleAnalytics />
-
+        
         {/* --- Píxel de Seguimiento --- */}
         <Script id="tracking-pixel" strategy="afterInteractive">
           {`
