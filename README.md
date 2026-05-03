@@ -29,3 +29,13 @@ Esta es la plataforma inteligente diseñada para automatizar la comunicación y 
 ## 📊 Seguimiento de Eventos
 
 Para más detalles sobre cómo medimos el éxito de la plataforma, consulta la [Guía de Eventos del Píxel de Meta](./docs/pixel-events-guide.md).
+
+## 💻 Comandos Útiles
+
+Si estás trabajando en un entorno local, estos comandos te serán de ayuda:
+
+- **Ver repositorio remoto conectado**: `git remote -v`
+- **Ver estado de los archivos**: `git status`
+- **Subir cambios**: `git push origin main` (o el nombre de tu rama)
+- **Instalar dependencias**: `npm install`
+- **Ejecutar en desarrollo**: `npm run dev`
