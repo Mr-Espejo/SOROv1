@@ -22,6 +22,9 @@ export function Footer() {
           <Link href="/lead-magnet" className="text-sm font-medium hover:text-gray-900">
             Ebook
           </Link>
+          <Link href="/admin" className="text-sm font-medium text-primary hover:underline">
+            Admin
+          </Link>
         </nav>
       </div>
     </footer>
