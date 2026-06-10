@@ -28,31 +28,25 @@ Esta es la plataforma inteligente diseñada para automatizar la comunicación y 
 
 ## 💻 Guía de Comandos Git
 
-Si estás trabajando en un entorno local y quieres subir los cambios que hemos hecho aquí a tu repositorio, sigue estos pasos en tu terminal:
-
 ### 1. Configurar el Repositorio (Solo si da error 'origin')
-Si al intentar subir te dice que `origin` no existe, ejecuta:
 ```bash
-git remote add origin https://github.com/TU_USUARIO/TU_REPOSITORIO.git
+git remote add origin https://github.com/Mr-Espejo/SOROv1.git
 ```
 
-### 2. Preparar y Guardar Cambios
-Añade todos los archivos modificados y crea un commit:
+### 2. Guardar y Subir Cambios Normales
 ```bash
 git add .
 git commit -m "Mejoras en el diseño y analítica"
-```
-
-### 3. Subir a la nube
-```bash
 git push -u origin main
 ```
 
-### 4. Ver estado actual
-Para confirmar dónde se subirán tus cambios:
+### 3. Solución de Errores (Push Rejected / Force)
+Si al intentar subir cambios te da un error de "rejected" porque el remoto tiene cambios que tú no tienes, y quieres **sobrescribir el remoto** con tu versión actual:
 ```bash
-git remote -v
+git push -u origin main --force
 ```
+
+*Nota: Usa --force con precaución, ya que borrará cualquier cambio en GitHub que no esté en este editor.*
 
 ## 🛠️ Comandos de Desarrollo
 - **Instalar dependencias**: `npm install`
