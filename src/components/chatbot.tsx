@@ -9,8 +9,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { handleChatQuery } from '@/app/actions';
 import { cn } from '@/lib/utils';
+import { getDemoChatResponse } from '@/lib/demo-chat';
 
 type Message = {
   id: number;
@@ -61,8 +61,11 @@ export function Chatbot() {
     setIsLoading(true);
 
     try {
-        const response = await handleChatQuery(currentInput);
-        const assistantMessage: Message = { id: Date.now() + 1, role: 'assistant', text: response.answer };
+        const assistantMessage: Message = {
+            id: Date.now() + 1,
+            role: 'assistant',
+            text: getDemoChatResponse(currentInput),
+        };
         setMessages((prev) => [...prev, assistantMessage]);
     } catch (error) {
         const errorMessage: Message = {

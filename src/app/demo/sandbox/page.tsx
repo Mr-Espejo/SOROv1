@@ -12,7 +12,7 @@ import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { cn } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { handleChatQuery } from '@/app/actions';
+import { getDemoChatResponse } from '@/lib/demo-chat';
 
 type Message = {
   role: 'user' | 'assistant';
@@ -54,8 +54,7 @@ export default function SandboxPage() {
         setIsLoading(true);
 
         try {
-            const response = await handleChatQuery(currentInput);
-            const assistantMessage: Message = { role: 'assistant', text: response.answer };
+            const assistantMessage: Message = { role: 'assistant', text: getDemoChatResponse(currentInput) };
             setMessages((prev) => [...prev, assistantMessage]);
         } catch (error) {
             const errorMessage: Message = {
