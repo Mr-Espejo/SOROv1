@@ -2,15 +2,15 @@ import type {Metadata} from 'next';
 import Script from 'next/script';
 import './globals.css';
 import {Toaster} from '@/components/ui/toaster';
-import {Chatbot} from '@/components/chatbot';
+import {ConditionalChatbot} from '@/components/conditional-chatbot';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import 'react-international-phone/style.css';
 import { GoogleAnalytics } from '@/components/analytics';
 
 export const metadata: Metadata = {
-  title: 'SORO™ - Automatiza Tu Clínica Dental',
+  title: 'SORO™ - AI Voice Assistant for Dental Clinics',
   description:
-    'Comunicación y gestión de pacientes con IA para clínicas dentales. Captura más citas y libera a tu personal.',
+    'AI-powered patient communication and scheduling for dental clinics. Book more appointments and free your staff.',
 };
 
 export default function RootLayout({
@@ -27,7 +27,7 @@ export default function RootLayout({
   const faviconDataUrl = `data:image/svg+xml;base64,${btoa(faviconSvg)}`;
 
   return (
-    <html lang="es">
+    <html lang="en">
       <head>
         <link rel="icon" href={faviconDataUrl} type="image/svg+xml" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -43,7 +43,7 @@ export default function RootLayout({
           {children}
         </FirebaseClientProvider>
         <Toaster />
-        <Chatbot />
+        <ConditionalChatbot />
         
         {/* --- Píxel de Seguimiento --- */}
         <Script id="tracking-pixel" strategy="afterInteractive">
