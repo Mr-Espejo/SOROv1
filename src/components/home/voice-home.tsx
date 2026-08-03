@@ -12,6 +12,7 @@ import {
   ChevronRight,
   Clock3,
   CheckCheck,
+  Loader2,
   LockKeyhole,
   Menu,
   MessageSquare,
@@ -26,8 +27,10 @@ import {
   VolumeX,
   type LucideIcon,
 } from 'lucide-react';
+import { PhoneInput } from 'react-international-phone';
 
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
   Sheet,
   SheetClose,
@@ -37,6 +40,9 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import { toast } from '@/hooks/use-toast';
+import { useFirestore } from '@/firebase';
+import { saveLead } from '@/lib/firebase/firestore';
 import { cn } from '@/lib/utils';
 
 import styles from './voice-home.module.css';
@@ -105,6 +111,19 @@ type HomeContent = {
   orbImageAlt: string;
   startMaryAria: string;
   stopMaryAria: string;
+  leadPromptTitle: string;
+  leadPromptDescription: string;
+  leadPromptDismiss: string;
+  leadPromptNameLabel: string;
+  leadPromptNamePlaceholder: string;
+  leadPromptPhoneLabel: string;
+  leadPromptEmailLabel: string;
+  leadPromptEmailPlaceholder: string;
+  leadPromptSubmit: string;
+  leadPromptSubmitting: string;
+  leadPromptSuccessTitle: string;
+  leadPromptSuccessDescription: string;
+  leadPromptValidation: string;
   legalAria: string;
   support: string;
   demo: string;
@@ -189,6 +208,19 @@ const homeContent: Record<'en' | 'es', HomeContent> = {
     orbImageAlt: 'SORO face; tap it to start a voice conversation',
     startMaryAria: 'Talk with Mary, SORO assistant',
     stopMaryAria: 'End conversation with Mary',
+    leadPromptTitle: 'Want to keep talking?',
+    leadPromptDescription: 'Leave your details and our team will continue with you after this call.',
+    leadPromptDismiss: 'Not now',
+    leadPromptNameLabel: 'Name + clinic',
+    leadPromptNamePlaceholder: 'Jane Doe - Smile Dental',
+    leadPromptPhoneLabel: 'Phone number',
+    leadPromptEmailLabel: 'Email',
+    leadPromptEmailPlaceholder: 'jane@smiledental.com',
+    leadPromptSubmit: 'Send my details',
+    leadPromptSubmitting: 'Sending...',
+    leadPromptSuccessTitle: 'Perfect',
+    leadPromptSuccessDescription: 'We saved your details and will follow up shortly.',
+    leadPromptValidation: 'Please complete name + clinic, phone and email.',
     legalAria: 'Legal links',
     support: 'Support',
     demo: 'Demo',
@@ -271,11 +303,36 @@ const homeContent: Record<'en' | 'es', HomeContent> = {
     orbImageAlt: 'Rostro de SORO; tócalo para iniciar la conversación por voz',
     startMaryAria: 'Hablar con Mary, asistente de SORO',
     stopMaryAria: 'Finalizar conversación con Mary',
+    leadPromptTitle: 'Si quieres seguir hablando',
+    leadPromptDescription: 'Rellena tus datos y nuestro equipo continuara contigo despues de esta conversacion.',
+    leadPromptDismiss: 'Ahora no',
+    leadPromptNameLabel: 'Nombre + clinica',
+    leadPromptNamePlaceholder: 'Andrea - Clinica Sonrisa',
+    leadPromptPhoneLabel: 'Telefono',
+    leadPromptEmailLabel: 'Correo electronico',
+    leadPromptEmailPlaceholder: 'hola@tuclinica.com',
+    leadPromptSubmit: 'Enviar mis datos',
+    leadPromptSubmitting: 'Enviando...',
+    leadPromptSuccessTitle: 'Perfecto',
+    leadPromptSuccessDescription: 'Tus datos quedaron guardados y te contactaremos pronto.',
+    leadPromptValidation: 'Completa nombre + clinica, telefono y correo.',
     legalAria: 'Enlaces legales',
     support: 'Soporte',
     demo: 'Demo',
     rights: 'Todos los derechos reservados.',
   },
+};
+
+type VoiceLeadDraft = {
+  contactAndClinic: string;
+  phone: string;
+  email: string;
+};
+
+const EMPTY_VOICE_LEAD: VoiceLeadDraft = {
+  contactAndClinic: '',
+  phone: '',
+  email: '',
 };
 
 function SoroMark({ content }: { content: HomeContent }) {
@@ -421,6 +478,92 @@ function VoiceExperience({ content, compact = false }: { content: HomeContent; c
   );
 }
 
+function VoiceLeadCapture({
+  content,
+  value,
+  onChange,
+  onDismiss,
+  onSubmit,
+  isSubmitting,
+  isSubmitted,
+}: {
+  content: HomeContent;
+  value: VoiceLeadDraft;
+  onChange: (nextValue: VoiceLeadDraft) => void;
+  onDismiss: () => void;
+  onSubmit: () => void;
+  isSubmitting: boolean;
+  isSubmitted: boolean;
+}) {
+  return (
+    <div className="relative z-20 mt-6 w-full max-w-md rounded-[1.75rem] border border-slate-200 bg-white/95 p-5 text-left shadow-[0_28px_80px_rgba(8,36,72,0.16)] backdrop-blur">
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h3 className="text-lg font-bold tracking-[-0.03em] text-[#082448]">{content.leadPromptTitle}</h3>
+          <p className="mt-2 text-sm leading-6 text-slate-600">{content.leadPromptDescription}</p>
+        </div>
+        {!isSubmitted ? (
+          <Button type="button" variant="ghost" size="sm" className="shrink-0 text-slate-500" onClick={onDismiss}>
+            {content.leadPromptDismiss}
+          </Button>
+        ) : null}
+      </div>
+
+      {isSubmitted ? (
+        <div className="mt-5 rounded-2xl bg-emerald-50 px-4 py-4">
+          <p className="font-semibold text-emerald-800">{content.leadPromptSuccessTitle}</p>
+          <p className="mt-1 text-sm leading-6 text-emerald-700">{content.leadPromptSuccessDescription}</p>
+        </div>
+      ) : (
+        <form
+          className="mt-5 space-y-4"
+          onSubmit={(event) => {
+            event.preventDefault();
+            onSubmit();
+          }}
+        >
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-[#082448]">{content.leadPromptNameLabel}</label>
+            <Input
+              value={value.contactAndClinic}
+              onChange={(event) => onChange({ ...value, contactAndClinic: event.target.value })}
+              placeholder={content.leadPromptNamePlaceholder}
+              className="h-12 rounded-2xl"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-[#082448]">{content.leadPromptPhoneLabel}</label>
+            <PhoneInput
+              defaultCountry={content.lang === 'es' ? 'co' : 'us'}
+              preferredCountries={['co', 'mx', 'ar', 'pe', 'cl', 'ec', 'gt', 'bo', 'hn', 'py', 'sv', 'ni', 'cr', 'pa', 'uy', 'us', 'ca', 'es']}
+              value={value.phone}
+              onChange={(phone) => onChange({ ...value, phone })}
+              inputClassName="w-full h-12"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-[#082448]">{content.leadPromptEmailLabel}</label>
+            <Input
+              type="email"
+              value={value.email}
+              onChange={(event) => onChange({ ...value, email: event.target.value })}
+              placeholder={content.leadPromptEmailPlaceholder}
+              className="h-12 rounded-2xl"
+            />
+          </div>
+
+          <Button type="submit" size="lg" className="w-full rounded-2xl" disabled={isSubmitting}>
+            {isSubmitting ? <Loader2 data-icon="inline-start" className="animate-spin" /> : null}
+            {isSubmitting ? content.leadPromptSubmitting : content.leadPromptSubmit}
+          </Button>
+        </form>
+      )}
+    </div>
+  );
+}
+
 const VAPI_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPI_PUBLIC_KEY?.trim();
 const VAPI_ASSISTANTS: Record<HomeContent['lang'], { assistantId: string; assistantOverrides?: AssistantOverrides }> = {
   en: {
@@ -540,17 +683,80 @@ const VAPI_ASSISTANTS: Record<HomeContent['lang'], { assistantId: string; assist
 function VoiceOrbExperience({ content }: { content: HomeContent }) {
   const vapiAssistant = VAPI_ASSISTANTS[content.lang];
   const initialStatus: VoiceOrbStatus = VAPI_PUBLIC_KEY ? 'idle' : 'unconfigured';
+  const firestore = useFirestore();
   const [status, setStatus] = useState<VoiceOrbStatus>(initialStatus);
+  const [leadDraft, setLeadDraft] = useState<VoiceLeadDraft>(EMPTY_VOICE_LEAD);
+  const [showLeadCapture, setShowLeadCapture] = useState(false);
+  const [isLeadSubmitting, setIsLeadSubmitting] = useState(false);
+  const [isLeadSubmitted, setIsLeadSubmitted] = useState(false);
   const waveLayerRef = useRef<HTMLDivElement>(null);
   const statusRef = useRef<VoiceOrbStatus>(initialStatus);
   const vapiRef = useRef<import('@vapi-ai/web').default | null>(null);
   const localVolumeRef = useRef(0);
   const remoteVolumeRef = useRef(0);
   const animationFrameRef = useRef<number | null>(null);
+  const leadCaptureTimerRef = useRef<number | null>(null);
+
+  const clearLeadCaptureTimer = () => {
+    if (leadCaptureTimerRef.current !== null) {
+      window.clearTimeout(leadCaptureTimerRef.current);
+      leadCaptureTimerRef.current = null;
+    }
+  };
+
+  const queueLeadCapture = () => {
+    clearLeadCaptureTimer();
+
+    if (isLeadSubmitted) {
+      return;
+    }
+
+    leadCaptureTimerRef.current = window.setTimeout(() => {
+      setShowLeadCapture(true);
+    }, 40000);
+  };
 
   const updateStatus = (nextStatus: VoiceOrbStatus) => {
     statusRef.current = nextStatus;
     setStatus(nextStatus);
+  };
+
+  const handleLeadSubmit = () => {
+    const trimmedName = leadDraft.contactAndClinic.trim();
+    const trimmedPhone = leadDraft.phone.trim();
+    const trimmedEmail = leadDraft.email.trim();
+
+    if (!trimmedName || !trimmedPhone || !trimmedEmail) {
+      toast({
+        variant: 'destructive',
+        title: 'SORO',
+        description: content.leadPromptValidation,
+      });
+      return;
+    }
+
+    setIsLeadSubmitting(true);
+
+    try {
+      saveLead(firestore, {
+        name: trimmedName,
+        contactAndClinic: trimmedName,
+        phone: trimmedPhone,
+        email: trimmedEmail,
+        source: 'Vapi Voice Assistant Capture',
+        collectionName: 'lead_soro',
+      });
+
+      setIsLeadSubmitted(true);
+      clearLeadCaptureTimer();
+
+      toast({
+        title: content.leadPromptSuccessTitle,
+        description: content.leadPromptSuccessDescription,
+      });
+    } finally {
+      setIsLeadSubmitting(false);
+    }
   };
 
   const toggleConversation = async () => {
@@ -561,6 +767,7 @@ function VoiceOrbExperience({ content }: { content: HomeContent }) {
 
     if (['connecting', 'listening', 'speaking', 'ending'].includes(statusRef.current)) {
       updateStatus('ending');
+      clearLeadCaptureTimer();
       try {
         await vapiRef.current?.stop();
       } finally {
@@ -578,8 +785,12 @@ function VoiceOrbExperience({ content }: { content: HomeContent }) {
         const { default: Vapi } = await import('@vapi-ai/web');
         const vapi = new Vapi(VAPI_PUBLIC_KEY);
 
-        vapi.on('call-start', () => updateStatus('listening'));
+        vapi.on('call-start', () => {
+          updateStatus('listening');
+          queueLeadCapture();
+        });
         vapi.on('call-end', () => {
+          clearLeadCaptureTimer();
           localVolumeRef.current = 0;
           remoteVolumeRef.current = 0;
           updateStatus('idle');
@@ -592,8 +803,14 @@ function VoiceOrbExperience({ content }: { content: HomeContent }) {
         vapi.on('volume-level', (volume) => {
           remoteVolumeRef.current = volume;
         });
-        vapi.on('error', () => updateStatus('error'));
-        vapi.on('call-start-failed', () => updateStatus('error'));
+        vapi.on('error', () => {
+          clearLeadCaptureTimer();
+          updateStatus('error');
+        });
+        vapi.on('call-start-failed', () => {
+          clearLeadCaptureTimer();
+          updateStatus('error');
+        });
 
         vapiRef.current = vapi;
       }
@@ -633,6 +850,7 @@ function VoiceOrbExperience({ content }: { content: HomeContent }) {
       if (animationFrameRef.current !== null) {
         window.cancelAnimationFrame(animationFrameRef.current);
       }
+      clearLeadCaptureTimer();
       const vapi = vapiRef.current;
       vapiRef.current = null;
       if (vapi) {
@@ -697,6 +915,17 @@ function VoiceOrbExperience({ content }: { content: HomeContent }) {
         <span className={cn('size-2 rounded-full', isActive ? 'animate-pulse bg-primary' : 'bg-slate-300')} />
         {content.voiceOrbLabels[status]}
       </div>
+      {showLeadCapture ? (
+        <VoiceLeadCapture
+          content={content}
+          value={leadDraft}
+          onChange={setLeadDraft}
+          onDismiss={() => setShowLeadCapture(false)}
+          onSubmit={handleLeadSubmit}
+          isSubmitting={isLeadSubmitting}
+          isSubmitted={isLeadSubmitted}
+        />
+      ) : null}
     </div>
   );
 }

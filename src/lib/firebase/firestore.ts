@@ -9,13 +9,16 @@ type LeadData = {
     email: string;
     phone?: string | undefined;
     clinicName?: string | undefined;
+    contactAndClinic?: string | undefined;
     source: string;
+    collectionName?: string | undefined;
 }
 
 export const saveLead = (db: Firestore, data: LeadData) => {
-    const leadsCollection = collection(db, 'leads');
+    const { collectionName = 'leads', ...leadData } = data;
+    const leadsCollection = collection(db, collectionName);
     const leadPayload = {
-        ...data,
+        ...leadData,
         createdAt: serverTimestamp()
     };
     
