@@ -176,8 +176,8 @@ const homeContent: Record<'en' | 'es', HomeContent> = {
       { side: 'soro', text: 'All set! Your appointment is confirmed. I will send you a reminder before your visit.', time: '10:26', appointment: true },
     ],
     voiceOrbLabels: {
-      idle: 'Tap SORO to talk', connecting: 'Connecting with Mary…', listening: 'Mary is listening…',
-      speaking: 'Mary is responding…', ending: 'Ending the conversation…',
+      idle: 'Tap SORO to talk', connecting: 'Connecting with Andrew…', listening: 'Andrew is listening…',
+      speaking: 'Andrew is responding…', ending: 'Ending the conversation…',
       error: 'We could not connect. Tap to try again.', unconfigured: 'The Vapi public key has not been configured',
     },
     heroTitle: 'Your clinic always answers',
@@ -206,8 +206,8 @@ const homeContent: Record<'en' | 'es', HomeContent> = {
     listeningStatus: 'SORO is listening…',
     inactiveStatus: 'Voice experience inactive',
     orbImageAlt: 'SORO face; tap it to start a voice conversation',
-    startMaryAria: 'Talk with Mary, SORO assistant',
-    stopMaryAria: 'End conversation with Mary',
+    startMaryAria: 'Talk with Andrew, SORO assistant',
+    stopMaryAria: 'End conversation with Andrew',
     leadPromptTitle: 'Want to keep talking?',
     leadPromptDescription: 'Leave your details and our team will continue with you after this call.',
     leadPromptDismiss: 'Not now',
@@ -271,8 +271,8 @@ const homeContent: Record<'en' | 'es', HomeContent> = {
       { side: 'soro', text: '¡Listo! Tu cita quedó confirmada. Te enviaré un recordatorio antes de la consulta.', time: '10:26', appointment: true },
     ],
     voiceOrbLabels: {
-      idle: 'Toca a SORO para hablar', connecting: 'Conectando con Mary…', listening: 'Mary te está escuchando…',
-      speaking: 'Mary está respondiendo…', ending: 'Finalizando la conversación…',
+      idle: 'Toca a SORO para hablar', connecting: 'Conectando con Andrew…', listening: 'Andrew te está escuchando…',
+      speaking: 'Andrew está respondiendo…', ending: 'Finalizando la conversación…',
       error: 'No pudimos conectar. Toca para intentar de nuevo.', unconfigured: 'Falta configurar la clave pública de Vapi',
     },
     heroTitle: 'Tu clínica siempre responde',
@@ -301,8 +301,8 @@ const homeContent: Record<'en' | 'es', HomeContent> = {
     listeningStatus: 'SORO está escuchando…',
     inactiveStatus: 'Experiencia de voz inactiva',
     orbImageAlt: 'Rostro de SORO; tócalo para iniciar la conversación por voz',
-    startMaryAria: 'Hablar con Mary, asistente de SORO',
-    stopMaryAria: 'Finalizar conversación con Mary',
+    startMaryAria: 'Hablar con Andrew, asistente de SORO',
+    stopMaryAria: 'Finalizar conversación con Andrew',
     leadPromptTitle: 'Si quieres seguir hablando',
     leadPromptDescription: 'Rellena tus datos y nuestro equipo continuara contigo despues de esta conversacion.',
     leadPromptDismiss: 'Ahora no',
@@ -565,6 +565,33 @@ function VoiceLeadCapture({
 }
 
 const VAPI_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPI_PUBLIC_KEY?.trim();
+const SORO_ASSISTANT_IMAGE_URL =
+  'https://firebasestorage.googleapis.com/v0/b/studio-7377357488-df5a7.firebasestorage.app/o/Soro%2FSorohome.png?alt=media&token=d3d39afd-702b-4a00-a61d-19a95d1176fb';
+
+function shouldIgnoreKrispConsoleError(args: unknown[]) {
+  return args.some((arg) => {
+    if (typeof arg === 'string') {
+      return arg.includes('Error unloading krisp processor') || arg.includes('WASM_OR_WORKER_NOT_READY');
+    }
+
+    if (arg instanceof Error) {
+      return (
+        arg.message.includes('Error unloading krisp processor') ||
+        arg.message.includes('WASM_OR_WORKER_NOT_READY')
+      );
+    }
+
+    if (arg && typeof arg === 'object' && 'message' in arg && typeof arg.message === 'string') {
+      return (
+        arg.message.includes('Error unloading krisp processor') ||
+        arg.message.includes('WASM_OR_WORKER_NOT_READY')
+      );
+    }
+
+    return false;
+  });
+}
+
 const VAPI_ASSISTANTS: Record<HomeContent['lang'], { assistantId: string; assistantOverrides?: AssistantOverrides }> = {
   en: {
     assistantId: '49b2b068-4fff-495f-bb3f-5d55fb844a45',
@@ -690,12 +717,29 @@ function VoiceOrbExperience({ content }: { content: HomeContent }) {
   const [isLeadSubmitting, setIsLeadSubmitting] = useState(false);
   const [isLeadSubmitted, setIsLeadSubmitted] = useState(false);
   const waveLayerRef = useRef<HTMLDivElement>(null);
+  const orbShellRef = useRef<HTMLButtonElement>(null);
   const statusRef = useRef<VoiceOrbStatus>(initialStatus);
   const vapiRef = useRef<import('@vapi-ai/web').default | null>(null);
   const localVolumeRef = useRef(0);
   const remoteVolumeRef = useRef(0);
   const animationFrameRef = useRef<number | null>(null);
   const leadCaptureTimerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const originalConsoleError = window.console.error;
+
+    window.console.error = (...args: unknown[]) => {
+      if (shouldIgnoreKrispConsoleError(args)) {
+        return;
+      }
+
+      originalConsoleError(...args);
+    };
+
+    return () => {
+      window.console.error = originalConsoleError;
+    };
+  }, []);
 
   const clearLeadCaptureTimer = () => {
     if (leadCaptureTimerRef.current !== null) {
@@ -841,6 +885,13 @@ function VoiceOrbExperience({ content }: { content: HomeContent }) {
         waveLayerRef.current.style.setProperty('--voice-opacity', isConnected ? '1' : '0.72');
       }
 
+      if (orbShellRef.current) {
+        const orbScale = isConnected
+          ? Math.min(1, 0.9 + voiceLevel * 0.11)
+          : 0.9 + idlePulse * 0.03;
+        orbShellRef.current.style.setProperty('--orb-scale', orbScale.toFixed(3));
+      }
+
       animationFrameRef.current = window.requestAnimationFrame(draw);
     };
 
@@ -873,12 +924,14 @@ function VoiceOrbExperience({ content }: { content: HomeContent }) {
         <span className={styles.soundReactiveWave}><VoiceBars active /></span>
       </div>
       <button
+        ref={orbShellRef}
         type="button"
         data-testid="hero-voice-orb"
         onClick={toggleConversation}
         aria-pressed={isActive}
         aria-label={isActive ? content.stopMaryAria : content.startMaryAria}
-        className="group relative z-10 mt-6 block w-[88vw] max-w-[520px] rounded-full focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/25 focus-visible:ring-offset-8 sm:mt-8"
+        className="group relative z-10 mt-6 block w-[56vw] max-w-[290px] rounded-full focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/25 focus-visible:ring-offset-8 sm:mt-8"
+        style={{ transform: 'scale(var(--orb-scale, 0.92))' }}
       >
         <span className={cn(
           'absolute inset-[7%] rounded-full border-2 border-primary/20 transition-all duration-500',
@@ -887,20 +940,20 @@ function VoiceOrbExperience({ content }: { content: HomeContent }) {
         <span className="absolute inset-[2%] rounded-full border border-teal-100 transition-transform duration-500 group-hover:scale-105" />
         <span className={cn('relative block transition-transform duration-500 group-hover:scale-[1.025]', styles.heroAssistant)}>
           <Image
-            src="/images/soro-voice-assistant-light.png"
+            src={SORO_ASSISTANT_IMAGE_URL}
             alt={content.orbImageAlt}
             width={1254}
             height={1254}
             priority
-            sizes="(max-width: 640px) 88vw, 520px"
+            sizes="(max-width: 640px) 56vw, 290px"
             className="h-auto w-full"
           />
         </span>
         <span className={cn(
-          'absolute bottom-[9%] left-1/2 flex size-14 -translate-x-1/2 items-center justify-center rounded-full bg-primary text-white shadow-[0_12px_35px_rgba(20,184,166,0.32)] transition-transform duration-300',
+          'absolute bottom-[9%] left-1/2 flex size-11 -translate-x-1/2 items-center justify-center rounded-full bg-primary text-white shadow-[0_12px_35px_rgba(20,184,166,0.32)] transition-transform duration-300',
           isActive ? 'scale-110' : 'group-hover:scale-110'
         )}>
-          {isActive ? <VolumeX aria-hidden="true" className="size-6" /> : <Mic aria-hidden="true" className="size-6" />}
+          {isActive ? <VolumeX aria-hidden="true" className="size-4.5" /> : <Mic aria-hidden="true" className="size-4.5" />}
         </span>
       </button>
       <div
@@ -1138,15 +1191,15 @@ function VoiceInvitation({ content }: { content: HomeContent }) {
             <VoiceExperience content={content} />
           </div>
         </div>
-        <div className="relative mx-auto w-full max-w-lg">
+        <div className="relative mx-auto w-full max-w-[320px]">
           <div className="absolute inset-x-6 bottom-8 h-20 rounded-full bg-teal-100/70 blur-3xl" />
           <Image
-            src="/images/soro-voice-assistant-light.png"
+            src={SORO_ASSISTANT_IMAGE_URL}
             alt={content.invitationImageAlt}
             width={1254}
             height={1254}
             priority
-            sizes="(max-width: 1024px) 90vw, 520px"
+            sizes="(max-width: 1024px) 64vw, 320px"
             className="relative h-auto w-full"
           />
         </div>
