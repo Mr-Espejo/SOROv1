@@ -12,7 +12,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "build:cloudflare": "opennextjs-cloudflare build",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview"
   },
   "dependencies": {
     "@genkit-ai/google-genai": "^1.20.0",
@@ -53,7 +56,7 @@
     "framer-motion": "^11.2.10",
     "genkit": "^1.20.0",
     "lucide-react": "^0.475.0",
-    "next": "15.3.8",
+    "next": "15.5.24",
     "patch-package": "^8.0.0",
     "react": "^18.3.1",
     "react-day-picker": "^8.10.1",
@@ -66,6 +69,7 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@opennextjs/cloudflare": "1.20.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -73,7 +77,8 @@
     "genkit-cli": "^1.20.0",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "4.129.0"
   },
   "overrides": {
     "@dabh/diagnostics": "2.0.8",
