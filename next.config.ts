@@ -1,7 +1,9 @@
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
-  output: 'export',
+  // This app uses Server Actions and route handlers, so Cloudflare OpenNext
+  // needs Next.js' standalone server output rather than a static export.
+  output: 'standalone',
   trailingSlash: true,
   typescript: {
     ignoreBuildErrors: true,
